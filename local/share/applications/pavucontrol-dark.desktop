@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=PulseAudio Volume Control (Dark)
+Comment=Control audio volume and devices
+Exec=env GTK_THEME=Materia-dark pavucontrol
+Icon=multimedia-volume-control
+Terminal=false
+Type=Application
+Categories=AudioVideo;Audio;Mixer;GTK;

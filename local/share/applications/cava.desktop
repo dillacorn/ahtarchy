@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Terminal=false
+Exec=alacritty -e cava
+Name=cava
+Icon=utilities-terminal

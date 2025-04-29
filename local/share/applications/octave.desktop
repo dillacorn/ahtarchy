@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Terminal=false
+Exec=alacritty -e octave
+Name=octave calculator
+Icon=utilities-terminal
