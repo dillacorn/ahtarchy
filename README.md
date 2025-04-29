@@ -1,6 +1,7 @@
 # `arch dilla.hypr.files`
 
 # WORK IN PROGRESS ~ MANY LINKS BROKEN
+# DOS2UNIX is required for all scripts currently.. Plan to change of course.
 
 - **Preview Images**: [View Here](https://github.com/dillacorn/arch-hypr-dots/tree/main/preview_images/preview_page.md)
 - **Distro**: [Arch Linux](https://archlinux.org/)
