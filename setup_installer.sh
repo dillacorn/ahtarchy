@@ -370,6 +370,24 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+# Create target directory
+WLOGOUT_DIR="$HOME_DIR/.config/wlogout"
+mkdir -p "$WLOGOUT_DIR"
+
+# Download PNG icons for wlogout from GitHub
+echo -e "\033[1;34mDownloading wlogout icons...\033[0m"
+base_url="https://raw.githubusercontent.com/warpje5/hyprland-dotfiles-gruvbox/main/wlogout"
+
+for icon in lock.png lock-hover.png logout.png logout-hover.png \
+            power.png power-hover.png restart.png restart-hover.png \
+            sleep.png sleep-hover.png windows.png windows-hover.png; do
+    if curl -fsSL "$base_url/$icon" -o "$WLOGOUT_DIR/$icon"; then
+        echo -e "\033[1;32mDownloaded $icon\033[0m"
+    else
+        echo -e "\033[1;31mFailed to download $icon\033[0m"
+    fi
+done
+
 # List of directories to check/create
 required_dirs=(
     "$HOME_DIR/.config"
