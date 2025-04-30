@@ -1,7 +1,7 @@
 
 {
     "label" : "lock",
-    "action" : "swaylock -f",
+    "action" : "hyprlock",
     "text" : "  Lock (L)  ",
     "keybind" : "l",
 }
@@ -19,13 +19,13 @@
 }
 {
     "label" : "logout",
-    "action" : "sway exit",
+    "action" : "hyprctl dispatch exit",
     "text" : " Logout (E) ",
     "keybind" : "e"
 }
 {
     "label" : "suspend",
-    "action" : "swaylock -f --grace 0; systemctl suspend -i",
+    "action" : "hyprlock && systemctl suspend -i",
     "text" : " Suspend (Z)",
     "keybind" : "z"
 }
