@@ -79,7 +79,7 @@
       },
       "custom/apps": {
         "tooltip": false,
-        "on-click": "pkill wofi || wofi --show drun --allow-images",
+        "on-click": "pkill wofi || rofi -show drun --allow-images",
         "format": "    "
       },
       "load": {
