@@ -326,7 +326,7 @@ echo -e "\033[1;94mCopying wallpaper...\033[0m"
 retry_command cp "$HOME_DIR/arch-hypr-dots/arch_geology.png" "$HOME_DIR/Pictures/wallpapers/" || { echo -e "\033[1;31mFailed to copy wallpaper. Exiting.\033[0m"; exit 1; }
 
 # Check if Wayland is running
-if [ "${$XDG_SESSION_TYPE:-}" = "wayland" ]; then
+if [ "${XDG_SESSION_TYPE:-}" = "wayland" ]; then
     if command -v swww &> /dev/null; then
         echo -e "\033[1;32mswww is installed. Setting up wallpaper...\033[0m"
 
