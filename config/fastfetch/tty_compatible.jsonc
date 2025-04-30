@@ -1,0 +1,77 @@
+//  fastfetch config by dillacorn
+//  www.github.com/dillacorn/arch-i3-dots
+
+
+// execute with: fastfetch --colors-block-range-start 9 --colors-block-width 3
+
+{
+    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+    "logo": {
+        "source": "$HOME/.config/fastfetch/ascii/tty_compatible/$(ls ~/.config/fastfetch/ascii/tty_compatible | shuf -n 1)",
+        "padding": {
+            "top": 2,
+            "right": 6
+        }
+    },
+    "display": {
+        "separator": " "
+    },
+    "modules": [
+	"break",
+	"break",
+	{
+            "type": "title",
+            "keyWidth": 10
+        },
+        "break",
+        {
+            "type": "os",
+            "key": " ",
+            "keyColor": "33",  // = color3
+        },
+        {
+            "type": "kernel",
+            "key": " ",
+            "keyColor": "33",
+        },
+        {
+            "type": "packages",
+            "managers": [
+            	"pacman",
+            	"yay",
+            	"flatpak"
+            ],
+            "key": " ",
+            "keyColor": "33",
+        },
+        {
+            "type": "shell",
+            "key": " ",
+            "keyColor": "33", 
+        },
+        {
+            "type": "terminal",
+            "key": " ",
+            "keyColor": "33", 
+        },
+        {
+            "type": "wm",
+            "key": " ",
+            "keyColor": "33", 
+        },
+        {
+            "type": "uptime",
+            "key": " ",
+            "keyColor": "33", 
+        },
+        {
+            "type": "media",
+            "key": " ",
+            "keyColor": "33", 
+        },
+        "break",
+        "colors",
+        "break",
+        "break",
+    ]
+}

@@ -69,13 +69,11 @@ echo -e "\033[1;33m
 - ~/.config/alacritty
 - ~/.config/rofi
 - ~/.config/mako
+- ~/.config/SpeedCrunch
 - ~/.config/flameshot
 - ~/.config/fastfetch
-- ~/.config/gtk-3.0
-- ~/.config/gtk-4.0
 - ~/.config/wlogout
-- ~/.config/xdg-desktop-portal
-- ~/.local/share/backgrounds\033[0m"
+- ~/.config/xdg-desktop-portal\033[0m"
 echo -e "\033[1;31mAre you sure you want to continue? This action CANNOT be undone.\033[0m"
 echo -e "\033[1;32mPress 'y' to continue or 'n' to cancel. Default is 'yes' if Enter is pressed:\033[0m"
 
@@ -230,7 +228,7 @@ echo -e "\033[1;34mRunning install_micro_themes.sh...\033[0m"
 retry_command ./install_micro_themes.sh || { echo -e "\033[1;31minstall_micro_themes.sh failed. Exiting.\033[0m"; exit 1; }
 
 # Copy configuration files
-config_dirs=("hypr" "waybar" "alacritty" "wlogout" "mako" "rofi" "gtk-3.0" "gtk-4.0" "flameshot" "fastfetch" "xdg-desktop-portal")
+config_dirs=("hypr" "waybar" "alacritty" "wlogout" "mako" "rofi" "flameshot" "SpeedCrunch" "fastfetch" "xdg-desktop-portal")
 
 for config in "${config_dirs[@]}"; do
     echo -e "\033[1;32mCopying $config config...\033[0m"
