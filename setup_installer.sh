@@ -300,6 +300,13 @@ retry_command echo 'export EDITOR=/usr/bin/micro' >> "$HOME_DIR/.bashrc" || { ec
 echo -e "\033[1;94mSetting GTK_THEME to Materia-dark in .bashrc...\033[0m"
 retry_command echo 'export GTK_THEME=Materia-dark' >> "$HOME_DIR/.bashrc" || { echo -e "\033[1;31mFailed to set GTK_THEME in .bashrc. Exiting.\033[0m"; exit 1; }
 
+# Set hypr launch command
+echo -e "\033[1;94mSetting \"hypr\" command in .bashrc...\033[0m"
+echo "alias hypr='XDG_SESSION_TYPE=wayland exec Hyprland'" >> "$HOME_DIR/.bashrc" || {
+    echo -e "\033[1;31mFailed to add alias to .bashrc. Exiting.\033[0m"
+    exit 1
+}
+
 # Reload .bashrc after setting variables
 retry_command source "$HOME_DIR/.bashrc" || { echo -e "\033[1;31mFailed to reload .bashrc. Exiting.\033[0m"; exit 1; }
 
@@ -410,7 +417,7 @@ fi
 # Add hypr-wm instruction
 if ! grep -q "To start hypr" "$BASH_PROFILE"; then
     echo "Adding hypr instruction to $BASH_PROFILE..."
-    echo -e "echo -e \"\\033[1;34mTo start hypr, type: \\033[1;31hypr\\033[0m\"" >> "$BASH_PROFILE"
+    echo -e "echo -e \"\\033[1;34mTo start hypr, type: \\033[1;31mhypr\\033[0m\"" >> "$BASH_PROFILE"
     chown $SUDO_USER:$SUDO_USER "$BASH_PROFILE"
 fi
 
