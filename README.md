@@ -1,7 +1,5 @@
 # `arch dilla.hypr.files`
 
-# dos2unix command is required for all scripts currently (written/modified on windows).. Plan to change of course.
-
 - **Preview Images**: **TO_BE_ADDED**
 - **Distro**: [Arch Linux](https://archlinux.org/)
 - **Installation Method**: [archinstall](https://github.com/archlinux/archinstall)
