@@ -15,7 +15,7 @@
 ---
 
 ## Keybinds: **DWM** Inspired
-My keybinds (see [hypr config](https://github.com/dillacorn/arch-hypr-dots/blob/main/config/hypr/config)) are heavily inspired by [**suckless DWM**](https://dwm.suckless.org/). Before switching to i3, I used [**DWM Flexipatch**](https://github.com/bakkeby/dwm-flexipatch) by [bakkeby](https://github.com/bakkeby) — DWM was my first window manager and now hyprland is my third.
+My keybinds (see [hypr config](https://github.com/dillacorn/arch-hypr-dots/blob/main/config/hypr/hyprland.conf) are heavily inspired by [**suckless DWM**](https://dwm.suckless.org/). Before switching to i3, I used [**DWM Flexipatch**](https://github.com/bakkeby/dwm-flexipatch) by [bakkeby](https://github.com/bakkeby) — DWM was my first window manager and now hyprland is my third.
 
 ---
 
