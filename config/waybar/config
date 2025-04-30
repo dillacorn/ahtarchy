@@ -1,152 +1,168 @@
-// -*- mode: jsonc -*-
-[{
-    // "layer": "top", // Waybar at top layer
-    // "position": "bottom", // Waybar position (top|bottom|left|right)
-    "height": 34, // Waybar height (to be removed for auto height)
-    // "width": 1280, // Waybar width
-    "spacing": 4, // Gaps between modules (4px)
-    // Choose the order of the modules
-    "modules-left": [
+[
+    {
+      "height": 34,
+      "spacing": 4,
+      "modules-left": [
         "custom/apps",
         "hyprland/workspaces",
         "hyprland/mode",
         "hyprland/scratchpad"
-    ],
-    "modules-center": [
+      ],
+      "modules-center": [
         "hyprland/window"
-    ],
-    "modules-right": [
+      ],
+      "modules-right": [
         "idle_inhibitor",
         "cpu",
         "temperature",
         "memory",
-	    "wireplumber",
+        "wireplumber",
         "backlight",
         "clock",
         "battery",
         "tray",
         "custom/power"
-    ],
-    // Modules configuration
-    "hyprland/workspaces": {
+      ],
+      "hyprland/workspaces": {
         "all-outputs": true,
         "warp-on-scroll": false,
         "enable-bar-scroll": true,
         "disable-scroll-wraparound": true,
         "format": "{icon}",
         "format-icons": {
-            "1": "1 ",
-            "2": "2 ",
-            "3": "3 ",
-            "4": "4 ",
-            "5": "5 ",
-            "6": "6 ",
-            "7": "7 ",
-            "8": "8 ",
-            "9": "9 ",
-            "10": "10 "
+          "1": "1 ",
+          "2": "2 ",
+          "3": "3 ",
+          "4": "4 ",
+          "5": "5 ",
+          "6": "6 ",
+          "7": "7 ",
+          "8": "8 ",
+          "9": "9 ",
+          "10": "10 "
         },
         "persistent-workspaces": {
-        	"1": "1 ",
-            "2": "2 ",
-            "3": "3 ",
-            "4": "4 "
+          "1": "1 ",
+          "2": "2 ",
+          "3": "3 ",
+          "4": "4 "
         }
-    },
-    "hyprland/window": {
+      },
+      "hyprland/window": {
         "format": "{title}",
         "max-length": 40,
         "all-outputs": true
-    },
-    "idle_inhibitor": {
+      },
+      "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {
-            "activated": "  ",
-            "deactivated": "  "
+          "activated": "  ",
+          "deactivated": "  "
         }
-    },
-    "hyprland/mode": {
+      },
+      "hyprland/mode": {
         "format": "{}"
-    },
-    "hyprland/scratchpad": {
+      },
+      "hyprland/scratchpad": {
         "format": "{icon} {count}",
         "show-empty": false,
-        "format-icons": ["", ""],
+        "format-icons": [
+          "",
+          ""
+        ],
         "tooltip": true,
         "tooltip-format": "{app}: {title}"
-    },
-    "tray": {
+      },
+      "tray": {
         "icon-size": 14,
         "spacing": 10
-    },
-    "custom/apps": {
-    	"tooltip": false,
-    	"on-click": "pkill wofi || wofi --show drun --allow-images",
-    	"format": "    "
-    },
-    "load": {
+      },
+      "custom/apps": {
+        "tooltip": false,
+        "on-click": "pkill wofi || wofi --show drun --allow-images",
+        "format": "    "
+      },
+      "load": {
         "format": " {} "
-    },
-    "clock": {
-        // "timezone": "America/New_York",
+      },
+      "clock": {
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "format": "{:%Y-%m-%d | %I:%M}"
-    },
-    "custom/power": {
-    	"tooltip": false,
-    	"on-click": "wlogout &",
-    	"format": "    "
-	},
-    "cpu": {
+      },
+      "custom/power": {
+        "tooltip": false,
+        "on-click": "wlogout &",
+        "format": "    "
+      },
+      "cpu": {
         "format": "{usage}%  ",
         "tooltip": true
-    },
-    "memory": {
+      },
+      "memory": {
         "format": "{}%  "
-    },
-    "temperature": {
-        // "thermal-zone": 2,
-        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+      },
+      "temperature": {
         "critical-threshold": 80,
-        // "format-critical": "{temperatureC}°C {icon} ",
         "format": "{temperatureC}°C ",
-        "format-icons": ["", "", ""]
-    },
-    "backlight": {
-        // "device": "acpi_video1",
+        "format-icons": [
+          "",
+          "",
+          ""
+        ]
+      },
+      "backlight": {
         "format": "{icon} {percent}%",
-        "format-icons": ["", "", "", "", "", "", "", "", ""]
-    },
-    "battery": {
+        "format-icons": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      "battery": {
         "states": {
-            // "good": 95,
-            "warning": 30,
-            "critical": 15
+          "warning": 30,
+          "critical": 15
         },
         "format": "{icon} {capacity}%",
         "format-full": "{icon} {capacity}%",
         "format-charging": " {capacity}%",
         "format-plugged": " {capacity}%",
         "format-alt": "{icon} {time}",
-        // "format-good": "", // An empty format will hide the module
-        // "format-full": "",
-        "format-icons": ["", "", "", "", ""]
-    },
-    "wireplumber": {
-        "scroll-step": 5, // %, can be a float
+        "format-icons": [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      "wireplumber": {
+        "scroll-step": 5,
         "format": "{icon} {volume}%",
         "format-bluetooth": "{icon} {volume}% ",
         "format-bluetooth-muted": " {icon}",
         "format-muted": "",
         "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", "", ""]
+          "headphone": "",
+          "hands-free": "",
+          "headset": "",
+          "phone": "",
+          "portable": "",
+          "car": "",
+          "default": [
+            "",
+            "",
+            ""
+          ]
         },
         "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+      }
     }
-}]
+  ]
+  
