@@ -1,9 +1,8 @@
 # `arch dilla.hypr.files`
 
-# WORK IN PROGRESS ~ MANY LINKS BROKEN ~ VERY BROKEN
 # DOS2UNIX is required for all scripts currently.. Plan to change of course.
 
-- **Preview Images**: [View Here](https://github.com/dillacorn/arch-hypr-dots/tree/main/preview_images/preview_page.md)
+- **Preview Images**: **TO_BE_ADDED**
 - **Distro**: [Arch Linux](https://archlinux.org/)
 - **Installation Method**: [archinstall](https://github.com/archlinux/archinstall)
 - **File System**: ext4 (seperate root and home partition)
@@ -30,30 +29,15 @@ My keybinds (see [hypr config](https://github.com/dillacorn/arch-hypr-dots/blob/
 ## Hypr Keybind Custom Scripts/Commands
 
 Here are some of my custom keybinds from the hyprland configuration:
-
-- `Mod4+shift+q` = **Reload Hypr config**  
-  - Reloads the current hypr configuration to apply any changes.
-  - Additionally randomizes wallpaper in `~/Pictures/wallpapers` directory. <- if you don't want this behavior modify the ([hypr config](https://github.com/dillacorn/arch-hypr-dots/blob/main/config/i3/config)).
   
-- `Mod4+shift+r` = **Rotate Hypr mod navigation**  
-  - Switches between `Mod1(alt)` and `Mod4(meta)` navigation using a script: [rotate mod script](https://github.com/dillacorn/arch-hyprland-dots/blob/main/config/i3/scripts/rotate_mod.sh).
-
-- `Mod1+ctrl+shift+p` = **Hypr Power Menu**  
-  - Activates Selectable Power Menu script: [hyprexit.sh](https://github.com/dillacorn/arch-hyprland-dots/blob/main/config/hypr/scripts/hyprexit.sh).
-  - Escape(ESC) to cancel power menu.
-
-- `Mod4+shift+t` = **Hypr Theme Changer**
-  - Launches a theme selector using Rofi: [View avaliable theme scripts](https://github.com/dillacorn/arch-hypr-dots/tree/main/config/hypr/themes).
-  - You can easily add your own theme scripts to `~/.config/hypr/themes`
-  
-- `Mod4+shift+g` = **Capture a GIF**  
+- `mod+shift+g` = **Capture a GIF**  
   - Starts a GIF recording with the `Kooha`
   
-- `Mod4+shift+s` = **grim+slurp screenshot**  
+- `mod+shift+s` = **grim+slurp screenshot**  
   - Takes a screenshot using grim+slurp and copies to clipboard.
   - `date_time.png` saved in `~/Pictures` directory.
 
-- `Mod4+ctrl+shift+s` = **Flameshot screenshot**  
+- `mod+ctrl+shift+s` = **Flameshot screenshot**  
   - Takes a screenshot using Flameshot with more customization options.
   - `date_time.png` normally saved in `~/Pictures` directory.
 
@@ -63,45 +47,40 @@ Here are some of my custom keybinds from the hyprland configuration:
 
 Here are more example keybinds from my hypr config:
 
-Let me preface `"Mod1"` can equal `"Mod1"` or `"Mod4"` depending on [rotate mod script](https://github.com/dillacorn/arch-hypr-dots/blob/main/config/hypr/scripts/rotate_mod.sh)
-
-- `Mod1+shift+enter` = **Open Terminal**
+- `mod+shift+enter` = **Open Terminal**
   - Launches the terminal (default: Alacritty).
 
-- `Mod1+p` = **Rofi Application Launcher**
+- `mod+p` = **Rofi Application Launcher**
   - Opens the Rofi app launcher for quick access to applications.
 
-- `Mod4+ctrl+shift+l` = **Lock Screen**
-  - Locks the screen using `hyprlock`.
-
-- `Mod1+shift+c` = **Close Window**
+- `mod+shift+c` = **Close Window**
   - Closes the focused window.
 
-- `Mod1+f` = **Toggle Floating**
+- `mod+f` = **Toggle Floating**
   - Toggles between tiling and floating window layouts.
 
-- `Mod1+shift+f` = **Toggle Fullscreen**
+- `mod+shift+f` = **Toggle Fullscreen**
   - Toggles app focus ~ fullscreen.
 
-- `Mod1+arrow_keys` = **Change Focus**
+- `mod+arrow_keys` = **Change Focus**
   - Switch between open windows.
 
-- `Mod1+shift+arrow_keys` = **Move Windows**
+- `mod+shift+arrow_keys` = **Move Windows**
   - Move window location within workspace.
 
-- `Mod1+mouse_1` = **Move Floating Window**
+- `mod+mouse_1` = **Move Floating Window**
   - Move Floating Window with your mouse.
 
-- `Mod1+mouse_2` = **Resize Floating Window**
+- `mod+mouse_2` = **Resize Floating Window**
   - Resize Floating Window with your mouse.
 
-- `Mod1+1` to `Mod1+9` = **Workspace Switching**  
+- `mod+1` to `mod+9` = **Workspace Switching**  
   - Switches to workspaces 1 through 9.
 
-- `Mod1+shift+1` to `Mod1+shift+9` = **Move Focused Window to Workspace**  
+- `mod+shift+1` to `mod+shift+9` = **Move Focused Window to Workspace**  
   - Moves the currently focused window to the specified workspace.
  
-- `Mod1+ctrl+shift+arrows` = **Move Focused Workspace to Adjacent Monitor**  
+- `mod+ctrl+shift+arrows` = **Move Focused Workspace to Adjacent Monitor**  
   - Moves the currently focused workspace to an adjacent monitor.
 
 ---
