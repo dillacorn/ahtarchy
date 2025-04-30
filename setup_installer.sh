@@ -246,14 +246,14 @@ echo -e "\033[1;34mSetting permissions on configuration files and directories...
 retry_command find "$HOME_DIR/.config/" -type d -exec chmod 755 {} +
 retry_command find "$HOME_DIR/.config/" -type f -exec chmod 644 {} +
 
-# Make hypr-related scripts executable (recursively)
-echo -e "\033[1;34mMaking hypr-related scripts executable...\033[0m"
-retry_command find "$HOME_DIR/.config/hypr/scripts" -type f -exec chmod +x {} +
+# Make hypr-related scripts executable (recursively) ~ commented out unless I need scripts in the future
+# echo -e "\033[1;34mMaking hypr-related scripts executable...\033[0m"
+# retry_command find "$HOME_DIR/.config/hypr/scripts" -type f -exec chmod +x {} +
 
 # Convert line endings to Unix format for hypr themes and scripts directories
-echo -e "\033[1;34mConverting line endings to Unix format for hypr themes and scripts...\033[0m"
-retry_command dos2unix $HOME_DIR/.config/hypr/themes/./* || { echo -e "\033[1;31mFailed to convert line endings for hypr themes. Exiting.\033[0m"; exit 1; }
-retry_command dos2unix $HOME_DIR/.config/hypr/scripts/./* || { echo -e "\033[1;31mFailed to convert line endings for hypr scripts. Exiting.\033[0m"; exit 1; }
+# echo -e "\033[1;34mConverting line endings to Unix format for hypr themes and scripts...\033[0m"
+# retry_command dos2unix $HOME_DIR/.config/hypr/themes/./* || { echo -e "\033[1;31mFailed to convert line endings for hypr themes. Exiting.\033[0m"; exit 1; }
+# retry_command dos2unix $HOME_DIR/.config/hypr/scripts/./* || { echo -e "\033[1;31mFailed to convert line endings for hypr scripts. Exiting.\033[0m"; exit 1; }
 
 # Install Alacritty themes
 echo -e "\033[1;34mRunning install_alacritty_themes.sh...\033[0m"
