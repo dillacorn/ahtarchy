@@ -1,6 +1,6 @@
 # `arch dilla.hypr.files`
 
-# DOS2UNIX is required for all scripts currently.. Plan to change of course.
+# dos2unix command is required for all scripts currently (written/modified on windows).. Plan to change of course.
 
 - **Preview Images**: **TO_BE_ADDED**
 - **Distro**: [Arch Linux](https://archlinux.org/)
@@ -94,6 +94,16 @@ Install Arch AUR applications using [install script](https://github.com/dillacor
 Install Flatpak applications using [install script](https://github.com/dillacorn/arch-hypr-dots/blob/main/scripts/install_flatpak_apps.sh).
 
 - Please feel free to modify scripts to remove and/or add applications of your preference for your own repository.
+
+---
+
+### Browser notes
+
+- [Ungoogled-Chromium](https://github.com/dillacorn/arch-hypr-dots/blob/main/browser_notes/ungoogled-chromium.md)
+
+- [Firefox_Privacy_Focused_Forks](https://github.com/dillacorn/arch-hypr-dots/blob/main/browser_notes/firefox_privacy_focused_forks.md)
+
+- [Redirector_Extension_when_tailscale_magic_DNS_name_is_blocked](https://github.com/dillacorn/arch-hypr-dots/blob/main/browser_notes/redirector_extension_redirect_example.png)
 
 ---
 
