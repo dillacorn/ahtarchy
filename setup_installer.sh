@@ -241,25 +241,6 @@ echo -e "\033[1;34mCopying mimeapps.list to $HOME_DIR/.config...\033[0m"
 retry_command cp "$HOME_DIR/arch-hypr-dots/config/mimeapps.list" "$HOME_DIR/.config/" || { echo -e "\033[1;31mFailed to copy mimeapps.list. Exiting.\033[0m"; exit 1; }
 retry_command chown $SUDO_USER:$SUDO_USER "$HOME_DIR/.config/mimeapps.list"
 
-# Check if xsettingsd.conf exists and has been modified
-if [ -f "$HOME_DIR/.config/xsettingsd/xsettingsd.conf" ]; then
-    if ! diff -q "$HOME_DIR/.config/xsettingsd/xsettingsd.conf" "$HOME_DIR/arch-hypr-dots/config/xsettingsd/xsettingsd.conf" > /dev/null; then
-        echo -e "\033[1;33mxsettingsd.conf already exists and has been modified. Skipping overwrite.\033[0m"
-    else
-        echo -e "\033[1;34mCopying xsettingsd.conf to $HOME_DIR/.config/xsettingsd...\033[0m"
-        retry_command cp "$HOME_DIR/arch-hypr-dots/config/xsettingsd/xsettingsd.conf" "$HOME_DIR/.config/xsettingsd/" || { echo -e "\033[1;31mFailed to copy xsettingsd.conf. Exiting.\033[0m"; exit 1; }
-        retry_command chown $SUDO_USER:$SUDO_USER "$HOME_DIR/.config/xsettingsd/xsettingsd.conf"
-        retry_command chmod 644 "$HOME_DIR/.config/xsettingsd/xsettingsd.conf"
-    fi
-else
-    # If xsettingsd.conf doesn't exist, copy it
-    echo -e "\033[1;34mCopying xsettingsd.conf to $HOME_DIR/.config/xsettingsd...\033[0m"
-    create_directory "$HOME_DIR/.config/xsettingsd"
-    retry_command cp "$HOME_DIR/arch-hypr-dots/config/xsettingsd/xsettingsd.conf" "$HOME_DIR/.config/xsettingsd/" || { echo -e "\033[1;31mFailed to copy xsettingsd.conf. Exiting.\033[0m"; exit 1; }
-    retry_command chown $SUDO_USER:$SUDO_USER "$HOME_DIR/.config/xsettingsd/xsettingsd.conf"
-    retry_command chmod 644 "$HOME_DIR/.config/xsettingsd/xsettingsd.conf"
-fi
-
 # Set permissions for .config
 echo -e "\033[1;34mSetting permissions on configuration files and directories...\033[0m"
 retry_command find "$HOME_DIR/.config/" -type d -exec chmod 755 {} +
