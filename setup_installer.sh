@@ -318,39 +318,38 @@ create_directory "$HOME_DIR/Pictures/wallpapers"
 echo -e "\033[1;94mCopying wallpaper...\033[0m"
 retry_command cp "$HOME_DIR/arch-hypr-dots/arch_geology.png" "$HOME_DIR/Pictures/wallpapers/" || { echo -e "\033[1;31mFailed to copy wallpaper. Exiting.\033[0m"; exit 1; }
 
-# Check if swww is installed
-if command -v swww &> /dev/null; then
-    echo -e "\033[1;32mswww is installed. Setting up wallpaper...\033[0m"
+# Check if Wayland is running
+if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+    if command -v swww &> /dev/null; then
+        echo -e "\033[1;32mswww is installed. Setting up wallpaper...\033[0m"
 
-    # Set the wallpaper directory
-    WALLPAPER_DIR="$HOME_DIR/Pictures/wallpapers"
+        WALLPAPER_DIR="$HOME_DIR/Pictures/wallpapers"
+        create_directory "$WALLPAPER_DIR" || {
+            echo -e "\033[1;31mFailed to ensure wallpaper directory. Exiting.\033[0m"
+            exit 1
+        }
 
-    # Ensure the directory exists
-    create_directory "$WALLPAPER_DIR" || {
-        echo -e "\033[1;31mFailed to ensure wallpaper directory. Exiting.\033[0m"
-        exit 1
-    }
+        WALLPAPER=$(find "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.png" \) | head -n 1)
 
-    # Find a wallpaper (pick the first .jpg or .png in the directory)
-    WALLPAPER=$(find "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.png" \) | head -n 1)
+        if [ -n "$WALLPAPER" ]; then
+            if ! pgrep -x "swww-daemon" > /dev/null; then
+                echo -e "\033[1;34mStarting swww daemon...\033[0m"
+                swww-daemon --format=json &
+                sleep 1
+            fi
 
-    if [ -n "$WALLPAPER" ]; then
-        # Start swww daemon if not already running
-        if ! pgrep -x "swww-daemon" > /dev/null; then
-            echo -e "\033[1;34mStarting swww daemon...\033[0m"
-            retry_command swww init
+            echo -e "\033[1;34mSetting wallpaper to $WALLPAPER...\033[0m"
+            swww img "$WALLPAPER" --transition-type any --transition-fps 60 --transition-duration 1
+
+            echo -e "\033[1;32mWallpaper successfully set using swww.\033[0m"
+        else
+            echo -e "\033[1;33mNo wallpapers found in $WALLPAPER_DIR. Skipping...\033[0m"
         fi
-
-        # Set the wallpaper with a transition
-        echo -e "\033[1;34mSetting wallpaper to $WALLPAPER...\033[0m"
-        retry_command swww img "$WALLPAPER" --transition-type any --transition-fps 60 --transition-duration 1
-
-        echo -e "\033[1;32mWallpaper successfully set using swww.\033[0m"
     else
-        echo -e "\033[1;33mNo wallpapers found in $WALLPAPER_DIR. Skipping...\033[0m"
+        echo -e "\033[1;33mswww is not installed. Skipping wallpaper setup...\033[0m"
     fi
 else
-    echo -e "\033[1;33mswww is not installed. Skipping wallpaper setup...\033[0m"
+    echo -e "\033[1;33mNot in a Wayland session. Skipping swww wallpaper setup...\033[0m"
 fi
 
 # Set the cursor theme in /usr/share/icons/default/index.theme
