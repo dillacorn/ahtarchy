@@ -70,6 +70,7 @@ if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
             qimgv
             cava
             otpclient
+            wlogout
         )
 
         # Install each package and clean up afterward
