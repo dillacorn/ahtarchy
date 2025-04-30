@@ -417,7 +417,7 @@ fi
 # Add hypr-wm instruction
 if ! grep -q "To start hypr" "$BASH_PROFILE"; then
     echo "Adding hypr instruction to $BASH_PROFILE..."
-    echo -e "echo -e \"\\033[1;34mTo start hypr, type: \\033[1;31mhypr\\033[0m\"" >> "$BASH_PROFILE"
+    echo 'echo -e "\033[1;34mTo start hypr, type: \033[1;31mhypr\033[0m"' >> "$BASH_PROFILE"
     chown $SUDO_USER:$SUDO_USER "$BASH_PROFILE"
 fi
 
