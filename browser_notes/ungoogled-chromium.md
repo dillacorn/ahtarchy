@@ -19,6 +19,8 @@ change these flags:
 * [enable-webrtc-allow-input-volume-adjustment](chrome://flags/#enable-webrtc-allow-input-volume-adjustment): `Disabled` <- Browser adjusting mic volume randomly is so annoying
 * [Preferred Ozone platform](chrome://flags/#ozone-platform-hint): `Wayland`
 
+# install [chromium-web-store](https://github.com/NeverDecaf/chromium-web-store) extension
+
 # extensions
 
 Privacy centric extensions:
