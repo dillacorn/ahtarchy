@@ -76,15 +76,15 @@ button:hover {
     color: #d79921;
 }
 
-#workspaces button.focused {
+#workspaces button.active {
     background-color: #665c54;
-    color: #fbf1c7; /* Slightly lighter text for contrast */
+    color: #fbf1c7;
     font-weight: bold;
 }
 
 #workspaces button.urgent {
     background-color: #b16286;
-    color: #fbf1c7; /* Match focused contrast */
+    color: #fbf1c7;
 }
 
 #idle_inhibitor,
