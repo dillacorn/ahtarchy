@@ -78,11 +78,13 @@ button:hover {
 
 #workspaces button.focused {
     background-color: #665c54;
-    /* box-shadow: inset 0 -3px #ffffff; */
+    color: #fbf1c7; /* Slightly lighter text for contrast */
+    font-weight: bold;
 }
 
 #workspaces button.urgent {
     background-color: #b16286;
+    color: #fbf1c7; /* Match focused contrast */
 }
 
 #idle_inhibitor,
