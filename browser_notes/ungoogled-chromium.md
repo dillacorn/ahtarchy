@@ -2,7 +2,7 @@ notes from repo: https://github.com/dillacorn/arch-hypr-dots
 
 # install ungoogled-chromium from flathub
 ```sh
-flatpak install io.github.ungoogled_software.ungoogled_chromium
+flatpak install --user flathub io.github.ungoogled_software.ungoogled_chromium
 ```
 
 # flags
