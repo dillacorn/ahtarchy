@@ -89,7 +89,7 @@ if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
 
     # Install Utilities
     echo -e "${CYAN}Installing general utilities...${NC}"
-    for pkg in steam polkit-kde-agent lxappearance networkmanager network-manager-applet tailscale bluez bluez-utils blueman pavucontrol pcmanfm gvfs gvfs-smb gvfs-mtp gvfs-afc qbittorrent filelight timeshift flameshot imagemagick pipewire pipewire-pulse pipewire-alsa ufw; do
+    for pkg in steam polkit-kde-agent lxappearance networkmanager network-manager-applet tailscale bluez bluez-utils blueman pavucontrol pcmanfm gvfs gvfs-smb gvfs-mtp gvfs-afc qbittorrent filelight timeshift flameshot imagemagick pipewire pipewire-pulse pipewire-alsa ufw flatpak; do
         install_package "$pkg"
     done
 
