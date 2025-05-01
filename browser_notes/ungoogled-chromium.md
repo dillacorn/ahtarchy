@@ -10,8 +10,14 @@ flatpak install --user flathub io.github.ungoogled_software.ungoogled_chromium
 navigate to: `chrome://flags/`
 
 change these flags:
-* [enable-webrtc-allow-input-volume-adjustment](chrome://flags/#enable-webrtc-allow-input-volume-adjustment): `Disabled` <- Browser adjusting mic volume randomly is so annoying
 * [extension-mime-request-handling](chrome://flags/#extension-mime-request-handling): `Always prompt for install` <- Fix for easy extension install
+* [Disable search engine collection](chrome://flags/#disable-search-engine-collection): `Enabled`
+* [Enable get*ClientRects() fingerprint deception](chrome://flags/#fingerprinting-client-rects-noise): `Enabled`
+* [Enable Canvas::measureText() fingerprint deception](chrome://flags/#fingerprinting-canvas-measuretext-noise): `Enabled`
+* [Enable Canvas image data fingerprint deception](chrome://flags/#fingerprinting-canvas-image-data-noise): `Enabled`
+* [Anonymize local IPs exposed by WebRTC](chrome://flags/#enable-webrtc-hide-local-ips-with-mdns): `Enabled`
+* [enable-webrtc-allow-input-volume-adjustment](chrome://flags/#enable-webrtc-allow-input-volume-adjustment): `Disabled` <- Browser adjusting mic volume randomly is so annoying
+* [Preferred Ozone platform](chrome://flags/#ozone-platform-hint): `Wayland`
 
 # extensions
 
