@@ -82,7 +82,7 @@ Here are more example keybinds from my hypr config:
 - `mod+shift+1` to `mod+shift+9` = **Move Focused Window to Workspace**  
   - Moves the currently focused window to the specified workspace.
  
-- `mod+ctrl+shift+arrows` = **Move Focused Workspace to Adjacent Monitor**  
+- `mod+ctrl+shift+arrow_keys` = **Move Focused Workspace to Adjacent Monitor**  
   - Moves the currently focused workspace to an adjacent monitor.
 
 ---
