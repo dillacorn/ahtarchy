@@ -182,7 +182,8 @@ fi
     systemctl enable --now NetworkManager
 
     # Skip libvirt entirely inside QEMU
-    if grep -q "QEMU" /sys/class/dmi/id/product_name 2>/dev/null; then
+    VM_TYPE=$(systemd-detect-virt)
+    if [[ "$VM_TYPE" == "qemu" ]]; then
         echo -e "${YELLOW}Running inside QEMU. Skipping libvirt setup...${NC}"
     else
         echo -e "${CYAN}Enabling and starting libvirtd...${NC}"
