@@ -70,7 +70,6 @@ echo -e "\033[1;33m
 - ~/.config/rofi
 - ~/.config/mako
 - ~/.config/SpeedCrunch
-- ~/.config/flameshot
 - ~/.config/fastfetch
 - ~/.config/wlogout
 - ~/.config/xdg-desktop-portal\033[0m"
@@ -228,7 +227,7 @@ echo -e "\033[1;34mRunning install_micro_themes.sh...\033[0m"
 retry_command ./install_micro_themes.sh || { echo -e "\033[1;31minstall_micro_themes.sh failed. Exiting.\033[0m"; exit 1; }
 
 # Copy configuration files
-config_dirs=("hypr" "waybar" "alacritty" "wlogout" "mako" "rofi" "flameshot" "SpeedCrunch" "fastfetch" "xdg-desktop-portal")
+config_dirs=("hypr" "waybar" "alacritty" "wlogout" "mako" "rofi" "SpeedCrunch" "fastfetch" "xdg-desktop-portal")
 
 for config in "${config_dirs[@]}"; do
     echo -e "\033[1;32mCopying $config config...\033[0m"
@@ -358,6 +357,9 @@ if [ "${XDG_SESSION_TYPE:-}" = "wayland" ]; then
 else
     echo -e "\033[1;33mNot in a Wayland session. Skipping swww wallpaper setup...\033[0m"
 fi
+
+# Ensure ~/Pictures/Screenshots directory exists and correct permissions are set
+create_directory "$HOME_DIR/Pictures/Screenshots"
 
 # Set the cursor theme in /usr/share/icons/default/index.theme
 echo -e "\033[1;34mSetting cursor theme to ComixCursor-White...\033[0m"

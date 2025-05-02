@@ -71,7 +71,6 @@ if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
             cava
             otpclient
             wlogout
-            flameshot-git
         )
 
         # Install each package and clean up afterward
