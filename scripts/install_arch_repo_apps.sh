@@ -194,6 +194,17 @@ fi
         sleep 1
     done
 
+if grep -q "QEMU" /sys/class/dmi/id/product_name 2>/dev/null; then
+    echo -e "${YELLOW}Running inside QEMU. Skipping libvirt default network setup...${NC}"
+else
+    echo -e "${CYAN}Enabling and starting libvirtd...${NC}"
+    systemctl enable --now libvirtd
+
+    echo -e "${CYAN}Waiting for libvirtd to become active...${NC}"
+    until systemctl is-active --quiet libvirtd; do
+        sleep 1
+    done
+
     # Proceed with the network setup
     virsh net-destroy default || true
     virsh net-start default
