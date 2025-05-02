@@ -233,6 +233,8 @@ else
 
     # Print success message after installation
     echo -e "\n${GREEN}Successfully installed all of Dillacorn's Arch Linux chosen applications!${NC}"
+fi
+
 else
     echo -e "\n${YELLOW}Skipping installation of Dillacorn's chosen Arch Repo Linux applications.${NC}"
 fi
