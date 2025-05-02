@@ -35,7 +35,7 @@ if [ -d "$TARGET_DIR/themes" ]; then
 else
     # Clone the alacritty-theme repository if it does not exist
     git clone https://github.com/alacritty/alacritty-theme "$TARGET_DIR/themes"
-    if [ $? -ne 0 ]; then
+    if ! git clone https://github.com/alacritty/alacritty-theme "$TARGET_DIR/themes"; then
         echo "Error: Failed to clone the repository. Exiting."
         exit 1
     fi
