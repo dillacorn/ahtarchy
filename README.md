@@ -5,6 +5,7 @@
 - **Installation Method**: [archinstall](https://github.com/archlinux/archinstall)
 - **File System**: ext4 (seperate root and home partition)
 - **Repositories**: [core](https://archlinux.org/packages/?sort=&arch=any&repo=Core&q=&maintainer=&flagged=), [extra](https://archlinux.org/packages/?sort=&arch=any&repo=Extra&q=&maintainer=&flagged=), [multilib](https://archlinux.org/packages/?sort=&repo=Multilib&q=&maintainer=&flagged=) & [AUR](https://aur.archlinux.org/packages)
+- **Flatpak**: [flathub](https://flathub.org/)
 - **Bootloader**: [systemd-boot](https://github.com/ivandavidov/systemd-boot) ~ [configuration_tutorial_modification_guide](https://github.com/dillacorn/arch-hypr-dots/blob/main/extra_notes/install_linux-tkg.md)
 - **Wayland**: [hypr-wm](https://github.com/hyprwm/Hyprland) ~ [config directory](https://github.com/dillacorn/arch-hypr-dots/tree/main/config/hypr)
 - **Kernel**: [linux-tkg](https://github.com/Frogging-Family/linux-tkg) ~ BORE CPU Schedular + Full Tickless! [tutorial_install_guide](https://github.com/dillacorn/arch-hypr-dots/blob/main/extra_notes/install_linux-tkg.md)
