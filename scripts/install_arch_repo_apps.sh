@@ -183,9 +183,10 @@ fi
 
     # Skip libvirt entirely inside QEMU
     if grep -q "QEMU" /sys/class/dmi/id/product_name 2>/dev/null; then
-    echo -e "${YELLOW}Running inside QEMU. Skipping libvirt setup...${NC}"
+        echo -e "${YELLOW}Running inside QEMU. Skipping libvirt setup...${NC}"
     else
-    echo -e "${CYAN}Enabling and starting libvirtd...${NC}"
+  reload
+echo -e "${CYAN}Enabling and starting libvirtd...${NC}"
     systemctl enable --now libvirtd
 
     echo -e "${CYAN}Waiting for libvirtd to become active...${NC}"
@@ -207,6 +208,7 @@ fi
     ufw allow out to any port 443
     ufw default allow routed
     ufw reload
+fi
 
     # Enable and start Bluetooth service
     if pacman -Qi bluez &>/dev/null && pacman -Qi bluez-utils &>/dev/null; then
