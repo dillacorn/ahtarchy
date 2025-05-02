@@ -67,6 +67,9 @@ Here are more example keybinds from my hypr config:
 - `mod+shift+arrow_keys` = **Move Windows**
   - Move window location within workspace.
 
+- `mod+ctrl+arrow_keys` = **Resize Windows**
+  - Resize active/focused window.
+
 - `mod+mouse_1` = **Move Floating Window**
   - Move Floating Window with your mouse.
 
