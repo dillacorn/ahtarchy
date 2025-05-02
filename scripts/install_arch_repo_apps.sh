@@ -181,10 +181,10 @@ fi
     echo -e "${CYAN}Enabling and starting NetworkManager...${NC}"
     systemctl enable --now NetworkManager
 
-# Skip libvirt entirely inside QEMU
-if grep -q "QEMU" /sys/class/dmi/id/product_name 2>/dev/null; then
+    # Skip libvirt entirely inside QEMU
+    if grep -q "QEMU" /sys/class/dmi/id/product_name 2>/dev/null; then
     echo -e "${YELLOW}Running inside QEMU. Skipping libvirt setup...${NC}"
-else
+    else
     echo -e "${CYAN}Enabling and starting libvirtd...${NC}"
     systemctl enable --now libvirtd
 
@@ -220,8 +220,6 @@ else
 
     # Print success message after installation
     echo -e "\n${GREEN}Successfully installed all of Dillacorn's Arch Linux chosen applications!${NC}"
-fi
-
 else
     echo -e "\n${YELLOW}Skipping installation of Dillacorn's chosen Arch Repo Linux applications.${NC}"
 fi
