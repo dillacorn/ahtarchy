@@ -67,6 +67,11 @@ if ! command -v flatpak &> /dev/null; then
   pacman -S --needed --noconfirm flatpak
 fi
 
+if [[ -n "$flatpak_user_flag" ]]; then
+  echo -e "${GREEN}Ensuring Flathub repository is available for user-level installations...${RESET}"
+  runuser -u "$target_user" -- flatpak $flatpak_user_flag remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+fi
+
 # Prompt the user to proceed with installation
 echo -e "${CYAN_B}Would you like to install Dillacorn's chosen Flatpak applications? (y/n)${RESET}"
 read -n 1 -r REPLY
@@ -74,12 +79,6 @@ echo
 if [[ ! $REPLY =~ ^[Yy]$ ]]; then
   echo -e "${YELLOW}Flatpak setup and install canceled by the user...${RESET}"
   exit 0
-fi
-
-# Add Flathub repository for user-level installations if --user flag is being used
-if [[ -n "$flatpak_user_flag" ]]; then
-  echo -e "${GREEN}Adding Flathub repository for user-level installations...${RESET}"
-  runuser -u "$target_user" -- flatpak $flatpak_user_flag remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 fi
 
 # Update currently installed Flatpak apps (as the non-root user)
