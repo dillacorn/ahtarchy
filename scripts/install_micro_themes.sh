@@ -81,6 +81,6 @@ cat > "/home/$SUDO_USER/.config/micro/settings.json" <<EOL
 EOL
 
 # Change ownership back to the correct user
-chown $SUDO_USER:$SUDO_USER "/home/$SUDO_USER/.config/micro/settings.json"
+chown "$SUDO_USER:$SUDO_USER" "/home/$SUDO_USER/.config/micro/settings.json"
 
 echo "Themes installed successfully!"
