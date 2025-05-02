@@ -34,7 +34,8 @@ retry_command() {
     until "$@"; do
         exit_code=$?
         count=$((count + 1))
-        echo -e "\033[1;31mAttempt $count/$retries failed for command: $@\033[0m"  # Add this line
+        echo -e "\033[1;31mAttempt $count/$retries failed for command:\033[0m"
+        printf "'%s' " "$@"; echo
         if [ $count -lt $retries ]; then
             echo -e "\033[1;31mRetrying...\033[0m"
             sleep 1
@@ -97,7 +98,7 @@ fi
 
 # Adding pause before continuing
 echo -e "\033[1;32mProceeding with the installation...\033[0m"
-read -p "Press Enter to continue..."
+read -r -p "Press Enter to continue..."
 
 # Set the home directory of the sudo user
 HOME_DIR="/home/$SUDO_USER"
@@ -111,7 +112,7 @@ create_directory() {
         echo -e "\033[1;32mDirectory already exists: $1\033[0m"
     fi
     # Ensure correct ownership for non-root user ($SUDO_USER)
-    retry_command chown $SUDO_USER:$SUDO_USER "$1" || { echo -e "\033[1;31mFailed to set ownership for $1. Exiting.\033[0m"; exit 1; }
+    retry_command chown "$SUDO_USER:$SUDO_USER" "$1" || { echo -e "\033[1;31mFailed to set ownership for $1. Exiting.\033[0m"; exit 1; }
     retry_command chmod 755 "$1" || { echo -e "\033[1;31mFailed to set permissions for $1. Exiting.\033[0m"; exit 1; }
 }
 
@@ -141,7 +142,7 @@ fi
 if [ ! -d "$HOME_DIR/arch-hypr-dots" ]; then
     echo -e "\033[1;34mCloning arch-hypr-dots repository...\033[0m"
     retry_command git clone https://github.com/dillacorn/arch-hypr-dots "$HOME_DIR/arch-hypr-dots" || { echo -e "\033[1;31mFailed to clone arch-hypr-dots repository. Exiting.\033[0m"; exit 1; }
-    retry_command chown -R $SUDO_USER:$SUDO_USER "$HOME_DIR/arch-hypr-dots"
+    retry_command chown -R "$SUDO_USER:$SUDO_USER" "$HOME_DIR/arch-hypr-dots"
 else
     echo -e "\033[1;32march-hypr-dots repository already exists in $HOME_DIR\033[0m"
 fi
@@ -149,8 +150,8 @@ fi
 # Make scripts executable
 echo -e "\033[1;34mMaking ~/arch-hypr-dots/scripts executable!\033[0m"
 cd "$HOME_DIR/arch-hypr-dots/scripts" || exit
-retry_command chmod +x *
-retry_command chown -R $SUDO_USER:$SUDO_USER "$HOME_DIR/arch-hypr-dots/scripts"
+retry_command chmod +x ./* || { echo -e "\033[1;31mFailed to make scripts executable. Exiting.\033[0m"; exit 1; }
+retry_command chown -R "$SUDO_USER:$SUDO_USER" "$HOME_DIR/arch-hypr-dots/scripts" || { echo -e "\033[1;31mFailed to set ownership for scripts. Exiting.\033[0m"; exit 1; }
 
 # Run installation scripts for packages
 echo -e "\033[1;34mRunning install_arch_repo_apps.sh...\033[0m"
@@ -158,14 +159,14 @@ if ! retry_command ./install_arch_repo_apps.sh; then
     echo -e "\033[1;31minstall_arch_repo_apps.sh failed. Please check for errors in the script.\033[0m"
     exit 1
 fi
-read -p "Press Enter to run the next script..."
+read -r -p "Press Enter to run the next script..."
 
 echo -e "\033[1;34mRunning install_aur_repo_apps.sh...\033[0m"
 if ! retry_command ./install_aur_repo_apps.sh; then
     echo -e "\033[1;31minstall_aur_repo_apps.sh failed. Please check for errors in the script.\033[0m"
     exit 1
 fi
-read -p "Press Enter to run the next script..."
+read -r -p "Press Enter to run the next script..."
 
 echo -e "\033[1;34mRunning install_flatpak_apps.sh...\033[0m"
 if ! retry_command ./install_flatpak_apps.sh; then
@@ -181,7 +182,7 @@ echo -e "\033[1;34mCopying .desktop files to ~/.local/share/applications...\033[
 retry_command cp -r "$HOME_DIR/arch-hypr-dots/local/share/applications/." "$HOME_DIR/.local/share/applications" || { echo -e "\033[1;31mFailed to copy .desktop files. Exiting.\033[0m"; exit 1; }
 
 # Set correct permissions for ~/.local
-retry_command chown -R $SUDO_USER:$SUDO_USER "$HOME_DIR/.local"
+retry_command chown -R "$SUDO_USER:$SUDO_USER" "$HOME_DIR/.local"
 retry_command chmod u+rwx "$HOME_DIR/.local"
 retry_command chmod u+rwx "$HOME_DIR/.local/share"
 echo -e "\033[1;32mOwnership and permissions for ~/.local set correctly.\033[0m"
@@ -196,7 +197,7 @@ if [ ! -d "$HOME_DIR/.local/share/icons/ComixCursors-White" ]; then
     echo -e "\033[1;33mCopying Comix Cursors to ~/.local/share/icons...\033[0m"
     mkdir -p "$HOME_DIR/.local/share/icons/ComixCursors-White"  # Ensure directory exists
     retry_command cp -r /usr/share/icons/ComixCursors-White/* "$HOME_DIR/.local/share/icons/ComixCursors-White" || { echo -e "\033[1;31mFailed to copy Comix Cursors. Exiting.\033[0m"; exit 1; }
-    retry_command chown -R $SUDO_USER:$SUDO_USER "$HOME_DIR/.local/share/icons/ComixCursors-White"
+    retry_command chown -R "$SUDO_USER:$SUDO_USER" "$HOME_DIR/.local/share/icons/ComixCursors-White"
 else
     echo -e "\033[1;32mComix Cursors already exists in ~/.local/share/icons.\033[0m"
 fi
@@ -207,15 +208,19 @@ retry_command sudo bash -c 'cat > /usr/share/icons/default/index.theme <<EOF
 [Icon Theme]
 Inherits=ComixCursors-White
 EOF'
-if [ $? -ne 0 ]; then
+
+# Check the exit code directly
+if ! retry_command sudo bash -c 'cat > /usr/share/icons/default/index.theme <<EOF
+[Icon Theme]
+Inherits=ComixCursors-White
+EOF'; then
     echo -e "\033[1;31mFailed to set cursor theme. Exiting.\033[0m"
     exit 1
 fi
 
 # Apply cursor theme to Flatpak applications
 echo -e "\033[1;34mApplying cursor theme to Flatpak applications...\033[0m"
-retry_command flatpak override --user --env=GTK_CURSOR_THEME=ComixCursors-White
-if [ $? -eq 0 ]; then
+if retry_command flatpak override --user --env=GTK_CURSOR_THEME=ComixCursors-White; then
     echo -e "\033[1;32mCursor theme applied to Flatpak applications successfully.\033[0m"
 else
     echo -e "\033[1;31mFailed to apply cursor theme to Flatpak applications.\033[0m"
@@ -232,13 +237,13 @@ config_dirs=("hypr" "waybar" "alacritty" "wlogout" "mako" "rofi" "SpeedCrunch" "
 for config in "${config_dirs[@]}"; do
     echo -e "\033[1;32mCopying $config config...\033[0m"
     retry_command cp -r "$HOME_DIR/arch-hypr-dots/config/$config" "$HOME_DIR/.config" || { echo -e "\033[1;31mFailed to copy $config config. Exiting.\033[0m"; exit 1; }
-    retry_command chown -R $SUDO_USER:$SUDO_USER "$HOME_DIR/.config/$config"
+    retry_command chown -R "$SUDO_USER:$SUDO_USER" "$HOME_DIR/.config/$config"
 done
 
 # Copy mimeapps.list to ~/.config
 echo -e "\033[1;34mCopying mimeapps.list to $HOME_DIR/.config...\033[0m"
 retry_command cp "$HOME_DIR/arch-hypr-dots/config/mimeapps.list" "$HOME_DIR/.config/" || { echo -e "\033[1;31mFailed to copy mimeapps.list. Exiting.\033[0m"; exit 1; }
-retry_command chown $SUDO_USER:$SUDO_USER "$HOME_DIR/.config/mimeapps.list"
+retry_command chown "$SUDO_USER:$SUDO_USER" "$HOME_DIR/.config/mimeapps.list"
 
 # Set permissions for .config
 echo -e "\033[1;34mSetting permissions on configuration files and directories...\033[0m"
@@ -265,7 +270,7 @@ else
     echo -e "\033[1;31minstall_alacritty_themes.sh not found. Exiting.\033[0m"
     exit 1
 fi
-read -p "Press Enter to continue..."
+read -r -p "Press Enter to continue..."
 
 # Install GPU dependencies
 echo -e "\033[1;34mRunning install_GPU_dependencies.sh...\033[0m"
@@ -289,7 +294,7 @@ else
     exit 1
 fi
 
-read -p "Press Enter to continue..."
+read -r -p "Press Enter to continue..."
 
 # Set alternatives for editor
 echo -e "\033[1;94mSetting micro as default editor...\033[0m"
@@ -315,7 +320,7 @@ retry_command xdg-mime default pcmanfm.desktop inode/directory
 
 # Change ownership of all files in .config to the sudo user
 echo -e "\033[1;32mConverting .config file ownership...\033[0m"
-retry_command chown -R $SUDO_USER:$SUDO_USER "$HOME_DIR/.config"
+retry_command chown -R "$SUDO_USER:$SUDO_USER" "$HOME_DIR/.config"
 
 # Ensure ~/Pictures directory exists and correct permissions are set
 create_directory "$HOME_DIR/Pictures/wallpapers"
@@ -363,11 +368,10 @@ create_directory "$HOME_DIR/Pictures/Screenshots"
 
 # Set the cursor theme in /usr/share/icons/default/index.theme
 echo -e "\033[1;34mSetting cursor theme to ComixCursor-White...\033[0m"
-retry_command sudo bash -c 'cat > /usr/share/icons/default/index.theme <<EOF
+if ! retry_command sudo bash -c 'cat > /usr/share/icons/default/index.theme <<EOF
 [Icon Theme]
 Inherits=ComixCursor-White
-EOF'
-if [ $? -ne 0 ]; then
+EOF'; then
     echo -e "\033[1;31mFailed to set cursor theme. Exiting.\033[0m"
     exit 1
 fi
@@ -407,7 +411,7 @@ done
 
 # Fix permissions for Pictures directory
 if [ -d "$HOME_DIR/Pictures" ]; then
-    retry_command chown -R $SUDO_USER:$SUDO_USER $HOME_DIR/Pictures
+    retry_command chown -R "$SUDO_USER:$SUDO_USER" "$HOME_DIR/Pictures"
 fi
 
 # Path to the non-root user's .bash_profile
@@ -417,47 +421,47 @@ BASH_PROFILE="/home/$SUDO_USER/.bash_profile"
 if [ ! -f "$BASH_PROFILE" ]; then
     echo "Creating $BASH_PROFILE..."
     touch "$BASH_PROFILE"
-    chown $SUDO_USER:$SUDO_USER "$BASH_PROFILE"
+    chown "$SUDO_USER:$SUDO_USER" "$BASH_PROFILE"
 fi
 
 # Add fastfetch to bash_profile if it doesn't exist already
 if ! grep -q "fastfetch" "$BASH_PROFILE"; then
     echo "Adding fastfetch to $BASH_PROFILE..."
     echo -e "\nfastfetch --config ~/.config/fastfetch/tty_compatible.jsonc" >> "$BASH_PROFILE"
-    chown $SUDO_USER:$SUDO_USER "$BASH_PROFILE"
+    chown "$SUDO_USER:$SUDO_USER" "$BASH_PROFILE"
 fi
 
 # Add figlet Welcome message using the default font
 if ! grep -q "figlet" "$BASH_PROFILE"; then
     echo "Adding figlet welcome to $BASH_PROFILE..."
     echo -e "\nfiglet \"Welcome \$USER!\"" >> "$BASH_PROFILE"
-    chown $SUDO_USER:$SUDO_USER "$BASH_PROFILE"
+    chown "$SUDO_USER:$SUDO_USER" "$BASH_PROFILE"
 fi
 
 # Add hypr-wm instruction
 if ! grep -q "To start hypr" "$BASH_PROFILE"; then
     echo "Adding hypr instruction to $BASH_PROFILE..."
-    echo 'echo -e "\033[1;34mTo start hypr, type: \033[1;31mhypr\033[0m"' >> "$BASH_PROFILE"
-    chown $SUDO_USER:$SUDO_USER "$BASH_PROFILE"
+    printf 'echo -e "\033[1;34mTo start hypr, type: \033[1;31mhypr\033[0m"\n' >> "$BASH_PROFILE"
+    chown "$SUDO_USER:$SUDO_USER" "$BASH_PROFILE"
 fi
 
 # Add random fun message generator to .bash_profile
 if ! grep -q "add_random_fun_message" "$BASH_PROFILE"; then
     echo "Adding random fun message function to $BASH_PROFILE..."
 
-    # Append the function definition to .bash_profile
-    echo -e "\n# Function to generate a random fun message" >> "$BASH_PROFILE"
-    echo -e "add_random_fun_message() {" >> "$BASH_PROFILE"
-    echo -e "  fun_messages=(\"cacafire\" \"cmatrix\" \"aafire\" \"sl\" \"asciiquarium\" \"figlet TTY is cool\")" >> "$BASH_PROFILE"
-    echo -e "  RANDOM_FUN_MESSAGE=\${fun_messages[\$RANDOM % \${#fun_messages[@]}]}" >> "$BASH_PROFILE"
-    echo -e "  echo -e \"\\033[1;33mFor some fun, try running \\033[1;31m\$RANDOM_FUN_MESSAGE\\033[1;33m !\\033[0m\"" >> "$BASH_PROFILE"
-    echo -e "}" >> "$BASH_PROFILE"
+    # Append the function definition and call to .bash_profile
+    {
+        echo -e "\n# Function to generate a random fun message"
+        echo -e "add_random_fun_message() {"
+        echo -e "  fun_messages=(\"cacafire\" \"cmatrix\" \"aafire\" \"sl\" \"asciiquarium\" \"figlet TTY is cool\")"
+        echo -e "  RANDOM_FUN_MESSAGE=\${fun_messages[\$RANDOM % \${#fun_messages[@]}]}"
+        echo -e "  echo -e \"\\033[1;33mFor some fun, try running \\033[1;31m\$RANDOM_FUN_MESSAGE\\033[1;33m !\\033[0m\""
+        echo -e "}"
+        echo -e "\n# Call the random fun message function on login"
+        echo -e "add_random_fun_message"
+    } >> "$BASH_PROFILE"
 
-    # Append the function call to .bash_profile so it runs on every login
-    echo -e "\n# Call the random fun message function on login" >> "$BASH_PROFILE"
-    echo -e "add_random_fun_message" >> "$BASH_PROFILE"
-
-    chown $SUDO_USER:$SUDO_USER "$BASH_PROFILE"
+    chown "$SUDO_USER:$SUDO_USER" "$BASH_PROFILE"
 fi
 
 echo "Changes have been applied to $BASH_PROFILE."
@@ -475,5 +479,5 @@ if [[ "$reboot_choice" == "y" || "$reboot_choice" == "Y" ]]; then
     retry_command reboot
 else
     echo -e "\033[1;32mReboot skipped. You can reboot manually later.\033[0m"
-    read -p "Press Enter to finish..."
+    read -r -p "Press Enter to finish..."
 fi
