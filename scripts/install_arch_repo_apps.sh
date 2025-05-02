@@ -185,30 +185,29 @@ fi
     if grep -q "QEMU" /sys/class/dmi/id/product_name 2>/dev/null; then
         echo -e "${YELLOW}Running inside QEMU. Skipping libvirt setup...${NC}"
     else
-  reload
-echo -e "${CYAN}Enabling and starting libvirtd...${NC}"
-    systemctl enable --now libvirtd
+        echo -e "${CYAN}Enabling and starting libvirtd...${NC}"
+        systemctl enable --now libvirtd
 
-    echo -e "${CYAN}Waiting for libvirtd to become active...${NC}"
-    until systemctl is-active --quiet libvirtd; do
-        sleep 1
-    done
+        echo -e "${CYAN}Waiting for libvirtd to become active...${NC}"
+        until systemctl is-active --quiet libvirtd; do
+            sleep 1
+        done
 
-    # Proceed with the network setup
-    virsh net-destroy default || true
-    virsh net-start default
-    virsh net-autostart default
+        # Proceed with the network setup
+        virsh net-destroy default || true
+        virsh net-start default
+        virsh net-autostart default
 
-    # Apply UFW rules
-    echo -e "${CYAN}Configuring UFW rules for libvirt networking...${NC}"
-    ufw allow in on virbr0
-    ufw allow out on virbr0
-    ufw allow out to any port 53
-    ufw allow out to any port 80
-    ufw allow out to any port 443
-    ufw default allow routed
-    ufw reload
-fi
+        # Apply UFW rules
+        echo -e "${CYAN}Configuring UFW rules for libvirt networking...${NC}"
+        ufw allow in on virbr0
+        ufw allow out on virbr0
+        ufw allow out to any port 53
+        ufw allow out to any port 80
+        ufw allow out to any port 443
+        ufw default allow routed
+        ufw reload
+    fi
 
     # Enable and start Bluetooth service
     if pacman -Qi bluez &>/dev/null && pacman -Qi bluez-utils &>/dev/null; then
