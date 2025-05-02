@@ -181,22 +181,9 @@ fi
     echo -e "${CYAN}Enabling and starting NetworkManager...${NC}"
     systemctl enable --now NetworkManager
 
-    echo -e "${CYAN}Killing any existing instances of libvirtd and dnsmasq...${NC}"
-    pkill libvirtd || true
-    pkill dnsmasq || true
-    
-    echo -e "${CYAN}Enabling and starting libvirtd...${NC}"
-    systemctl enable --now libvirtd
-
-    # Wait until libvirtd is fully active
-    echo -e "${CYAN}Waiting for libvirtd to become active...${NC}"
-    until systemctl is-active --quiet libvirtd; do
-        sleep 1
-    done
-fi
-
+# Skip libvirt entirely inside QEMU
 if grep -q "QEMU" /sys/class/dmi/id/product_name 2>/dev/null; then
-    echo -e "${YELLOW}Running inside QEMU. Skipping libvirt default network setup...${NC}"
+    echo -e "${YELLOW}Running inside QEMU. Skipping libvirt setup...${NC}"
 else
     echo -e "${CYAN}Enabling and starting libvirtd...${NC}"
     systemctl enable --now libvirtd
