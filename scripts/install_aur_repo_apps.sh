@@ -40,7 +40,7 @@ fi
 
 # Prompt for package installation
 echo -e "\n${CYAN}Do you want to install Dillacorn's chosen Arch AUR Linux applications? [y/n]${NC}"
-read -n1 -s choice
+read -r -n1 -s choice
 echo
 
 if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
@@ -91,7 +91,7 @@ fi
 
 # Prompt user to specify if the system is a laptop or a desktop
 echo -e "\n${CYAN}Is this system a laptop or a desktop? [l/d]${NC}"
-read -n1 -s system_type
+read -r -n1 -s system_type
 echo
 
 if [[ "$system_type" == "l" || "$system_type" == "L" ]]; then
