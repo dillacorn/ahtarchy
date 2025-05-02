@@ -53,7 +53,7 @@ install_package "pipewire-jack"
 
 # Prompt for package installation
 echo -e "\n${CYAN}Do you want to install Dillacorn's chosen Arch Repo Linux applications? [y/n]${NC}"
-read -n1 -s choice
+read -r -n1 -s choice
 echo
 
 if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
@@ -113,7 +113,7 @@ if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
 if [ "$IS_VM" = false ]; then
     # Prompt user to specify if this is a laptop or desktop
     echo -e "${CYAN}Is this system a laptop or desktop? [l/d]${NC}"
-    read -n1 -s user_choice
+    read -r -n1 -s user_choice
     echo
 
     if [[ "$user_choice" == "l" || "$user_choice" == "L" ]]; then
