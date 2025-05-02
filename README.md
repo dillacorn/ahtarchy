@@ -32,13 +32,13 @@ Here are some of my custom keybinds from the hyprland configuration:
 - `mod+shift+g` = **Capture a GIF**  
   - Starts a GIF recording with the `Kooha`
   
-- `mod+shift+s` = **grim+slurp screenshot**  
-  - Takes a screenshot using grim+slurp and copies to clipboard.
-  - `date_time.png` saved in `~/Pictures` directory.
+- `mod+shift+s` = **grim+slurp+satty cropped screenshot**  
+  - Takes a cropped screenshot using grim+slurp+satty.
+  - `date_time.png` saved in `~/Pictures/Screenshots` directory.
 
-- `mod+ctrl+shift+s` = **Flameshot screenshot**  
-  - Takes a screenshot using Flameshot with more customization options.
-  - `date_time.png` normally saved in `~/Pictures` directory.
+- `mod+ctrl+shift+s` = **grim+slurp+satty fullscreen screenshot**  
+  - Takes a fullscreen screenshot using grim+slurp+satty.
+  - `date_time.png` normally saved in `~/Pictures/Screenshots` directory.
 
 ---
 
