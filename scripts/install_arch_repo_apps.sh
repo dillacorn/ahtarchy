@@ -193,6 +193,7 @@ fi
     until systemctl is-active --quiet libvirtd; do
         sleep 1
     done
+fi
 
 if grep -q "QEMU" /sys/class/dmi/id/product_name 2>/dev/null; then
     echo -e "${YELLOW}Running inside QEMU. Skipping libvirt default network setup...${NC}"
