@@ -70,6 +70,7 @@ echo -e "\033[1;33m
 - ~/.config/alacritty
 - ~/.config/rofi
 - ~/.config/mako
+- ~/.config/gtk-3.0
 - ~/.config/SpeedCrunch
 - ~/.config/fastfetch
 - ~/.config/wlogout
@@ -232,7 +233,7 @@ echo -e "\033[1;34mRunning install_micro_themes.sh...\033[0m"
 retry_command ./install_micro_themes.sh || { echo -e "\033[1;31minstall_micro_themes.sh failed. Exiting.\033[0m"; exit 1; }
 
 # Copy configuration files
-config_dirs=("hypr" "waybar" "alacritty" "wlogout" "mako" "rofi" "SpeedCrunch" "fastfetch" "xdg-desktop-portal")
+config_dirs=("gtk-3.0" "hypr" "waybar" "alacritty" "wlogout" "mako" "rofi" "SpeedCrunch" "fastfetch" "xdg-desktop-portal")
 
 for config in "${config_dirs[@]}"; do
     echo -e "\033[1;32mCopying $config config...\033[0m"
@@ -299,10 +300,6 @@ read -r -p "Press Enter to continue..."
 # Set alternatives for editor
 echo -e "\033[1;94mSetting micro as default editor...\033[0m"
 retry_command echo 'export EDITOR=/usr/bin/micro' >> "$HOME_DIR/.bashrc" || { echo -e "\033[1;31mFailed to set micro as default editor. Exiting.\033[0m"; exit 1; }
-
-# Set GTK_THEME for applications
-echo -e "\033[1;94mSetting GTK_THEME to Materia-dark in .bashrc...\033[0m"
-retry_command echo 'export GTK_THEME=Materia-dark' >> "$HOME_DIR/.bashrc" || { echo -e "\033[1;31mFailed to set GTK_THEME in .bashrc. Exiting.\033[0m"; exit 1; }
 
 # Set hypr launch command
 echo -e "\033[1;94mSetting \"hypr\" command in .bashrc...\033[0m"
