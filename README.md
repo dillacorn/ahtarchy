@@ -29,16 +29,22 @@ My keybinds (see [hypr config](https://github.com/dillacorn/arch-hypr-dots/blob/
 
 Here are some of my custom keybinds from the hyprland configuration:
   
-- `mod+shift+g` = **Capture a GIF**  
+- `super+r` = **Rotates navigation keys (see [$rotate](https://github.com/dillacorn/arch-hypr-dots/tree/main/config/hypr/hyprland.conf))
+  - Rotate Mod (SUPER -> ALT -> SUPER -> ALT)
+
+- `super+shift+g` = **Capture a GIF**  
   - Starts a GIF recording with the `Kooha`
   
-- `mod+shift+s` = **grim+slurp+satty cropped screenshot**  
+- `super+shift+s` = **grim+slurp+satty cropped screenshot**  
   - Takes a cropped screenshot using grim+slurp+satty.
   - `date_time.png` saved in `~/Pictures/Screenshots` directory.
 
-- `mod+ctrl+shift+s` = **grim+slurp+satty fullscreen screenshot**  
+- `super+shift+f` = **grim+slurp+satty fullscreen screenshot**  
   - Takes a fullscreen screenshot using grim+slurp+satty.
   - `date_time.png` normally saved in `~/Pictures/Screenshots` directory.
+
+- `super+q` = **scan QR code**  
+  - Scans QR code and copies output
 
 ---
 
