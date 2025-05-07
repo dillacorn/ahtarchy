@@ -29,7 +29,7 @@ My keybinds (see [hypr config](https://github.com/dillacorn/arch-hypr-dots/blob/
 
 Here are some of my custom keybinds from the hyprland configuration:
   
-- `super+r` = **Rotates navigation keys (see [$rotate](https://github.com/dillacorn/arch-hypr-dots/tree/main/config/hypr/hyprland.conf))
+- `super+r` = **Rotates navigation keys (see [$rotate](https://github.com/dillacorn/arch-hypr-dots/tree/main/config/hypr/hyprland.conf))**
   - Rotate Mod (SUPER -> ALT -> SUPER -> ALT)
 
 - `super+shift+g` = **Capture a GIF**  
