@@ -393,7 +393,7 @@ if [ -d "$HOME_DIR/Pictures" ]; then
     retry_command chown -R "$SUDO_USER:$SUDO_USER" "$HOME_DIR/Pictures"
 fi
 
-echo -e "${GREEN}Setting up .bashrc and .bash_profile for $SUDO_USER...${NC}"
+echo -e "\033[1;34mSetting up .bashrc and .bash_profile for $SUDO_USER...\033[0m"
 
 # .bashrc
 if [[ -f "/home/$SUDO_USER/.bashrc" ]]; then
