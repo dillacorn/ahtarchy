@@ -226,8 +226,7 @@ retry_command ./install_micro_themes.sh || { echo -e "\033[1;31minstall_micro_th
 
 # Copy .Xresources file
 echo -e "\033[1;34mCopying .Xresources to $HOME_DIR...\033[0m"
-retry_command cp "$HOME_DIR/arc
-h-hypr-dots/Xresources" "$HOME_DIR/.Xresources" || { echo -e "\033[1;31mFailed to copy .Xresources. Exiting.\033[0m"; exit 1; }
+retry_command cp "$HOME_DIR/arch-hypr-dots/Xresources" "$HOME_DIR/.Xresources" || { echo -e "\033[1;31mFailed to copy .Xresources. Exiting.\033[0m"; exit 1; }
 
 # Copy configuration files
 config_dirs=("gtk-3.0" "hypr" "waybar" "alacritty" "wlogout" "mako" "rofi" "SpeedCrunch" "fastfetch" "xdg-desktop-portal")
