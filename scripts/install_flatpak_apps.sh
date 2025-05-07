@@ -30,7 +30,6 @@ flatpak_apps=(
   'dev.vencord.Vesktop'
   'org.telegram.desktop'
   'com.spotify.Client'
-  'chat.simplex.simplex'
   'io.itch.itch'
   'com.heroicgameslauncher.hgl'
   'com.ultimaker.cura'
