@@ -74,7 +74,8 @@ echo -e "\033[1;33m
 - ~/.config/SpeedCrunch
 - ~/.config/fastfetch
 - ~/.config/wlogout
-- ~/.config/xdg-desktop-portal\033[0m"
+- ~/.config/xdg-desktop-portal
+- ~/.Xresources\033[0m"
 echo -e "\033[1;31mAre you sure you want to continue? This action CANNOT be undone.\033[0m"
 echo -e "\033[1;32mPress 'y' to continue or 'n' to cancel. Default is 'yes' if Enter is pressed:\033[0m"
 
@@ -209,6 +210,12 @@ retry_command sudo bash -c 'cat > /usr/share/icons/default/index.theme <<EOF
 [Icon Theme]
 Inherits=ComixCursors-White
 EOF'
+
+# Apply cursor theme for xwayland applications
+XRFILE="$HOME/.Xresources"
+grep -qxF "Xcursor.theme: ComixCursors-White" "$XRFILE" || echo "Xcursor.theme: ComixCursors-White" >> "$XRFILE"
+grep -qxF "Xcursor.size: 24" "$XRFILE" || echo "Xcursor.size: 24" >> "$XRFILE"
+xrdb -merge "$XRFILE"
 
 # Check the exit code directly
 if ! retry_command sudo bash -c 'cat > /usr/share/icons/default/index.theme <<EOF
