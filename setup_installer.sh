@@ -226,7 +226,8 @@ retry_command ./install_micro_themes.sh || { echo -e "\033[1;31minstall_micro_th
 
 # Copy .Xresources file
 echo -e "\033[1;34mCopying .Xresources to $HOME_DIR...\033[0m"
-retry_command cp "$HOME_DIR/arch-hypr-dots/Xresources" "$HOME_DIR/.Xresources" || { echo -e "\033[1;31mFailed to copy .Xresources. Exiting.\033[0m"; exit 1; }
+retry_command cp "$HOME_DIR/arc
+h-hypr-dots/Xresources" "$HOME_DIR/.Xresources" || { echo -e "\033[1;31mFailed to copy .Xresources. Exiting.\033[0m"; exit 1; }
 
 # Copy configuration files
 config_dirs=("gtk-3.0" "hypr" "waybar" "alacritty" "wlogout" "mako" "rofi" "SpeedCrunch" "fastfetch" "xdg-desktop-portal")
@@ -287,20 +288,6 @@ else
 fi
 
 read -r -p "Press Enter to continue..."
-
-# Set alternatives for editor
-echo -e "\033[1;94mSetting micro as default editor...\033[0m"
-retry_command echo 'export EDITOR=/usr/bin/micro' >> "$HOME_DIR/.bashrc" || { echo -e "\033[1;31mFailed to set micro as default editor. Exiting.\033[0m"; exit 1; }
-
-# Set hypr launch command
-echo -e "\033[1;94mSetting \"hypr\" command in .bashrc...\033[0m"
-echo "alias hypr='XDG_SESSION_TYPE=wayland exec Hyprland'" >> "$HOME_DIR/.bashrc" || {
-    echo -e "\033[1;31mFailed to add alias to .bashrc. Exiting.\033[0m"
-    exit 1
-}
-
-# Reload .bashrc after setting variables
-retry_command source "$HOME_DIR/.bashrc" || { echo -e "\033[1;31mFailed to reload .bashrc. Exiting.\033[0m"; exit 1; }
 
 # Set default file manager for directories
 echo -e "\033[1;94mSetting pcmanfm as default GUI file manager...\033[0m"
@@ -402,57 +389,47 @@ if [ -d "$HOME_DIR/Pictures" ]; then
     retry_command chown -R "$SUDO_USER:$SUDO_USER" "$HOME_DIR/Pictures"
 fi
 
-# Path to the non-root user's .bash_profile
-BASH_PROFILE="/home/$SUDO_USER/.bash_profile"
+echo -e "${GREEN}Setting up .bashrc and .bash_profile for $SUDO_USER...${NC}"
 
-# Check if .bash_profile exists, create if it doesn't
-if [ ! -f "$BASH_PROFILE" ]; then
-    echo "Creating $BASH_PROFILE..."
-    touch "$BASH_PROFILE"
-    chown "$SUDO_USER:$SUDO_USER" "$BASH_PROFILE"
+# .bashrc
+if [[ -f "/home/$SUDO_USER/.bashrc" ]]; then
+    echo -n "/home/$SUDO_USER/.bashrc exists. Overwrite? (y/N): "
+    read -n 1 -r
+    echo
+    if [[ "$REPLY" =~ ^[Yy]$ ]]; then
+        cp "/home/$SUDO_USER/arch-hypr-dots/bashrc" "/home/$SUDO_USER/.bashrc"
+        chown "$SUDO_USER:$SUDO_USER" "/home/$SUDO_USER/.bashrc"
+        chmod 644 "/home/$SUDO_USER/.bashrc"
+        echo "Overwritten /home/$SUDO_USER/.bashrc"
+    else
+        echo "Skipped /home/$SUDO_USER/.bashrc"
+    fi
+else
+    cp "/home/$SUDO_USER/arch-hypr-dots/bashrc" "/home/$SUDO_USER/.bashrc"
+    chown "$SUDO_USER:$SUDO_USER" "/home/$SUDO_USER/.bashrc"
+    chmod 644 "/home/$SUDO_USER/.bashrc"
+    echo "Created /home/$SUDO_USER/.bashrc"
 fi
 
-# Add fastfetch to bash_profile if it doesn't exist already
-if ! grep -q "fastfetch" "$BASH_PROFILE"; then
-    echo "Adding fastfetch to $BASH_PROFILE..."
-    echo -e "\nfastfetch --config ~/.config/fastfetch/tty_compatible.jsonc" >> "$BASH_PROFILE"
-    chown "$SUDO_USER:$SUDO_USER" "$BASH_PROFILE"
+# .bash_profile
+if [[ -f "/home/$SUDO_USER/.bash_profile" ]]; then
+    echo -n "/home/$SUDO_USER/.bash_profile exists. Overwrite? (y/N): "
+    read -n 1 -r
+    echo
+    if [[ "$REPLY" =~ ^[Yy]$ ]]; then
+        cp "/home/$SUDO_USER/arch-hypr-dots/bash_profile" "/home/$SUDO_USER/.bash_profile"
+        chown "$SUDO_USER:$SUDO_USER" "/home/$SUDO_USER/.bash_profile"
+        chmod 644 "/home/$SUDO_USER/.bash_profile"
+        echo "Overwritten /home/$SUDO_USER/.bash_profile"
+    else
+        echo "Skipped /home/$SUDO_USER/.bash_profile"
+    fi
+else
+    cp "/home/$SUDO_USER/arch-hypr-dots/bash_profile" "/home/$SUDO_USER/.bash_profile"
+    chown "$SUDO_USER:$SUDO_USER" "/home/$SUDO_USER/.bash_profile"
+    chmod 644 "/home/$SUDO_USER/.bash_profile"
+    echo "Created /home/$SUDO_USER/.bash_profile"
 fi
-
-# Add figlet Welcome message using the default font
-if ! grep -q "figlet" "$BASH_PROFILE"; then
-    echo "Adding figlet welcome to $BASH_PROFILE..."
-    echo -e "\nfiglet \"Welcome \$USER!\"" >> "$BASH_PROFILE"
-    chown "$SUDO_USER:$SUDO_USER" "$BASH_PROFILE"
-fi
-
-# Add hypr-wm instruction
-if ! grep -q "To start hypr" "$BASH_PROFILE"; then
-    echo "Adding hypr instruction to $BASH_PROFILE..."
-    printf 'echo -e "\033[1;34mTo start hypr, type: \033[1;31mhypr\033[0m"\n' >> "$BASH_PROFILE"
-    chown "$SUDO_USER:$SUDO_USER" "$BASH_PROFILE"
-fi
-
-# Add random fun message generator to .bash_profile
-if ! grep -q "add_random_fun_message" "$BASH_PROFILE"; then
-    echo "Adding random fun message function to $BASH_PROFILE..."
-
-    # Append the function definition and call to .bash_profile
-    {
-        echo -e "\n# Function to generate a random fun message"
-        echo -e "add_random_fun_message() {"
-        echo -e "  fun_messages=(\"cacafire\" \"cmatrix\" \"aafire\" \"sl\" \"asciiquarium\" \"figlet TTY is cool\")"
-        echo -e "  RANDOM_FUN_MESSAGE=\${fun_messages[\$RANDOM % \${#fun_messages[@]}]}"
-        echo -e "  echo -e \"\\033[1;33mFor some fun, try running \\033[1;31m\$RANDOM_FUN_MESSAGE\\033[1;33m !\\033[0m\""
-        echo -e "}"
-        echo -e "\n# Call the random fun message function on login"
-        echo -e "add_random_fun_message"
-    } >> "$BASH_PROFILE"
-
-    chown "$SUDO_USER:$SUDO_USER" "$BASH_PROFILE"
-fi
-
-echo "Changes have been applied to $BASH_PROFILE."
 
 # add grub directory for editing and updating with command:
 # sudo grub-mkconfig -o /boot/grub/grub.cfg
