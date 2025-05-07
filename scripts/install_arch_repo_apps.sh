@@ -65,7 +65,7 @@ if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
 
     # Install Window Management Tools
     echo -e "${CYAN}Installing window management tools...${NC}"
-    for pkg in hyprland hyprpaper hyprlock hypridle waybar rofi-wayland swww grim satty slurp wl-clipboard zbar qt5-wayland qt6-wayland xdg-desktop-portal-hyprland xdg-desktop-portal-gtk mako nwg-look; do
+    for pkg in hyprland hyprpaper hyprlock hypridle waybar rofi-wayland swww grim satty slurp wl-clipboard zbar wf-recorder zenity qt5-wayland qt6-wayland xdg-desktop-portal-hyprland xdg-desktop-portal-gtk mako nwg-look; do
         install_package "$pkg"
     done
 
