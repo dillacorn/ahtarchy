@@ -395,13 +395,18 @@ fi
 
 echo -e "\033[1;34mSetting up .bashrc and .bash_profile for $SUDO_USER...\033[0m"
 
-# .bashrc
+# .bashrc setup
 if [[ -f "/home/$SUDO_USER/.bashrc" ]]; then
     echo -n "/home/$SUDO_USER/.bashrc exists. Overwrite? (y/N): "
     read -n 1 -r
     echo
     if [[ "$REPLY" =~ ^[Yy]$ ]]; then
         cp "/home/$SUDO_USER/arch-hypr-dots/bashrc" "/home/$SUDO_USER/.bashrc"
+        # Comment out alias if on Btrfs
+        if findmnt -n -o FSTYPE / | grep -qi btrfs; then
+            sed -i '/alias flatpak=.flatpak --user./ s/^/#/' "/home/$SUDO_USER/.bashrc"
+            echo "Btrfs detected on root. Commented out flatpak --user alias in .bashrc"
+        fi
         chown "$SUDO_USER:$SUDO_USER" "/home/$SUDO_USER/.bashrc"
         chmod 644 "/home/$SUDO_USER/.bashrc"
         echo "Overwritten /home/$SUDO_USER/.bashrc"
@@ -410,6 +415,11 @@ if [[ -f "/home/$SUDO_USER/.bashrc" ]]; then
     fi
 else
     cp "/home/$SUDO_USER/arch-hypr-dots/bashrc" "/home/$SUDO_USER/.bashrc"
+    # Comment out alias if on Btrfs
+    if findmnt -n -o FSTYPE / | grep -qi btrfs; then
+        sed -i '/alias flatpak=.flatpak --user./ s/^/#/' "/home/$SUDO_USER/.bashrc"
+        echo "Btrfs detected on root. Commented out flatpak --user alias in .bashrc"
+    fi
     chown "$SUDO_USER:$SUDO_USER" "/home/$SUDO_USER/.bashrc"
     chmod 644 "/home/$SUDO_USER/.bashrc"
     echo "Created /home/$SUDO_USER/.bashrc"
