@@ -433,6 +433,15 @@ if ! grep -q "To start hypr" "$BASH_PROFILE"; then
     chown "$SUDO_USER:$SUDO_USER" "$BASH_PROFILE"
 fi
 
+# Ensure desired PS1 prompt is set
+if grep -q "^PS1=" "$BASHRC"; then
+    echo "Updating existing PS1 in $BASHRC..."
+    sed -i 's/^PS1=.*/PS1='\''\\w\\ '\''/' "$BASHRC"
+else
+    echo "Adding PS1 to $BASHRC..."
+    echo -e "\nPS1='\\w\\ '" >> "$BASHRC"
+fi
+
 # Add random fun message generator to .bash_profile
 if ! grep -q "add_random_fun_message" "$BASH_PROFILE"; then
     echo "Adding random fun message function to $BASH_PROFILE..."
