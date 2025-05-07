@@ -358,13 +358,18 @@ mkdir -p "$WLOGOUT_DIR"
 echo -e "\033[1;34mDownloading wlogout icons...\033[0m"
 base_url="https://raw.githubusercontent.com/warpje5/hyprland-dotfiles-gruvbox/main/wlogout"
 
+# Loop through the icons
 for icon in lock.png lock-hover.png logout.png logout-hover.png \
             power.png power-hover.png restart.png restart-hover.png \
             sleep.png sleep-hover.png windows.png windows-hover.png; do
-    if curl -fsSL "$base_url/$icon" -o "$WLOGOUT_DIR/$icon"; then
-        echo -e "\033[1;32mDownloaded $icon\033[0m"
-    else
-        echo -e "\033[1;31mFailed to download $icon\033[0m"
+    # Check if the file already exists
+    if [[ ! -f "$WLOGOUT_DIR/$icon" ]]; then
+        # Attempt to download the icon if not present
+        if curl -fsSL "$base_url/$icon" -o "$WLOGOUT_DIR/$icon"; then
+            echo -e "\033[1;32mDownloaded $icon\033[0m"
+        else
+            echo -e "\033[1;31mFailed to download $icon\033[0m"
+        fi
     fi
 done
 
