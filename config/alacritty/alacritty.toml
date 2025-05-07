@@ -29,7 +29,7 @@ dynamic_padding = false  # Default: false
 decorations = "Buttonless"  # Default: "Full"
 
 # Opacity
-opacity = 1.0  # Default: 1.0
+opacity = 0.85  # Default: 1.0
 
 # Blur (macOS/KDE Wayland only)
 blur = false  # Default: false
