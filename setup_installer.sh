@@ -213,9 +213,13 @@ EOF'
 
 # Apply cursor theme for xwayland applications
 XRFILE="$HOME/.Xresources"
+
+# Ensure .Xresources exists
+touch "$XRFILE"
+
+# Add cursor settings if not present
 grep -qxF "Xcursor.theme: ComixCursors-White" "$XRFILE" || echo "Xcursor.theme: ComixCursors-White" >> "$XRFILE"
 grep -qxF "Xcursor.size: 24" "$XRFILE" || echo "Xcursor.size: 24" >> "$XRFILE"
-xrdb -merge "$XRFILE"
 
 # Check the exit code directly
 if ! retry_command sudo bash -c 'cat > /usr/share/icons/default/index.theme <<EOF
