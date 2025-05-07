@@ -211,25 +211,6 @@ retry_command sudo bash -c 'cat > /usr/share/icons/default/index.theme <<EOF
 Inherits=ComixCursors-White
 EOF'
 
-# Apply cursor theme for xwayland applications
-XRFILE="$HOME/.Xresources"
-
-# Ensure .Xresources exists
-touch "$XRFILE"
-
-# Add cursor settings if not present
-grep -qxF "Xcursor.theme: ComixCursors-White" "$XRFILE" || echo "Xcursor.theme: ComixCursors-White" >> "$XRFILE"
-grep -qxF "Xcursor.size: 24" "$XRFILE" || echo "Xcursor.size: 24" >> "$XRFILE"
-
-# Check the exit code directly
-if ! retry_command sudo bash -c 'cat > /usr/share/icons/default/index.theme <<EOF
-[Icon Theme]
-Inherits=ComixCursors-White
-EOF'; then
-    echo -e "\033[1;31mFailed to set cursor theme. Exiting.\033[0m"
-    exit 1
-fi
-
 # Apply cursor theme to Flatpak applications
 echo -e "\033[1;34mApplying cursor theme to Flatpak applications...\033[0m"
 if retry_command flatpak override --user --env=GTK_CURSOR_THEME=ComixCursors-White; then
