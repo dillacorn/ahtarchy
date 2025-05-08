@@ -24,7 +24,7 @@
         "custom/power"
       ],
       "hyprland/workspaces": {
-        "all-outputs": true,
+        "all-outputs": false,
         "warp-on-scroll": false,
         "enable-bar-scroll": true,
         "disable-scroll-wraparound": true,
@@ -41,12 +41,6 @@
           "9": "9 ",
           "10": "10 "
         },
-        "persistent-workspaces": {
-          "1": "1 ",
-          "2": "2 ",
-          "3": "3 ",
-          "4": "4 "
-        }
       },
       "hyprland/window": {
         "format": "{title}",
