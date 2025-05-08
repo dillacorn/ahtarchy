@@ -39,13 +39,13 @@ Timestamp=$(date "+%m%d%Y-%I%M%p-%S")
 SavePath="${DefaultSaveDir}/${Timestamp}.gif"
 
 # Generate color palette
-ffmpeg -i "$TmpRecordPath" -filter_complex "palettegen=stats_mode=full" "$TmpPalettePath" -y || exit
+ffmpeg -i "$TmpRecordPath" -filter_complex "fps=10,scale=640:-1:flags=lanczos,palettegen=stats_mode=full" "$TmpPalettePath" -y || exit
 
 # Reset umask to default
 umask 022
 
 # Generate final GIF using the palette
-ffmpeg -i "$TmpRecordPath" -i "$TmpPalettePath" -filter_complex "paletteuse=dither=sierra2_4a" "$SavePath" -y || exit
+ffmpeg -i "$TmpRecordPath" -i "$TmpPalettePath" -filter_complex "fps=10,scale=640:-1:flags=lanczos,paletteuse=dither=bayer" "$SavePath" -y || exit
 
 # Notify user that the GIF has been saved and where
 notify-send "GIF Saved" "Your GIF has been saved to $SavePath"
