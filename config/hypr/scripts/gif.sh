@@ -25,19 +25,15 @@ umask 177
 # Get selection and honor escape key
 Coords=$(slurp) || exit
 
+# Notify user that recording is starting
+notify-send "GIF Recording" "Recording started."
+
 # Capture video with 10-minute timeout
 timeout 600 wf-recorder -g "$Coords" -f "$TmpRecordPath" || exit
 
-# Prompt user for save location
-SavePath=$(zenity \
-	--file-selection \
-	--save \
-	--confirm-overwrite \
-	--file-filter=*.gif \
-	--filename="${DefaultSaveDir}/.gif") || exit
-
-# Append .gif if missing
-[[ $SavePath =~ \.gif$ ]] || SavePath="${SavePath}.gif"
+# Create a timestamp-based filename like 05072025-033245PM.gif
+Timestamp=$(date "+%m%d%Y-%I%M%p-%S")
+SavePath="${DefaultSaveDir}/${Timestamp}.gif"
 
 # Generate color palette
 ffmpeg -i "$TmpRecordPath" -filter_complex "palettegen=stats_mode=full" "$TmpPalettePath" -y || exit
@@ -47,3 +43,6 @@ umask 022
 
 # Generate final GIF using the palette
 ffmpeg -i "$TmpRecordPath" -i "$TmpPalettePath" -filter_complex "paletteuse=dither=sierra2_4a" "$SavePath" -y || exit
+
+# Notify user that the GIF has been saved and where
+notify-send "GIF Saved" "Your GIF has been saved to $SavePath"
