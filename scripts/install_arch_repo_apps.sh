@@ -109,26 +109,33 @@ if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
         install_package "$pkg"
     done
 
-# Only proceed with hardware checks if not in a virtual machine
-if [ "$IS_VM" = false ]; then
-    # Prompt user to specify if this is a laptop or desktop
-    echo -e "${CYAN}Is this system a laptop or desktop? [l/d]${NC}"
-    read -r -n1 -s user_choice
-    echo
+    # Ensure IS_VM is set (default to false if undefined)
+    : "${IS_VM:=false}"
 
-    if [[ "$user_choice" == "l" || "$user_choice" == "L" ]]; then
-        IS_LAPTOP=true
-        echo -e "${CYAN}User specified: Laptop.${NC}"
-    elif [[ "$user_choice" == "d" || "$user_choice" == "D" ]]; then
-        IS_LAPTOP=false
-        echo -e "${CYAN}User specified: Desktop.${NC}"
-    else
-        echo -e "${RED}Invalid input. Please enter 'l' for laptop or 'd' for desktop.${NC}"
-        exit 1
-    fi
+    # Only proceed with hardware checks if not in a virtual machine
+    if [ "$IS_VM" = false ]; then
+       # Prompt user to specify if this is a laptop or desktop
+       echo -e "${CYAN}Is this system a laptop or desktop? [l/d]${NC}"
+       read -r -n1 -s user_choice
+       echo
 
-    # Check if CPU is Intel to decide whether to install thermald
-    if grep -q "Intel" /proc/cpuinfo; then
+       case "$user_choice" in
+           [lL])
+               IS_LAPTOP=true
+               echo -e "${CYAN}User specified: Laptop.${NC}"
+               ;;
+           [dD])
+               IS_LAPTOP=false
+               echo -e "${CYAN}User specified: Desktop.${NC}"
+               ;;
+           *)
+               echo -e "${RED}Invalid input. Please enter 'l' for laptop or 'd' for desktop.${NC}"
+               exit 1
+               ;;
+       esac
+
+    # Check if CPU is Intel
+    if grep -qi "Intel" /proc/cpuinfo; then
         IS_INTEL=true
         echo -e "${CYAN}Intel processor detected.${NC}"
     else
@@ -136,19 +143,19 @@ if [ "$IS_VM" = false ]; then
         echo -e "${CYAN}Non-Intel processor detected. Skipping thermald installation.${NC}"
     fi
 
-    # Install thermald only if the processor is Intel and the system is a laptop
+    # Install thermald if needed
     if [[ "$IS_INTEL" == true && "$IS_LAPTOP" == true ]]; then
         echo -e "${CYAN}Installing and enabling thermald for Intel laptop...${NC}"
-        install_package "thermald"
+        install_package "thermald" || { echo -e "${RED}Failed to install thermald.${NC}"; exit 1; }
         systemctl enable --now thermald
     else
         echo -e "${YELLOW}Skipping thermald installation.${NC}"
     fi
-        
-    # Install TLP for laptops only (both Intel and AMD)
+
+    # Install TLP for laptops
     if [ "$IS_LAPTOP" = true ]; then
         echo -e "${CYAN}Installing and enabling TLP for power management on laptop...${NC}"
-        install_package "tlp"
+        install_package "tlp" || { echo -e "${RED}Failed to install TLP.${NC}"; exit 1; }
         systemctl enable --now tlp
         echo -e "${GREEN}TLP installed and enabled successfully.${NC}"
     else
