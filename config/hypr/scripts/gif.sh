@@ -31,6 +31,9 @@ notify-send "GIF Recording" "Recording started."
 # Capture video with 10-minute timeout
 timeout 600 wf-recorder -g "$Coords" -f "$TmpRecordPath" || exit
 
+# Notify user that recording has finished and GIF is being generated
+notify-send "GIF Recording" "Recording stopped. Compiling GIF..."
+
 # Create a timestamp-based filename like 05072025-033245PM.gif
 Timestamp=$(date "+%m%d%Y-%I%M%p-%S")
 SavePath="${DefaultSaveDir}/${Timestamp}.gif"
