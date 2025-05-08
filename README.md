@@ -32,8 +32,8 @@ Here are some of my custom keybinds from the hyprland configuration:
 - `super+r` = **Rotates navigation keys (see [$rotate](https://github.com/dillacorn/arch-hypr-dots/tree/main/config/hypr/hyprland.conf))**
   - Rotate Mod (SUPER -> ALT -> SUPER -> ALT)
 
-- `super+shift+g` = **Capture a GIF**  
-  - Starts a GIF recording with the `Kooha`
+- `super+shift+g` = **wf-recorder + slurp + zenity cropped GIF**  
+  - `date_time.png` saved in `~/Videos/Gifs` directory.
   
 - `super+shift+s` = **grim+slurp+satty cropped screenshot**  
   - Takes a cropped screenshot using grim+slurp+satty.
