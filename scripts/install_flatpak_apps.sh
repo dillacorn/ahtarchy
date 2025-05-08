@@ -47,7 +47,6 @@ flatpak_apps=(
   'com.github.tchx84.Flatseal'
   'dev.deedles.Trayscale'
   'com.github.wwmm.easyeffects'
-  'io.github.seadve.Kooha'
 )
 
 # Detect file system type of the root partition
