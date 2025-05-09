@@ -25,7 +25,7 @@
 }
 {
     "label" : "suspend",
-    "action" : "hyprlock && systemctl suspend -i",
+    "action" : "hyprlock & sleep 1; systemctl suspend -i",
     "text" : " Suspend (Z)",
     "keybind" : "z"
 }
