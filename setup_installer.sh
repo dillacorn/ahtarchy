@@ -68,7 +68,7 @@ echo -e "\033[1;33m
 - ~/.config/hypr
 - ~/.config/waybar
 - ~/.config/alacritty
-- ~/.config/rofi
+- ~/.config/wofi
 - ~/.config/mako
 - ~/.config/gtk-3.0
 - ~/.config/SpeedCrunch
@@ -229,7 +229,7 @@ echo -e "\033[1;34mCopying .Xresources to $HOME_DIR...\033[0m"
 retry_command cp "$HOME_DIR/arch-hypr-dots/Xresources" "$HOME_DIR/.Xresources" || { echo -e "\033[1;31mFailed to copy .Xresources. Exiting.\033[0m"; exit 1; }
 
 # Copy configuration files
-config_dirs=("gtk-3.0" "hypr" "waybar" "alacritty" "wlogout" "mako" "rofi" "SpeedCrunch" "fastfetch" "xdg-desktop-portal")
+config_dirs=("gtk-3.0" "hypr" "waybar" "alacritty" "wlogout" "mako" "wofi" "SpeedCrunch" "fastfetch" "xdg-desktop-portal")
 
 for config in "${config_dirs[@]}"; do
     echo -e "\033[1;32mCopying $config config...\033[0m"
