@@ -36,7 +36,6 @@ flatpak_apps=(
   'com.dec05eba.gpu_screen_recorder'
   'com.obsproject.Studio'
   'com.obsproject.Studio.Plugin.DistroAV'
-  'io.github.libvibrant.vibrantLinux'
   'com.rustdesk.RustDesk'
   'org.localsend.localsend_app'
   'net.davidotek.pupgui2'
