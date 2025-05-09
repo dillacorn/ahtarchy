@@ -83,7 +83,7 @@ if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
 
     # Install Terminal Applications
     echo -e "${CYAN}Installing terminal and CLI apps...${NC}"
-    for pkg in micro alacritty fastfetch btop htop curl wget git dos2unix brightnessctl ipcalc cmatrix sl asciiquarium figlet cava man-db man-pages; do
+    for pkg in micro alacritty fastfetch btop htop curl wget git dos2unix brightnessctl ipcalc cmatrix sl asciiquarium figlet cava man-db man-pages unzip; do
         install_package "$pkg"
     done
 
