@@ -25,7 +25,6 @@ flatpak_origin='flathub'
 
 # List of desktop apps to be installed (specified by app ID)
 flatpak_apps=(
-  'com.valvesoftware.Steam'
   'com.github.IsmaelMartinez.teams_for_linux'
   'dev.vencord.Vesktop'
   'org.telegram.desktop'
