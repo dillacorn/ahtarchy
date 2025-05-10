@@ -13,11 +13,6 @@
 
 ---
 
-## Keybinds: **DWM** Inspired
-My keybinds (see [hypr config](https://github.com/dillacorn/arch-hypr-dots/blob/main/config/hypr/hyprland.conf) are heavily inspired by [**suckless DWM**](https://dwm.suckless.org/). Before switching to i3, I used [**DWM Flexipatch**](https://github.com/bakkeby/dwm-flexipatch) by [bakkeby](https://github.com/bakkeby) — DWM was my first window manager and now hyprland is my third.
-
----
-
 ## Wallpapers
 - [Gruvbox Wallpapers](https://github.com/AngelJumbo/gruvbox-wallpapers) by [AngelJumbo](https://github.com/AngelJumbo)
 - [Aesthetic Wallpapers](https://github.com/D3Ext/aesthetic-wallpapers) by [D3Ext](https://github.com/D3Ext)
