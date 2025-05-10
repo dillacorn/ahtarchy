@@ -44,7 +44,6 @@ flatpak_apps=(
   'net.mullvad.MullvadBrowser'
   'io.github.ungoogled_software.ungoogled_chromium'
   'com.github.tchx84.Flatseal'
-  'dev.deedles.Trayscale'
   'com.github.wwmm.easyeffects'
   'io.github.seadve.Kooha'
 )
