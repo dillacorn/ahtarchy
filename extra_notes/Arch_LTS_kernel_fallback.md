@@ -58,13 +58,28 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 ### For systemd-boot
 
-The `linux-lts` package should automatically generate a boot entry under:
-
 ```bash
-/boot/loader/entries/
+sudo nano /boot/loader/entries/arch-linux-lts.conf
 ```
 
-Look for a file like `arch-linux-lts.conf`. If it exists, you're good to go.
+Paste this: (replace UUID with OS drive UUID)
+
+```bash
+title   Arch Linux (LTS)
+linux   /vmlinuz-linux-lts
+initrd  /initramfs-linux-lts.img
+options root=UUID=XXXX-XXXX rw
+```
+
+to find your OS drive use
+```bash
+findmnt -no SOURCE /
+```
+
+to find your UUID for your OS drive use
+```bash
+sudo blkid
+```
 
 ---
 
