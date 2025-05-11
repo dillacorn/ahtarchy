@@ -26,7 +26,7 @@ Look for entries like:
 ```bash
 core/linux-lts 6.X.X-1
     The LTS Linux kernel and modules
-core/linux-lts-headers 6.1.X-1
+core/linux-lts-headers 6.X.X-1
     Headers and scripts for building modules for the LTS Linux kernel
 ```
 
