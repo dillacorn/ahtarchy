@@ -116,10 +116,10 @@ sed -i \
 
 # 5) Mako
 sed -i \
-    -e "3s|.*|background-color=${MKO_BG};|" \
-    -e "4s|.*|text-color=${MKO_TEXT};|" \
-    -e "5s|.*|border-color=${MKO_BORDER};|" \
-    -e "6s|.*|progress-color=over ${MKO_PROG};|" \
+    -e "3s|.*|background-color=${MKO_BG}|" \
+    -e "4s|.*|text-color=${MKO_TEXT}|" \
+    -e "5s|.*|border-color=${MKO_BORDER}|" \
+    -e "6s|.*|progress-color=over ${MKO_PROG}|" \
     "$MAKO_CONF"
 
 # 6) Micro
@@ -131,5 +131,8 @@ sed -i '331s|.*|  "~\/.config\/alacritty\/themes\/themes\/catppuccin_frappe.toml
 # Restart Waybar
 pkill waybar || true
 nohup waybar >/dev/null 2>&1 &
+
+# Reload Mako
+makoctl reload
 
 echo "✅ theme applied!"
