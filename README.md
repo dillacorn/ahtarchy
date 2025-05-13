@@ -30,6 +30,9 @@ Here are some of my custom keybinds from the hyprland configuration:
 - `super+t` = **Run my pre-defined theme scripts**
   - Lists executable theme scripts, each using `sed` to modify color values in config files.
 
+- `super+w` = **Change Wallpaper with Waypaper GUI for swww or hyprpaper**
+  - Change your wallpaper - Manually
+
 - `super+shift+g` = **wf-recorder + slurp + zenity cropped GIF**  
   - `date_time.png` saved in `~/Videos/Gifs` directory.
   

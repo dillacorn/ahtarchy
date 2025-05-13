@@ -71,6 +71,7 @@ if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
             cava
             otpclient
             wlogout
+            waypaper
         )
 
         # Install each package and clean up afterward
