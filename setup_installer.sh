@@ -247,9 +247,13 @@ echo -e "\033[1;34mSetting permissions on configuration files and directories...
 retry_command find "$HOME_DIR/.config/" -type d -exec chmod 755 {} +
 retry_command find "$HOME_DIR/.config/" -type f -exec chmod 644 {} +
 
-# Make hypr-related scripts executable (recursively) ~ commented out unless I need scripts in the future
+# Make hypr-related scripts executable (recursively)
 echo -e "\033[1;34mMaking hypr-related scripts executable...\033[0m"
 retry_command find "$HOME_DIR/.config/hypr/scripts" -type f -exec chmod +x {} +
+
+# Make hypr-related themes executable (recursively)
+echo -e "\033[1;34mMaking hypr-related scripts executable...\033[0m"
+retry_command find "$HOME_DIR/.config/hypr/themes" -type f -exec chmod +x {} +
 
 # Install Alacritty themes
 echo -e "\033[1;34mRunning install_alacritty_themes.sh...\033[0m"
@@ -349,29 +353,6 @@ EOF'; then
     echo -e "\033[1;31mFailed to set cursor theme. Exiting.\033[0m"
     exit 1
 fi
-
-# Create target directory
-WLOGOUT_DIR="$HOME_DIR/.config/wlogout"
-mkdir -p "$WLOGOUT_DIR"
-
-# Download PNG icons for wlogout from GitHub
-echo -e "\033[1;34mDownloading wlogout icons...\033[0m"
-base_url="https://raw.githubusercontent.com/warpje5/hyprland-dotfiles-gruvbox/main/wlogout"
-
-# Loop through the icons
-for icon in lock.png lock-hover.png logout.png logout-hover.png \
-            power.png power-hover.png restart.png restart-hover.png \
-            sleep.png sleep-hover.png windows.png windows-hover.png; do
-    # Check if the file already exists
-    if [[ ! -f "$WLOGOUT_DIR/$icon" ]]; then
-        # Attempt to download the icon if not present
-        if curl -fsSL "$base_url/$icon" -o "$WLOGOUT_DIR/$icon"; then
-            echo -e "\033[1;32mDownloaded $icon\033[0m"
-        else
-            echo -e "\033[1;31mFailed to download $icon\033[0m"
-        fi
-    fi
-done
 
 # List of directories to check/create
 required_dirs=(

@@ -27,6 +27,9 @@ Here are some of my custom keybinds from the hyprland configuration:
 - `super+r` = **Rotates navigation keys (see [$rotate](https://github.com/dillacorn/arch-hypr-dots/tree/main/config/hypr/hyprland.conf))**
   - Rotate Mod (SUPER -> ALT -> SUPER -> ALT)
 
+- `super+t` = **Run my pre-defined theme scripts**
+  - Lists executable theme scripts, each using `sed` to modify color values in config files.
+
 - `super+shift+g` = **wf-recorder + slurp + zenity cropped GIF**  
   - `date_time.png` saved in `~/Videos/Gifs` directory.
   
