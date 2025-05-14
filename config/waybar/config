@@ -73,7 +73,7 @@
       },
       "custom/apps": {
         "tooltip": false,
-        "on-click": "pkill wofi || wofi -show drun",
+        "on-click": "pkill wofi || wofi --show drun",
         "format": "    "
       },
       "load": {
