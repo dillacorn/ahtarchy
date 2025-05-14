@@ -150,6 +150,16 @@ else
     echo -e "\033[1;32march-hypr-dots repository already exists in $HOME_DIR\033[0m"
 fi
 
+# Ensure dos2unix is installed
+if ! command -v dos2unix &>/dev/null; then
+    echo -e "\033[1;34mdos2unix not found. Installing...\033[0m"
+    pacman -Sy --noconfirm dos2unix || { echo -e "\033[1;31mFailed to install dos2unix. Exiting.\033[0m"; exit 1; }
+fi
+
+# Convert all text files in the repo to Unix line endings
+echo -e "\033[1;34mConverting files in arch-hypr-dots to Unix line endings...\033[0m"
+find "$HOME_DIR/arch-hypr-dots" -type f -exec dos2unix {} + 2>/dev/null
+
 # Make scripts executable
 echo -e "\033[1;34mMaking ~/arch-hypr-dots/scripts executable!\033[0m"
 cd "$HOME_DIR/arch-hypr-dots/scripts" || exit
