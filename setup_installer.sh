@@ -200,6 +200,19 @@ retry_command chmod u+rwx "$HOME_DIR/.local"
 retry_command chmod u+rwx "$HOME_DIR/.local/share"
 echo -e "\033[1;32mOwnership and permissions for ~/.local set correctly.\033[0m"
 
+# Always copy gsettings into ~/.local/share/nwg-look
+echo -e "\033[1;33mCopying gsettings to ~/.local/share/nwg-look...\033[0m"
+retry_command cp -r "$HOME_DIR/arch-hypr-dots/local/share/nwg-look/gsettings" "$HOME_DIR/.local/share/nwg-look" || {
+    echo -e "\033[1;31mFailed to copy gsettings. Exiting.\033[0m"
+    exit 1
+}
+
+# Set correct ownership and permissions for nwg-look
+retry_command chown -R "$SUDO_USER:$SUDO_USER" "$HOME_DIR/.local/share/nwg-look" || {
+    echo -e "\033[1;31mFailed to set ownership for nwg-look. Exiting.\033[0m"
+    exit 1
+}
+
 # Check if Comix Cursors exist in ~/.local/share/icons
 if [ ! -d "$HOME_DIR/.local/share/icons/ComixCursors-White" ]; then
     echo -e "\033[1;33mComix Cursors not found in ~/.local/share/icons. Attempting to install... \033[0m"
