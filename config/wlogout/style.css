@@ -1,24 +1,26 @@
 window {
     font-family: CaskaydiaCove Nerd Font, monospace;
-    font-size: 18pt;
-    color: #ebdbb2;
-    background-color: rgba(40, 40, 40, 0.76);
+    font-size: 12pt;
+    color: #c6d0f5;
+    background-color: rgba(48, 52, 70, 0.76);
 }
 
 button {
     background-repeat: no-repeat;
     background-position: center;
+    font-size: 30px;
+    padding-top: 100px;
+    padding-bottom: 100px;
     background-size: 60%;
     border: none;
-    color: #ebdbb2;
+    color: #c6d0f5;
     text-shadow: none;
     border-radius: 20px 20px 20px 20px;
-    background-color: rgba(40, 40, 40, 0.76);
+    background-color: rgba(48, 52, 70, 0.76);
     margin: 5px;
     transition: box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
 
 button:hover {
-    background-color: rgba(104, 157, 106, 0.92);
+    background-color: rgba(202, 158, 230, 0.92);
 }
-
