@@ -56,8 +56,8 @@ Here are more example keybinds from my hypr config:
 - `mod+shift+enter` = **Open Terminal**
   - Launches the terminal (default: Alacritty).
 
-- `mod+p` = **Rofi Application Launcher**
-  - Opens the Rofi app launcher for quick access to applications.
+- `mod+p` = **Wofi Application Launcher**
+  - Opens the Wofi app launcher for quick access to applications.
 
 - `mod+shift+c` = **Close Window**
   - Closes the focused window.
