@@ -1,78 +1,112 @@
 #!/bin/bash
 
+# Define colors for output
+RED='\033[1;31m'
+GREEN='\033[1;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[1;34m'
+NC='\033[0m' # No Color
+
+# Retry a command up to 3 times if it fails
+retry_command() {
+    local retries=3
+    local delay=2
+    local count=0
+    until "$@"; do
+        ((count++))
+        if [[ $count -ge $retries ]]; then
+            echo -e "${RED}Command failed after $retries attempts: $*${NC}"
+            return 1
+        fi
+        echo -e "${YELLOW}Retrying in $delay seconds...${NC}"
+        sleep $delay
+    done
+}
+
 # Ensure the script is run with sudo/root privileges
-if [ -z "$SUDO_USER" ]; then
+if [ "$(id -u)" -ne 0 ]; then
     echo -e "${RED}This script must be run with sudo!${NC}"
     exit 1
 fi
 
 # Detect if running in a virtual machine
 if systemd-detect-virt -q; then
-    echo -e "\033[1;33mRunning in a virtual machine. Skipping GPU-specific configuration.\033[0m"
-else
-    # Detect GPU type and apply appropriate settings for AMD, Intel, or Nvidia users
-    GPU_VENDOR=$(lspci | grep -i 'vga\|3d\|2d' | grep -i 'Radeon\|NVIDIA\|Intel\|Advanced Micro Devices')
+    echo -e "${YELLOW}Running in a virtual machine. Skipping GPU-specific configuration.${NC}"
+    exit 0
+fi
 
-    echo -e "\033[1;34mDetecting GPU vendor...\033[0m"
+# Detect GPU type and apply appropriate settings for AMD, Intel, or Nvidia users
+GPU_VENDOR=$(lspci | grep -i 'vga\|3d\|2d' | grep -i 'Radeon\|NVIDIA\|Intel\|Advanced Micro Devices')
 
-    if [ -z "$GPU_VENDOR" ]; then
-        echo -e "\033[1;31mNo AMD, NVIDIA, or Intel GPU detected. Skipping GPU-specific configuration.\033[0m"
-        exit 0
+echo -e "${BLUE}Detecting GPU vendor...${NC}"
+
+if [ -z "$GPU_VENDOR" ]; then
+    echo -e "${RED}No AMD, NVIDIA, or Intel GPU detected. Skipping GPU-specific configuration.${NC}"
+    exit 0
+fi
+
+# Install required GPU dependencies
+echo -e "${BLUE}Installing GPU-specific dependencies...${NC}"
+retry_command pacman -Syu --noconfirm
+retry_command pacman -S --noconfirm lib32-mesa lib32-vulkan-icd-loader lib32-libglvnd
+
+# AMD GPU Configuration
+if echo "$GPU_VENDOR" | grep -iq "Radeon\|Advanced Micro Devices"; then
+    echo -e "${GREEN}AMD GPU detected. Applying AMD-specific settings...${NC}"
+
+    # Ensure the linux-firmware package is installed for AMD GPUs
+    retry_command pacman -S --needed --noconfirm linux-firmware
+
+    # Install AMD video decoding libraries (VA-API and VDPAU)
+    retry_command pacman -S --needed --noconfirm libva-mesa-driver mesa-vdpau lib32-mesa-vdpau
+
+    # Check if VA-API tools are available, install if missing
+    if ! command -v vainfo &> /dev/null; then
+        echo -e "${BLUE}Installing libva-utils for VA-API support...${NC}"
+        retry_command pacman -S --needed --noconfirm libva-utils
     fi
 
-    # Install required GPU dependencies
-    echo -e "\033[1;34mInstalling GPU-specific dependencies...\033[0m"
-    sudo pacman -Syu --noconfirm
-    sudo pacman -S --noconfirm lib32-mesa lib32-vulkan-icd-loader lib32-libglvnd
+    # Validate VA-API support
+    echo -e "${BLUE}Validating hardware acceleration (VA-API)...${NC}"
+    if ! vainfo; then
+        echo -e "${RED}VA-API not working properly.${NC}"
+        echo -e "${YELLOW}You may need to set environment variables:${NC}"
+        echo "export LIBVA_DRIVER_NAME=radeonsi"
+        echo "export VDPAU_DRIVER=radeonsi"
+    fi
 
-    # AMD GPU Configuration
-    if echo "$GPU_VENDOR" | grep -iq "Radeon"; then
-        echo -e "\033[1;32mAMD GPU detected. Applying AMD-specific settings...\033[0m"
+# NVIDIA GPU Configuration
+elif echo "$GPU_VENDOR" | grep -iq "NVIDIA"; then
+    echo -e "${YELLOW}NVIDIA GPU detected. Applying NVIDIA-specific settings...${NC}"
 
-        # Ensure the linux-firmware package is installed for AMD GPUs
-        retry_command sudo pacman -S --needed --noconfirm linux-firmware
+    # Install NVIDIA proprietary drivers
+    if ! pacman -Qq nvidia &> /dev/null; then
+        echo -e "${BLUE}Installing NVIDIA proprietary drivers...${NC}"
+        retry_command pacman -S --noconfirm lib32-nvidia-utils nvidia nvidia-utils nvidia-settings
 
-        # Install AMD video decoding libraries (VA-API and VDPAU)
-        retry_command sudo pacman -S --needed --noconfirm libva-mesa-driver mesa-vdpau lib32-mesa-vdpau
-
-        # Check if VA-API tools are available, install if missing
-        if ! command -v vainfo &> /dev/null; then
-            echo -e "\033[1;34mInstalling libva-utils for VA-API support...\033[0m"
-            retry_command sudo pacman -S --needed --noconfirm libva-utils
-        fi
-
-        # Validate VA-API support
-        echo -e "\033[1;34mValidating hardware acceleration (VA-API)...\033[0m"
-        vainfo || echo -e "\033[1;31mVA-API not working properly.\033[0m"
-
-    # NVIDIA GPU Configuration
-    elif echo "$GPU_VENDOR" | grep -iq "NVIDIA"; then
-        echo -e "\033[1;33mNVIDIA GPU detected. Applying NVIDIA-specific settings...\033[0m"
-
-        # Install NVIDIA proprietary drivers
-        if ! pacman -Q | grep -q "nvidia"; then
-            echo -e "\033[1;34mInstalling NVIDIA proprietary drivers...\033[0m"
-            retry_command sudo pacman -S --noconfirm lib32-nvidia-utils nvidia nvidia-utils nvidia-settings
-
-            # Install video decoding libraries for NVIDIA
-            retry_command sudo pacman -S --needed --noconfirm libva-vdpau-driver libvdpau-va-gl
-        else
-            echo -e "\033[1;32mNVIDIA proprietary drivers already installed.\033[0m"
-        fi
-
-    # Intel GPU Configuration
-    elif echo "$GPU_VENDOR" | grep -iq "Intel"; then
-        echo -e "\033[1;33mIntel GPU detected. Applying Intel-specific settings...\033[0m"
-
-        # Install Intel GPU drivers
-        if ! pacman -Q | grep -q "xf86-video-intel"; then
-            echo -e "\033[1;34mInstalling Intel GPU driver...\033[0m"
-            retry_command sudo pacman -S --noconfirm xf86-video-intel
-        else
-            echo -e "\033[1;32mIntel driver already installed.\033[0m"
-        fi
-
+        # Install video decoding libraries for NVIDIA
+        retry_command pacman -S --needed --noconfirm libva-vdpau-driver libvdpau-va-gl
     else
-        echo -e "\033[1;31mNo AMD, NVIDIA, or Intel GPU detected. Skipping GPU-specific configuration.\033[0m"
+        echo -e "${GREEN}NVIDIA proprietary drivers already installed.${NC}"
     fi
+
+    echo -e "${YELLOW}You may need to set environment variables:${NC}"
+    echo "export LIBVA_DRIVER_NAME=vdpau"
+    echo "export VDPAU_DRIVER=nvidia"
+
+# Intel GPU Configuration
+elif echo "$GPU_VENDOR" | grep -iq "Intel"; then
+    echo -e "${YELLOW}Intel GPU detected. Applying Intel-specific settings...${NC}"
+
+    # Install Intel GPU drivers
+    if ! pacman -Qq xf86-video-intel &> /dev/null; then
+        echo -e "${BLUE}Installing Intel GPU driver...${NC}"
+        retry_command pacman -S --noconfirm xf86-video-intel libva-intel-driver libvdpau-va-gl
+    else
+        echo -e "${GREEN}Intel driver already installed.${NC}"
+    fi
+
+    echo -e "${YELLOW}You may need to set environment variables:${NC}"
+    echo "export LIBVA_DRIVER_NAME=i965"
+    echo "export VDPAU_DRIVER=va_gl"
 fi
