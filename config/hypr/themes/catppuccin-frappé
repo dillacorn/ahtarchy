@@ -59,7 +59,7 @@ echo "🔄 Applying theme..."
 
 # 1) Hyprland
 sed -i -e "s/^ *col\.active_border *= *.*/col.active_border = rgba(${NEW_ACTIVE_BORDER})/" \
-       -e "s/^ *col\.inactive_border *= *.*/col.inactive_border = rgba(${NEW_INACTIVE_BORDER})/" "$CONFIG"
+       -e "s/^ *col\.inactive_border *= *.*/col.inactive_border = rgba(${NEW_INACTIVE_BORDER})/" "$HYPR_CONF"
 
 # 2) Waybar
 sed -i \
