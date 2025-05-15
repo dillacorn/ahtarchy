@@ -197,6 +197,9 @@ for dir in "${config_dirs[@]}"; do
     retry_command chown -R "$SUDO_USER:$SUDO_USER" "$HOME_DIR/.config/$dir"
 done
 
+# Create nwg-look directory if it doesn't exist
+create_directory "$HOME_DIR/.local/share/nwg-look"
+
 # Special files
 retry_command cp "$REPO_DIR/Xresources" "$HOME_DIR/.Xresources"
 retry_command cp "$REPO_DIR/config/mimeapps.list" "$HOME_DIR/.config/"
