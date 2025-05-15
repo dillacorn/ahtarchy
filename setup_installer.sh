@@ -92,7 +92,8 @@ echo -e "${COLOR_YELLOW}
 - ~/.config/wlogout
 - ~/.config/waypaper
 - ~/.config/xdg-desktop-portal
-- ~/.Xresources${COLOR_RESET}"
+- ~/.Xresources
+- ~/.local/share/nwg-look/gsettings${COLOR_RESET}"
 echo -e "${COLOR_RED}Are you sure you want to continue? This action CANNOT be undone.${COLOR_RESET}"
 echo -e "${COLOR_GREEN}Press 'y' to continue or 'n' to cancel. Default is 'yes' if Enter is pressed:${COLOR_RESET}"
 
@@ -199,6 +200,9 @@ done
 # Special files
 retry_command cp "$REPO_DIR/Xresources" "$HOME_DIR/.Xresources"
 retry_command cp "$REPO_DIR/config/mimeapps.list" "$HOME_DIR/.config/"
+retry_command cp "$REPO_DIR/local/share/nwg-look/gsettings" "$HOME_DIR/.local/share/nwg-look/"
+retry_command chown "$SUDO_USER:$SUDO_USER" "$HOME_DIR/.local/share/nwg-look/gsettings"
+retry_command chmod 644 "$HOME_DIR/.local/share/nwg-look/gsettings"
 
 # Desktop entries
 create_directory "$HOME_DIR/.local/share/applications"
