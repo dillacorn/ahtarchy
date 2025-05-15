@@ -34,7 +34,7 @@ Here are some of my custom keybinds from the hyprland configuration:
   - Change your wallpaper - Manually
 
 - `super+shift+g` = **wf-recorder + slurp + zenity cropped GIF**  
-  - `date_time.png` saved in `~/Videos/Gifs` directory.
+  - `date_time.gif` saved in `~/Videos/Gifs` directory.
   
 - `super+shift+s` = **grim+slurp+satty cropped screenshot**  
   - Takes a cropped screenshot using grim+slurp+satty.
