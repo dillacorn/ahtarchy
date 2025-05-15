@@ -116,5 +116,5 @@ Install Flatpak applications using [install script](https://github.com/dillacorn
 
 ---
 
-### License
+### Unlicensed
 All code and notes are not under any formal license. If you find any of the scripts helpful, feel free to use, modify, publish, and distribute them to your heart's content. See https://github.com/dillacorn/arch-hypr-dots/blob/main/UNLICENSED
