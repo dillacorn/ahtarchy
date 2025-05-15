@@ -1,11 +1,18 @@
 #!/bin/bash
 
-# Define color codes
+# =============================================
+# COLOR DEFINITIONS
+# =============================================
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 CYAN='\033[1;96m'
 NC='\033[0m' # No Color
+
+# =============================================
+# SCRIPT INITIALIZATION
+# =============================================
+set -eu -o pipefail # Fail on error and report it, debug all lines
 
 # Ensure the script is run with sudo/root privileges
 if [ -z "$SUDO_USER" ]; then
@@ -13,222 +20,183 @@ if [ -z "$SUDO_USER" ]; then
     exit 1
 fi
 
-set -eu -o pipefail # Fail on error and report it, debug all lines
-
-# Check if the multilib repository is enabled in /etc/pacman.conf
-if ! grep -q "^\[multilib\]" /etc/pacman.conf || ! grep -q "^Include = /etc/pacman.d/mirrorlist" /etc/pacman.conf; then
-    echo -e "${YELLOW}IMPORTANT: Ensure the multilib repository is enabled in /etc/pacman.conf before running this script.${NC}"
-    echo -e "${YELLOW}To enable it, uncomment the following lines in your /etc/pacman.conf file:${NC}"
-    echo -e "${CYAN}  [multilib]\n  Include = /etc/pacman.d/mirrorlist${NC}"
-    echo -e "${YELLOW}Then, run 'sudo pacman -Syu' to update the package list.${NC}"
-fi
-
-# Function to install a package if not already installed
+# =============================================
+# FUNCTION DEFINITIONS
+# =============================================
 install_package() {
     local package="$1"
     if ! pacman -Qi "$package" &>/dev/null; then
-        echo -e "${CYAN}Installing $package and its dependencies...${NC}"
-        pacman -S --needed --noconfirm "$package"
+        echo -e "${CYAN}Installing $package...${NC}"
+        if ! pacman -S --needed --noconfirm "$package"; then
+            echo -e "${RED}Failed to install $package!${NC}"
+            return 1
+        fi
     else
-        echo -e "${YELLOW}$package is already installed. Skipping...${NC}"
+        echo -e "${YELLOW}$package already installed. Skipping...${NC}"
     fi
 }
 
-# Check if the script is running in a virtual machine
+# =============================================
+# SYSTEM CHECKS
+# =============================================
+# Check if running in a virtual machine
 if systemd-detect-virt --quiet; then
     IS_VM=true
-    echo -e "${CYAN}Running in a virtual machine. Skipping hardware checks and thermald installation.${NC}"
+    echo -e "${CYAN}Running in virtual machine. Skipping hardware checks.${NC}"
 else
     IS_VM=false
-    echo -e "${CYAN}Running on a physical machine.${NC}"
+    echo -e "${CYAN}Running on physical hardware.${NC}"
 fi
 
-# Forcefully remove jack2 and install pipewire-jack
+# Verify multilib repository is enabled
+if ! grep -q "^\[multilib\]" /etc/pacman.conf || ! grep -q "^Include = /etc/pacman.d/mirrorlist" /etc/pacman.conf; then
+    echo -e "${RED}ERROR: Multilib repository not enabled!${NC}"
+    echo -e "${YELLOW}Required for many packages. Please uncomment in /etc/pacman.conf:${NC}"
+    echo -e "${CYAN}[multilib]\nInclude = /etc/pacman.d/mirrorlist${NC}"
+    echo -e "${YELLOW}Then run: sudo pacman -Syu${NC}"
+    exit 1
+fi
+
+# =============================================
+# PACKAGE MANAGEMENT
+# =============================================
+# Handle pipewire-jack installation
 if pacman -Qi jack2 &>/dev/null; then
-    echo -e "${YELLOW}jack2 is installed, which conflicts with pipewire-jack.${NC}"
-    echo -e "${CYAN}Forcefully removing jack2 and related dependencies...${NC}"
-    pacman -Rdd --noconfirm jack2
+    echo -e "${YELLOW}Removing conflicting jack2 package...${NC}"
+    if ! pacman -Rdd --noconfirm jack2; then
+        echo -e "${RED}Failed to remove jack2! Manual removal required.${NC}"
+        exit 1
+    fi
 fi
 install_package "pipewire-jack"
 
-# Prompt for package installation
-echo -e "\n${CYAN}Do you want to install Dillacorn's chosen Arch Repo Linux applications? [y/n]${NC}"
+# =============================================
+# MAIN INSTALLATION PROMPT
+# =============================================
+echo -e "\n${CYAN}Install Dillacorn's Arch applications? [y/n]${NC}"
 read -r -n1 -s choice
 echo
 
-if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
-    echo -e "\n${GREEN}Proceeding with installation of Dillacorn's chosen Arch Repo Linux applications...${NC}"
+if [[ "$choice" != "y" && "$choice" != "Y" ]]; then
+    echo -e "${YELLOW}Installation cancelled.${NC}"
+    exit 0
+fi
 
-    # Update the package list
-    echo -e "${CYAN}Updating package list...${NC}"
-    pacman -Syu --noconfirm
+echo -e "\n${GREEN}Starting installation...${NC}"
 
-    # Install Window Management Tools
-    echo -e "${CYAN}Installing window management tools...${NC}"
-    for pkg in hyprland hyprpaper hyprlock hypridle waybar wofi swww grim satty slurp wl-clipboard zbar wf-recorder zenity qt5-wayland qt6-wayland xdg-desktop-portal-hyprland xdg-desktop-portal-gtk mako nwg-look; do
-        install_package "$pkg"
+# =============================================
+# SYSTEM UPDATE
+# =============================================
+echo -e "${CYAN}Updating system...${NC}"
+if ! pacman -Syu --noconfirm; then
+    echo -e "${RED}System update failed! Resolve conflicts and try again.${NC}"
+    exit 1
+fi
+
+# =============================================
+# PACKAGE INSTALLATION
+# =============================================
+declare -a pkg_groups=(
+    "Window Management:hyprland hyprpaper hyprlock hypridle waybar wofi swww grim satty slurp wl-clipboard zbar wf-recorder zenity qt5-wayland qt6-wayland xdg-desktop-portal-hyprland xdg-desktop-portal-gtk mako nwg-look"
+    "Fonts:ttf-font-awesome ttf-hack ttf-dejavu ttf-liberation noto-fonts"
+    "Themes:papirus-icon-theme materia-gtk-theme xcursor-comix"
+    "Terminal Apps:micro alacritty fastfetch btop htop curl wget git dos2unix brightnessctl ipcalc cmatrix sl asciiquarium figlet cava man-db man-pages unzip"
+    "Utilities:steam polkit-kde-agent lxappearance networkmanager network-manager-applet tailscale bluez bluez-utils blueman pavucontrol pcmanfm gvfs gvfs-smb gvfs-mtp gvfs-afc qbittorrent speedcrunch partitionmanager filelight timeshift imagemagick pipewire pipewire-pulse pipewire-alsa ufw"
+    "Multimedia:ffmpeg avahi mpv cheese exiv2 audacity krita shotcut filezilla gthumb handbrake"
+    "Development:base-devel archlinux-keyring clang ninja go rust okular bleachbit virt-manager qemu virt-viewer vde2 libguestfs dmidecode gamemode nftables swtpm"
+    "Network Tools:wireguard-tools wireplumber openssh iptables systemd-resolvconf bridge-utils qemu-guest-agent dnsmasq dhcpcd inetutils openbsd-netcat"
+)
+
+for group in "${pkg_groups[@]}"; do
+    IFS=':' read -r group_name packages <<< "$group"
+    echo -e "\n${CYAN}Installing $group_name...${NC}"
+    for pkg in $packages; do
+        if ! install_package "$pkg"; then
+            echo -e "${YELLOW}Continuing despite package failure...${NC}"
+        fi
     done
+done
 
-    # Install Fonts
-    echo -e "${CYAN}Installing fonts...${NC}"
-    for pkg in ttf-font-awesome ttf-hack ttf-dejavu ttf-liberation noto-fonts; do
-        install_package "$pkg"
-    done
+# =============================================
+# SYSTEM CONFIGURATION
+# =============================================
+echo -e "\n${CYAN}Configuring system services...${NC}"
 
-    # Install Themes
-    echo -e "${CYAN}Installing themes...${NC}"
-    for pkg in papirus-icon-theme materia-gtk-theme xcursor-comix; do
-        install_package "$pkg"
-    done
+# Avahi
+systemctl enable --now avahi-daemon
 
-    # Install Terminal Applications
-    echo -e "${CYAN}Installing terminal and CLI apps...${NC}"
-    for pkg in micro alacritty fastfetch btop htop curl wget git dos2unix brightnessctl ipcalc cmatrix sl asciiquarium figlet cava man-db man-pages unzip; do
-        install_package "$pkg"
-    done
+# DNS Services
+if systemctl is-active --quiet unbound; then
+    systemctl disable --now unbound
+fi
+systemctl enable --now systemd-resolved
+systemctl stop dnsmasq.service || true
+systemctl disable dnsmasq.service || true
 
-    # Install Utilities
-    echo -e "${CYAN}Installing general utilities...${NC}"
-    for pkg in steam polkit-kde-agent lxappearance networkmanager network-manager-applet tailscale bluez bluez-utils blueman pavucontrol pcmanfm gvfs gvfs-smb gvfs-mtp gvfs-afc qbittorrent speedcrunch partitionmanager filelight timeshift imagemagick pipewire pipewire-pulse pipewire-alsa ufw; do
-        install_package "$pkg"
-    done
+# NetworkManager
+systemctl enable --now NetworkManager
 
-    # Install Multimedia Tools
-    echo -e "${CYAN}Installing multimedia tools...${NC}"
-    for pkg in ffmpeg avahi mpv cheese exiv2 audacity krita shotcut filezilla gthumb handbrake; do
-        install_package "$pkg"
-    done
+# =============================================
+# HARDWARE-SPECIFIC CONFIGURATION
+# =============================================
+if [ "$IS_VM" = false ]; then
+    # Device type detection
+    echo -e "\n${CYAN}Is this a laptop or desktop? [l/d]${NC}"
+    read -r -n1 -s device_type
+    echo
+    
+    case "$device_type" in
+        [lL]) IS_LAPTOP=true ;;
+        [dD]) IS_LAPTOP=false ;;
+        *)
+            echo -e "${RED}Invalid input. Exiting.${NC}"
+            exit 1
+            ;;
+    esac
 
-    # Start and enable Avahi daemon
-    echo -e "${CYAN}Starting and enabling avahi-daemon...${NC}"
-    systemctl enable --now avahi-daemon
-
-    # Install Development Tools
-    echo -e "${CYAN}Installing development tools...${NC}"
-    for pkg in base-devel archlinux-keyring clang ninja go rust okular bleachbit virt-manager qemu virt-viewer vde2 libguestfs dmidecode gamemode nftables swtpm; do
-        install_package "$pkg"
-    done
-
-    # Ensure IS_VM is set (default to false if undefined)
-    : "${IS_VM:=false}"
-
-    # Only proceed with hardware checks if not in a virtual machine
-    if [ "$IS_VM" = false ]; then
-       # Prompt user to specify if this is a laptop or desktop
-       echo -e "${CYAN}Is this system a laptop or desktop? [l/d]${NC}"
-       read -r -n1 -s user_choice
-       echo
-
-       case "$user_choice" in
-           [lL])
-               IS_LAPTOP=true
-               echo -e "${CYAN}User specified: Laptop.${NC}"
-               ;;
-           [dD])
-               IS_LAPTOP=false
-               echo -e "${CYAN}User specified: Desktop.${NC}"
-               ;;
-           *)
-               echo -e "${RED}Invalid input. Please enter 'l' for laptop or 'd' for desktop.${NC}"
-               exit 1
-               ;;
-       esac
-
-    # Check if CPU is Intel
+    # Intel-specific setup
     if grep -qi "Intel" /proc/cpuinfo; then
-        IS_INTEL=true
-        echo -e "${CYAN}Intel processor detected.${NC}"
-    else
-        IS_INTEL=false
-        echo -e "${CYAN}Non-Intel processor detected. Skipping thermald installation.${NC}"
+        if [ "$IS_LAPTOP" = true ]; then
+            echo -e "${CYAN}Setting up Intel laptop power management...${NC}"
+            install_package "thermald" && systemctl enable --now thermald
+        fi
     fi
 
-    # Install thermald if needed
-    if [[ "$IS_INTEL" == true && "$IS_LAPTOP" == true ]]; then
-        echo -e "${CYAN}Installing and enabling thermald for Intel laptop...${NC}"
-        install_package "thermald" || { echo -e "${RED}Failed to install thermald.${NC}"; exit 1; }
-        systemctl enable --now thermald
-    else
-        echo -e "${YELLOW}Skipping thermald installation.${NC}"
-    fi
-
-    # Install TLP for laptops
+    # Laptop power management
     if [ "$IS_LAPTOP" = true ]; then
-        echo -e "${CYAN}Installing and enabling TLP for power management on laptop...${NC}"
-        install_package "tlp" || { echo -e "${RED}Failed to install TLP.${NC}"; exit 1; }
-        systemctl enable --now tlp
-        echo -e "${GREEN}TLP installed and enabled successfully.${NC}"
-    else
-        echo -e "${YELLOW}Skipping TLP installation as this is a desktop system.${NC}"
+        echo -e "${CYAN}Configuring laptop power savings...${NC}"
+        install_package "tlp" && systemctl enable --now tlp
     fi
 fi
 
-    # Disable and stop unbound if it's running
-    if systemctl is-active --quiet unbound; then
-        echo -e "${CYAN}Disabling and stopping unbound service...${NC}"
-        systemctl disable --now unbound
-    else
-        echo -e "${YELLOW}Unbound service is not active. Skipping disable and stop for unbound.${NC}"
-    fi
+# =============================================
+# VIRTUALIZATION SETUP
+# =============================================
+if [ "$IS_VM" = false ]; then
+    echo -e "\n${CYAN}Configuring virtualization...${NC}"
+    systemctl enable --now libvirtd
     
-    # Enable systemd-resolved to handle DNS
-    echo -e "${CYAN}Enabling and starting systemd-resolved...${NC}"
-    systemctl enable --now systemd-resolved
-    
-    # Ensure standalone dnsmasq service is not running
-    echo -e "${CYAN}Ensuring standalone dnsmasq service is stopped...${NC}"
-    systemctl stop dnsmasq || true
-    systemctl disable dnsmasq || true
-    pkill dnsmasq || true
-
-    for pkg in wireguard-tools wireplumber openssh iptables systemd-resolvconf bridge-utils qemu-guest-agent dnsmasq dhcpcd inetutils openbsd-netcat; do
-        install_package "$pkg"
+    echo -e "${CYAN}Waiting for libvirtd...${NC}"
+    while ! systemctl is-active --quiet libvirtd; do
+        sleep 1
     done
 
-    echo -e "${CYAN}Enabling and starting NetworkManager...${NC}"
-    systemctl enable --now NetworkManager
+    virsh net-destroy default || true
+    virsh net-start default
+    virsh net-autostart default
 
-    # Skip libvirt entirely inside QEMU
-    VM_TYPE=$(systemd-detect-virt)
-    if [[ "$VM_TYPE" == "qemu" ]]; then
-        echo -e "${YELLOW}Running inside QEMU. Skipping libvirt setup...${NC}"
-    else
-        echo -e "${CYAN}Enabling and starting libvirtd...${NC}"
-        systemctl enable --now libvirtd
-
-        echo -e "${CYAN}Waiting for libvirtd to become active...${NC}"
-        until systemctl is-active --quiet libvirtd; do
-            sleep 1
-        done
-
-        # Proceed with the network setup
-        virsh net-destroy default || true
-        virsh net-start default
-        virsh net-autostart default
-
-        # Apply UFW rules
-        echo -e "${CYAN}Configuring UFW rules for libvirt networking...${NC}"
-        ufw allow in on virbr0
-        ufw allow out on virbr0
-        ufw allow out to any port 53
-        ufw allow out to any port 80
-        ufw allow out to any port 443
-        ufw default allow routed
-        ufw reload
-    fi
-
-    # Enable and start Bluetooth service
-    if pacman -Qi bluez &>/dev/null && pacman -Qi bluez-utils &>/dev/null; then
-        install_package "bluez"
-        install_package "bluez-utils"
-        systemctl enable --now bluetooth.service
-        echo -e "${GREEN}Bluetooth service started successfully.${NC}"
-    else
-        echo -e "${RED}Bluetooth service could not be enabled. bluez or bluez-utils is missing.${NC}"
-    fi
-
-    # Print success message after installation
-    echo -e "\n${GREEN}Successfully installed all of Dillacorn's Arch Linux chosen applications!${NC}"
-else
-    echo -e "\n${YELLOW}Skipping installation of Dillacorn's chosen Arch Repo Linux applications.${NC}"
+    ufw allow in on virbr0
+    ufw allow out on virbr0
+    ufw reload
 fi
+
+# =============================================
+# FINAL CONFIGURATION
+# =============================================
+# Bluetooth
+if pacman -Qi bluez &>/dev/null; then
+    systemctl enable --now bluetooth.service
+fi
+
+echo -e "\n${GREEN}Installation complete!${NC}"
+echo -e "${YELLOW}Note: Some changes may require reboot.${NC}"
