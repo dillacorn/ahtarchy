@@ -199,6 +199,8 @@ done
 
 # Create nwg-look directory if it doesn't exist
 create_directory "$HOME_DIR/.local/share/nwg-look"
+create_directory "$HOME_DIR/.local/share/SpeedCrunch"
+create_directory "$HOME_DIR/.local/share/SpeedCrunch/color-schemes"
 
 # Special files
 retry_command cp "$REPO_DIR/Xresources" "$HOME_DIR/.Xresources"
@@ -206,6 +208,11 @@ retry_command cp "$REPO_DIR/config/mimeapps.list" "$HOME_DIR/.config/"
 retry_command cp "$REPO_DIR/local/share/nwg-look/gsettings" "$HOME_DIR/.local/share/nwg-look/"
 retry_command chown "$SUDO_USER:$SUDO_USER" "$HOME_DIR/.local/share/nwg-look/gsettings"
 retry_command chmod 644 "$HOME_DIR/.local/share/nwg-look/gsettings"
+
+# SpeedCrunch color schemes (corrected)
+retry_command cp "$REPO_DIR/local/share/SpeedCrunch/color-schemes/"*.json "$HOME_DIR/.local/share/SpeedCrunch/color-schemes/"
+retry_command chown -R "$SUDO_USER:$SUDO_USER" "$HOME_DIR/.local/share/SpeedCrunch"
+retry_command chmod 644 "$HOME_DIR/.local/share/SpeedCrunch/color-schemes/"*.json
 
 # Desktop entries
 create_directory "$HOME_DIR/.local/share/applications"

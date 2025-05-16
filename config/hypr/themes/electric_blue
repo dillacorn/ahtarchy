@@ -101,7 +101,7 @@ sed -i \
     -e "19s|.*|    background-color: ${WL_BTN_BG};|" \
     -e "25s|.*|    background-color: ${WL_BTN_HOVER_BG};|" \
     "$WLOGOUT_CSS"
-    
+
 # 4) Wofi
 sed -i \
     -e "3s|.*|    border: ${WO_BORDER};|" \
@@ -125,6 +125,9 @@ sed -i '2s|.*|    "colorscheme": "geany"|' "$HOME/.config/micro/settings.json"
 
 # 7) Alacritty
 sed -i '331s|.*|  "~\/.config\/alacritty\/themes\/themes\/msx.toml"|' "$HOME/.config/alacritty/alacritty.toml"
+
+# 8) SpeedCrunch
+sed -i '5s|.*|Display\\ColorSchemeName=electric_blue|' "$HOME/.config/SpeedCrunch/SpeedCrunch.ini"
 
 # Restart Waybar
 pkill waybar || true

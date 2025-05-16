@@ -126,6 +126,9 @@ sed -i '2s|.*|    "colorscheme": "gruvbox"|' "$HOME/.config/micro/settings.json"
 # 7) Alacritty
 sed -i '331s|.*|  "~\/.config\/alacritty\/themes\/themes\/gruvbox_dark.toml"|' "$HOME/.config/alacritty/alacritty.toml"
 
+# 8) SpeedCrunch
+sed -i '5s|.*|Display\\ColorSchemeName=gruvbox|' "$HOME/.config/SpeedCrunch/SpeedCrunch.ini"
+
 # Restart Waybar
 pkill waybar || true
 nohup waybar >/dev/null 2>&1 &
