@@ -127,7 +127,7 @@ sed -i '2s|.*|    "colorscheme": "catppuccin-frappe-transparent"|' "$HOME/.confi
 sed -i '331s|.*|  "~\/.config\/alacritty\/themes\/themes\/catppuccin_frappe.toml"|' "$HOME/.config/alacritty/alacritty.toml"
 
 # 8) SpeedCrunch
-sed -i '5s|.*|Display\\ColorSchemeName=catppuccin-frappé|' "$HOME/.config/SpeedCrunch/SpeedCrunch.ini"
+sed -i '5s|.*|Display\\ColorSchemeName=catppuccin-frappe|' "$HOME/.config/SpeedCrunch/SpeedCrunch.ini"
 
 # Restart Waybar
 pkill waybar || true
