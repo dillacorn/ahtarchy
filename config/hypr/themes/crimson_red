@@ -1,51 +1,51 @@
 #!/usr/bin/env bash
 #
-# electric blue
+# crimson red
 
 set -euo pipefail
 
 ###########   THEME COLORS   ###########
 # Hyprland
-NEW_ACTIVE_BORDER="89b4faff"
+NEW_ACTIVE_BORDER="f38ba8ff"
 NEW_INACTIVE_BORDER="00000000"
 
 # Waybar
-W_COLOR="#89b4fa"
+W_COLOR="#f38ba8"
 W_BG="#1e1e2e"
-W_HOVER="#74c7ec"
+W_HOVER="#eba0ac"
 W_ACTIVE_BG="#313244"
-W_ACTIVE_COLOR="#89b4fa"
+W_ACTIVE_COLOR="#f38ba8"
 W_URGENT_BG="#f38ba8"
 W_URGENT_COLOR="#1e1e2e"
 W_MODE_BG="#1e1e2e"
 W_MODE_COLOR="#1e1e2e"
 W_CUSTOM_HOVER_BG="#45475a"
-W_BATT_CHARGING_BG="#a6e3a1"
+W_BATT_CHARGING_BG="#fab387"
 W_BATT_CHARGING_COLOR="#1e1e2e"
-W_BATT_CRITICAL_BG="#fab387"
-W_FOCUS="#89b4fa"
+W_BATT_CRITICAL_BG="#f38ba8"
+W_FOCUS="#f38ba8"
 W_MUTED="#6c7086"
 
 # Wlogout
-WL_COLOR="#89b4fa"
+WL_COLOR="#f38ba8"
 WL_BG="rgba(30, 30, 46, 0.76)"
-WL_BTN_COLOR="#89b4fa"
+WL_BTN_COLOR="#f38ba8"
 WL_BTN_BG="rgba(30, 30, 46, 0.76)"
-WL_BTN_HOVER_BG="rgba(116, 199, 236, 0.92)"
+WL_BTN_HOVER_BG="rgba(235, 160, 172, 0.92)"
 
 # Wofi
-WO_BORDER="2px none #89b4fa"
+WO_BORDER="2px none #f38ba8"
 WO_BG="#1e1e2e"
-WO_INPUT_COLOR="#89b4fa"
-WO_OUTER_BORDER="0px solid #89b4fa"
+WO_INPUT_COLOR="#f38ba8"
+WO_OUTER_BORDER="0px solid #f38ba8"
 WO_OUTER_BG="#1e1e2e"
-WO_TEXT_UNSEL="#89b4fa"
+WO_TEXT_UNSEL="#f38ba8"
 
 # Mako
 MKO_BG="#1e1e2e"
-MKO_TEXT="#89b4fa"
+MKO_TEXT="#f38ba8"
 MKO_BORDER="#1e1e2e"
-MKO_PROG="#74c7ec"
+MKO_PROG="#eba0ac"
 
 ###########   FILE PATHS   ###########
 HYPR_CONF="$HOME/.config/hypr/hyprland.conf"
@@ -121,10 +121,10 @@ sed -i \
     "$MAKO_CONF"
 
 # 6) Micro
-sed -i '2s|.*|    "colorscheme": "geany"|' "$HOME/.config/micro/settings.json"
+sed -i '2s|.*|    "colorscheme": "zenburn"|' "$HOME/.config/micro/settings.json"
 
 # 7) Alacritty
-sed -i '331s|.*|  "~\/.config\/alacritty\/themes\/themes\/msx.toml"|' "$HOME/.config/alacritty/alacritty.toml"
+sed -i '331s|.*|  "~\/.config\/alacritty\/themes\/themes\/inferno.toml"|' "$HOME/.config/alacritty/alacritty.toml"
 
 # Restart Waybar
 pkill waybar || true

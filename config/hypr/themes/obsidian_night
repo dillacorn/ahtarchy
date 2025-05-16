@@ -1,51 +1,51 @@
 #!/usr/bin/env bash
 #
-# electric blue
+# obsidian night
 
 set -euo pipefail
 
 ###########   THEME COLORS   ###########
 # Hyprland
-NEW_ACTIVE_BORDER="89b4faff"
+NEW_ACTIVE_BORDER="3c3c3cff"
 NEW_INACTIVE_BORDER="00000000"
 
 # Waybar
-W_COLOR="#89b4fa"
-W_BG="#1e1e2e"
-W_HOVER="#74c7ec"
-W_ACTIVE_BG="#313244"
-W_ACTIVE_COLOR="#89b4fa"
-W_URGENT_BG="#f38ba8"
+W_COLOR="#cdd6f4"
+W_BG="#0f0f0f"
+W_HOVER="#313244"
+W_ACTIVE_BG="#1a1a1a"
+W_ACTIVE_COLOR="#cdd6f4"
+W_URGENT_BG="#ff5555"
 W_URGENT_COLOR="#1e1e2e"
-W_MODE_BG="#1e1e2e"
-W_MODE_COLOR="#1e1e2e"
-W_CUSTOM_HOVER_BG="#45475a"
-W_BATT_CHARGING_BG="#a6e3a1"
-W_BATT_CHARGING_COLOR="#1e1e2e"
-W_BATT_CRITICAL_BG="#fab387"
-W_FOCUS="#89b4fa"
-W_MUTED="#6c7086"
+W_MODE_BG="#1a1a1a"
+W_MODE_COLOR="#cdd6f4"
+W_CUSTOM_HOVER_BG="#1e1e2e"
+W_BATT_CHARGING_BG="#6a9955"
+W_BATT_CHARGING_COLOR="#0f0f0f"
+W_BATT_CRITICAL_BG="#ff5555"
+W_FOCUS="#3c3c3c"
+W_MUTED="#4b4b4b"
 
 # Wlogout
-WL_COLOR="#89b4fa"
-WL_BG="rgba(30, 30, 46, 0.76)"
-WL_BTN_COLOR="#89b4fa"
-WL_BTN_BG="rgba(30, 30, 46, 0.76)"
-WL_BTN_HOVER_BG="rgba(116, 199, 236, 0.92)"
+WL_COLOR="#cdd6f4"
+WL_BG="rgba(15, 15, 15, 0.85)"
+WL_BTN_COLOR="#cdd6f4"
+WL_BTN_BG="rgba(30, 30, 30, 0.85)"
+WL_BTN_HOVER_BG="rgba(60, 60, 60, 0.92)"
 
 # Wofi
-WO_BORDER="2px none #89b4fa"
-WO_BG="#1e1e2e"
-WO_INPUT_COLOR="#89b4fa"
-WO_OUTER_BORDER="0px solid #89b4fa"
-WO_OUTER_BG="#1e1e2e"
-WO_TEXT_UNSEL="#89b4fa"
+WO_BORDER="2px none #3c3c3c"
+WO_BG="#0f0f0f"
+WO_INPUT_COLOR="#cdd6f4"
+WO_OUTER_BORDER="0px solid #3c3c3c"
+WO_OUTER_BG="#0f0f0f"
+WO_TEXT_UNSEL="#6c7086"
 
 # Mako
-MKO_BG="#1e1e2e"
-MKO_TEXT="#89b4fa"
-MKO_BORDER="#1e1e2e"
-MKO_PROG="#74c7ec"
+MKO_BG="#0f0f0f"
+MKO_TEXT="#cdd6f4"
+MKO_BORDER="#1a1a1a"
+MKO_PROG="#3c3c3c"
 
 ###########   FILE PATHS   ###########
 HYPR_CONF="$HOME/.config/hypr/hyprland.conf"
@@ -121,10 +121,10 @@ sed -i \
     "$MAKO_CONF"
 
 # 6) Micro
-sed -i '2s|.*|    "colorscheme": "geany"|' "$HOME/.config/micro/settings.json"
+sed -i '2s|.*|    "colorscheme": "railscast"|' "$HOME/.config/micro/settings.json"
 
 # 7) Alacritty
-sed -i '331s|.*|  "~\/.config\/alacritty\/themes\/themes\/msx.toml"|' "$HOME/.config/alacritty/alacritty.toml"
+sed -i '331s|.*|  "~\/.config\/alacritty\/themes\/themes\/taerminal.toml"|' "$HOME/.config/alacritty/alacritty.toml"
 
 # Restart Waybar
 pkill waybar || true
