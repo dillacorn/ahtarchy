@@ -14,6 +14,7 @@
 ---
 
 ## Wallpapers
+- [walls](https://github.com/dharmx/walls/tree/main) by [dharmx](https://github.com/dharmx)
 - [Gruvbox Wallpapers](https://github.com/AngelJumbo/gruvbox-wallpapers) by [AngelJumbo](https://github.com/AngelJumbo)
 - [Aesthetic Wallpapers](https://github.com/D3Ext/aesthetic-wallpapers) by [D3Ext](https://github.com/D3Ext)
 - [Wallpapers](https://github.com/michaelScopic/Wallpapers) by [michaelScopic](https://github.com/michaelScopic)
