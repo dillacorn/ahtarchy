@@ -1,6 +1,4 @@
-# 🌌 arch dilla.hypr.files
-
-> A sleek Hyprland configuration for Arch Linux enthusiasts
+# `arch dilla.hypr.files`
 
 ![Preview](TO_BE_ADDED)  
 *(Preview images coming soon)*
@@ -68,7 +66,6 @@
 ## 🌐 Browser Notes
 - [Ungoogled-Chromium](browser_notes/ungoogled-chromium.md)
 - [Firefox Privacy Forks](browser_notes/firefox_privacy_focused_forks.md)
-- [Redirector Extension Guide](browser_notes/redirector_extension_redirect_example.png)
 
 ---
 
