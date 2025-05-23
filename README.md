@@ -3,6 +3,22 @@
 ![Preview](TO_BE_ADDED)  
 *(Preview images coming soon)*
 
+## 🚀 Quick Start
+
+### One-line Installer: (fresh Arch recommended)
+```bash
+curl -sL https://raw.githubusercontent.com/dillacorn/arch-hypr-dots/main/setup_installer.sh | sudo bash
+```
+
+### Manual Installation:
+```bash
+git clone https://github.com/dillacorn/arch-hypr-dots
+cd arch-hypr-dots
+chmod +x setup_installer.sh
+sudo ./setup_installer.sh
+```
+> ℹ️ Always review scripts from the internet before executing them.
+
 ## 🖥️ System Overview
 
 | Component          | Details |
