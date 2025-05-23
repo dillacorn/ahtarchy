@@ -5,11 +5,12 @@
       "modules-left": [
         "custom/apps",
         "hyprland/workspaces",
+        "hyprland/window",
         "hyprland/mode",
         "hyprland/scratchpad"
       ],
       "modules-center": [
-        "hyprland/window"
+      	"clock"
       ],
       "modules-right": [
         "idle_inhibitor",
@@ -18,7 +19,6 @@
         "memory",
         "wireplumber",
         "backlight",
-        "clock",
         "battery",
         "tray",
         "custom/power"
@@ -81,7 +81,7 @@
       },
       "clock": {
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format": "{:%Y-%m-%d | %I:%M}"
+        "format": " {:%H:%M    %d-%m-%Y}"
       },
       "custom/power": {
         "tooltip": false,
