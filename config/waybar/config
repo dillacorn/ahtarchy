@@ -10,8 +10,7 @@
         "hyprland/scratchpad"
       ],
       "modules-center": [
-      	"clock",
-      	"weather"
+      	"clock"
       ],
       "modules-right": [
         "idle_inhibitor",
