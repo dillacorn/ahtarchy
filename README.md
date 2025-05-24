@@ -1,7 +1,6 @@
 # `arch dilla.hypr.files`
 
-![Preview](TO_BE_ADDED)  
-*(Preview images coming soon)*
+![Preview](https://github.com/dillacorn/arch-hypr-dots/tree/main/previews.md)
 
 ## 🚀 Quick Start
 
@@ -48,6 +47,7 @@ sudo ./setup_installer.sh
 | `SUPER + r`          | Rotate navigation keys (SUPER/ALT toggle) |
 | `SUPER + t`          | Run theme scripts               |
 | `SUPER + w`          | Change wallpaper (Waypaper GUI) |
+| `SUPER + SHIFT + c`  | Open SpeedCrunch (Calculator)   |
 | `SUPER + SHIFT + g`  | Record cropped GIF              |
 | `SUPER + SHIFT + s`  | Take cropped screenshot         |
 | `SUPER + SHIFT + f`  | Take fullscreen screenshot      |
@@ -58,7 +58,7 @@ sudo ./setup_installer.sh
 |-----------------------------|-----------------------------|
 | `SUPER + SHIFT + Enter`     | Open terminal (Alacritty)   |
 | `SUPER + p`                 | Application launcher (Wofi) |
-| `SUPER + SHIFT + c`         | Close focused window        |
+| `SUPER + SHIFT + q`         | Close focused window        |
 | `SUPER + f`                 | Toggle floating/tiling      |
 | `SUPER + arrow keys`        | Change window focus         |
 | `SUPER + mouse1/2`          | Move/resize floating window |
