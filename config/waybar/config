@@ -81,7 +81,7 @@
       },
       "clock": {
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format": " {:%H:%M    %d-%m-%Y}"
+        "format": " {:%H:%M    %m-%d-%Y}"
       },
       "custom/power": {
         "tooltip": false,
