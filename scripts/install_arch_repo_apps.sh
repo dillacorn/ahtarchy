@@ -97,7 +97,7 @@ fi
 # PACKAGE INSTALLATION
 # =============================================
 declare -a pkg_groups=(
-    "Window Management:hyprland hyprpaper hyprlock hypridle waybar wofi swww grim satty slurp wl-clipboard zbar wf-recorder zenity qt5-wayland qt6-wayland xdg-desktop-portal-hyprland xdg-desktop-portal-gtk mako nwg-look"
+    "Window Management:hyprland hyprpaper hyprlock hypridle hyprpicker waybar wofi swww grim satty slurp wl-clipboard zbar wf-recorder zenity qt5-wayland qt6-wayland xdg-desktop-portal-hyprland xdg-desktop-portal-gtk mako nwg-look"
     "Fonts:ttf-font-awesome ttf-hack ttf-dejavu ttf-liberation noto-fonts"
     "Themes:papirus-icon-theme materia-gtk-theme xcursor-comix"
     "Terminal Apps:micro alacritty fastfetch btop htop curl wget git dos2unix brightnessctl ipcalc cmatrix sl asciiquarium figlet cava man-db man-pages unzip octave"
