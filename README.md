@@ -1,6 +1,6 @@
 # `arch dilla.hypr.files`
 
-![overview](https://github.com/dillacorn/arch-hypr-dots/tree/main/previews/overview.png)
+![overview](https://github.com/dillacorn/arch-hypr-dots/raw/main/previews/overview.png)
 
 [See more previews](https://github.com/dillacorn/arch-hypr-dots/tree/main/previews.md)
 
