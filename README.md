@@ -1,7 +1,8 @@
 # `arch dilla.hypr.files`
 
-![preview](https://github.com/dillacorn/arch-hypr-dots/tree/main/previews/overview.png)
-[See More](https://github.com/dillacorn/arch-hypr-dots/tree/main/previews.md)
+![overview](https://github.com/dillacorn/arch-hypr-dots/tree/main/previews/overview.png)
+
+[See more previews](https://github.com/dillacorn/arch-hypr-dots/tree/main/previews.md)
 
 ## 🚀 Quick Start
 
