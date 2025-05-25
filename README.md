@@ -37,7 +37,6 @@ sudo ./setup_installer.sh
 - [dharmx/walls](https://github.com/dharmx/walls)
 - [Gruvbox Wallpapers](https://github.com/AngelJumbo/gruvbox-wallpapers)
 - [Aesthetic Wallpapers](https://github.com/D3Ext/aesthetic-wallpapers)
-- [michaelScopic/Wallpapers](https://github.com/michaelScopic/Wallpapers)
 
 ---
 
