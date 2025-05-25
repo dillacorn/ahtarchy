@@ -29,7 +29,7 @@ sudo ./setup_installer.sh
 | **File System**    | ext4 (separate root/home partitions) |
 | **Repositories**   | core, extra, multilib, [AUR](https://aur.archlinux.org/), [Flathub](https://flathub.org/) |
 | **Terminal**       | [Alacritty](https://github.com/alacritty/alacritty) |
-| **Bootloader**     | [systemd-boot](https://github.com/ivandavidov/systemd-boot) |
+| **Bootloader**     | [systemd-boot](https://man.archlinux.org/man/systemd-boot.7) |
 | **Window Manager** | [Hyprland](https://github.com/hyprwm/Hyprland) ([config](https://github.com/dillacorn/arch-hypr-dots/tree/main/config/hypr)) |
 | **Kernel**         | [linux-tkg](https://github.com/Frogging-Family/linux-tkg) with BORE scheduler |
 
