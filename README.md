@@ -26,7 +26,7 @@ sudo ./setup_installer.sh
 |--------------------|---------|
 | **Distro**         | [Arch Linux](https://archlinux.org/) |
 | **Installation**   | [archinstall](https://github.com/archlinux/archinstall) |
-| **File System**    | ext4 (separate root/home partitions) |
+| **File System**    | [ext4 (separate root/home partitions)](https://man.archlinux.org/man/ext4.5.en) and/or [BTRFS](https://wiki.archlinux.org/title/Btrfs) |
 | **Repositories**   | core, extra, multilib, [AUR](https://aur.archlinux.org/), [Flathub](https://flathub.org/) |
 | **Terminal**       | [Alacritty](https://github.com/alacritty/alacritty) |
 | **Bootloader**     | [systemd-boot](https://man.archlinux.org/man/systemd-boot.7) |
