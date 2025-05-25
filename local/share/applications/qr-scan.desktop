@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=QR (scan code)
+Exec=bash -c "$HOME/.config/hypr/scripts/qr-scan.sh"
+Icon=utilities-terminal
+Terminal=false
+Categories=Utility;

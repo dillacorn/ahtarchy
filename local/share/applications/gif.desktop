@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=gif (record)
+Exec=bash -c "$HOME/.config/hypr/scripts/gif.sh"
+Icon=utilities-terminal
+Terminal=false
+Categories=Utility;

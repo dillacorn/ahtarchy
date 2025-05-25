@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=rotate (alt super mod)
+Exec=bash -c "$HOME/.config/hypr/scripts/rotate_mod.sh"
+Icon=utilities-terminal
+Terminal=false
+Categories=Utility;
