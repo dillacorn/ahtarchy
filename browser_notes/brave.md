@@ -4,6 +4,54 @@ notes from repo: https://github.com/dillacorn/arch-hypr-dots
 ```sh
 flatpak install flathub com.brave.Browser
 ```
+---
+
+### 🖥️ Hiding Brave from Wofi (and customizing launch options)
+
+1. **Find the Flatpak `.desktop` file for Brave:**
+
+```sh
+find / -name 'com.brave.Browser.desktop' 2>/dev/null
+```
+
+2. **Edit the `.desktop` file to hide it from Wofi:**
+
+Once located, open the file in a text editor and add this line **at the top**:
+
+```ini
+NoDisplay=true
+```
+
+> This prevents the default Brave launcher from appearing in Wofi or other app launchers.
+
+3. **Use a custom `.desktop` file instead (optional):**
+
+Drop this custom launcher into your local applications directory:
+
+```sh
+~/.local/share/applications/brave.desktop
+```
+
+Use the example from this GitHub repo:
+[arch-hypr-dots/brave.desktop](https://github.com/dillacorn/arch-hypr-dots/blob/main/local/share/applications/brave.desktop)
+
+4. **(Optional) Add a launch argument to handle passwords:**
+
+In your custom `brave.desktop` file, modify the `Exec=` line to include:
+
+```sh
+--password-store=detect
+```
+
+For example:
+
+```ini
+Exec=flatpak run com.brave.Browser --password-store=detect %U
+```
+
+> This ensures Brave uses the correct password storage method based on your system.
+
+---
 
 # guide to make brave better
 https://github.com/libalpm64/Better-Brave-Browser
