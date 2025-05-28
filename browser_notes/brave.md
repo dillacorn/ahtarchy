@@ -12,37 +12,38 @@ https://github.com/libalpm64/Better-Brave-Browser
 
 navigate to: `brave://flags/`
 
-change these flags:
-* [#brave-cosmetic-filtering-sync-load](chrome://flags/#brave-cosmetic-filtering-sync-load): `Disabled`
-* [#brave-rewards-verbose-logging](chrome://flags/#brave-rewards-verbose-logging): `Disabled`
-* [#brave-rewards-allow-unsupported-wallet-providers](chrome://flags/#brave-rewards-allow-unsupported-wallet-providers): `Disabled`
-* [#brave-rewards-allow-self-custody-providers](chrome://flags/#brave-rewards-allow-self-custody-providers): `Disabled`
-* [#brave-rewards-new-rewards-ui](chrome://flags/#brave-rewards-new-rewards-ui): `Disabled`
-* [#brave-rewards-animated-background](chrome://flags/#brave-rewards-animated-background): `Disabled`
-* [#brave-rewards-platform-creator-detection](chrome://flags/#brave-rewards-platform-creator-detection): `Disabled`
-* [#brave-ads-allowed-to-fallback-to-custom-push-notification-ads](chrome://flags/#brave-ads-allowed-to-fallback-to-custom-push-notification-ads): `Disabled`
-* [#native-brave-wallet](chrome://flags/#native-brave-wallet): `Disabled`
-* [#brave-wallet-zcash](chrome://flags/#brave-wallet-zcash): `Disabled`
-* [#brave-wallet-bitcoin](chrome://flags/#brave-wallet-bitcoin): `Disabled`
-* [#brave-wallet-enable-ankr-balances](chrome://flags/#brave-wallet-enable-ankr-balances): `Disabled`
-* [#brave-wallet-enable-transaction-simulations](chrome://flags/#brave-wallet-enable-transaction-simulations): `Disabled`
-* [#brave-news-peek](chrome://flags/#brave-news-peek): `Disabled`
-* [#brave-news-feed-update](chrome://flags/#brave-news-feed-update): `Disabled`
-* [#ethereum_remote-client_new-installs](chrome://flags/#ethereum_remote-client_new-installs): `Disabled`
-* [#brave-rewards-gemini](chrome://flags/#brave-rewards-gemini): `Disabled`
-* [#brave-ai-chat](chrome://flags/#brave-ai-chat): `Disabled`
-* [#brave-ai-chat-history](chrome://flags/#brave-ai-chat-history): `Disabled`
-* [#brave-ai-chat-context-menu-rewrite-in-place](chrome://flags/#brave-ai-chat-context-menu-rewrite-in-place): `Disabled`
-* [#brave-ai-chat-page-content-refine](chrome://flags/#brave-ai-chat-page-content-refine): `Disabled`
-* [#brave-ai-chat-open-leo-from-brave-search](chrome://flags/#brave-ai-chat-open-leo-from-brave-search): `Disabled`
-* [#brave-ai-chat-web-content-association-default](chrome://flags/#brave-ai-chat-web-content-association-default): `Disabled`
-* [#brave-ai-rewriter](chrome://flags/#brave-ai-rewriter): `Disabled`
+### ✅ Required Flags to Disable
 
-# flags (optional)
+- [ ] `brave-cosmetic-filtering-sync-load`
+- [ ] `brave-rewards-verbose-logging`
+- [ ] `brave-rewards-allow-unsupported-wallet-providers`
+- [ ] `brave-rewards-allow-self-custody-providers`
+- [ ] `brave-rewards-new-rewards-ui`
+- [ ] `brave-rewards-animated-background`
+- [ ] `brave-rewards-platform-creator-detection`
+- [ ] `brave-ads-allowed-to-fallback-to-custom-push-notification-ads`
+- [ ] `native-brave-wallet`
+- [ ] `brave-wallet-zcash`
+- [ ] `brave-wallet-bitcoin`
+- [ ] `brave-wallet-enable-ankr-balances`
+- [ ] `brave-wallet-enable-transaction-simulations`
+- [ ] `brave-news-peek`
+- [ ] `brave-news-feed-update`
+- [ ] `ethereum_remote-client_new-installs`
+- [ ] `brave-rewards-gemini`
+- [ ] `brave-ai-chat`
+- [ ] `brave-ai-chat-history`
+- [ ] `brave-ai-chat-context-menu-rewrite-in-place`
+- [ ] `brave-ai-chat-page-content-refine`
+- [ ] `brave-ai-chat-open-leo-from-brave-search`
+- [ ] `brave-ai-chat-web-content-association-default`
+- [ ] `brave-ai-rewriter`
 
-* [#ozone-platform-hint](chrome://flags/#ozone-platform-hint): `Wayland`
-* [#fill-on-account-select](chrome://flags/#fill-on-account-select): `Disabled`
-* [#enable-pending-mode-passwords-promo](chrome://flags/#enable-pending-mode-passwords-promo): `Disabled`
+### ⚙️ Optional Flags
+
+- [ ] `ozone-platform-hint` → `Wayland`
+- [ ] `fill-on-account-select`
+- [ ] `enable-pending-mode-passwords-promo`
 
 # extensions
 
