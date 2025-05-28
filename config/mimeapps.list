@@ -1,9 +1,9 @@
 [Default Applications]
-x-scheme-handler/http=io.github.ungoogled_software.ungoogled_chromium.desktop
-x-scheme-handler/https=io.github.ungoogled_software.ungoogled_chromium.desktop
-text/html=io.github.ungoogled_software.ungoogled_chromium.desktop
-x-scheme-handler/about=io.github.ungoogled_software.ungoogled_chromium.desktop
-x-scheme-handler/unknown=io.github.ungoogled_software.ungoogled_chromium.desktop
+x-scheme-handler/http=com.brave.Browser
+x-scheme-handler/https=com.brave.Browser
+text/html=com.brave.Browser
+x-scheme-handler/about=com.brave.Browser
+x-scheme-handler/unknown=com.brave.Browser
 text/plain=micro.desktop
 image/png=qimgv.desktop
 video/mp4=mpv.desktop
