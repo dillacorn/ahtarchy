@@ -71,7 +71,6 @@ if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
             otpclient
             wlogout
             waypaper
-            cromite-git
         )
 
         # Install each package and clean up afterward

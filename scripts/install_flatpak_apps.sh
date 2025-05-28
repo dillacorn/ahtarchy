@@ -26,6 +26,7 @@ flatpak_origin='flathub'
 # List of desktop apps to be installed (specified by app ID)
 flatpak_apps=(
   'com.github.IsmaelMartinez.teams_for_linux'
+  'io.github.ungoogled_software.ungoogled_chromium'
   'dev.vencord.Vesktop'
   'com.spotify.Client'
   'io.itch.itch'
