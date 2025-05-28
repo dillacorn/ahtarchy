@@ -42,7 +42,9 @@ brave-ai-rewriter
 ### ⚙️ Optional Flags (without the #)
 
 ozone-platform-hint → `Wayland`
-fill-on-account-select → `Disabled`  
+
+fill-on-account-select → `Disabled`
+
 enable-pending-mode-passwords-promo → `Disabled`
 
 # extensions
