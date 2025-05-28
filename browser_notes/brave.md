@@ -12,38 +12,38 @@ https://github.com/libalpm64/Better-Brave-Browser
 
 navigate to: `brave://flags/`
 
-### ✅ Required Flags to Disable
+### ✅ Required Flags to Disable (without the #)
 
-- [ ] `brave-cosmetic-filtering-sync-load`
-- [ ] `brave-rewards-verbose-logging`
-- [ ] `brave-rewards-allow-unsupported-wallet-providers`
-- [ ] `brave-rewards-allow-self-custody-providers`
-- [ ] `brave-rewards-new-rewards-ui`
-- [ ] `brave-rewards-animated-background`
-- [ ] `brave-rewards-platform-creator-detection`
-- [ ] `brave-ads-allowed-to-fallback-to-custom-push-notification-ads`
-- [ ] `native-brave-wallet`
-- [ ] `brave-wallet-zcash`
-- [ ] `brave-wallet-bitcoin`
-- [ ] `brave-wallet-enable-ankr-balances`
-- [ ] `brave-wallet-enable-transaction-simulations`
-- [ ] `brave-news-peek`
-- [ ] `brave-news-feed-update`
-- [ ] `ethereum_remote-client_new-installs`
-- [ ] `brave-rewards-gemini`
-- [ ] `brave-ai-chat`
-- [ ] `brave-ai-chat-history`
-- [ ] `brave-ai-chat-context-menu-rewrite-in-place`
-- [ ] `brave-ai-chat-page-content-refine`
-- [ ] `brave-ai-chat-open-leo-from-brave-search`
-- [ ] `brave-ai-chat-web-content-association-default`
-- [ ] `brave-ai-rewriter`
+brave-cosmetic-filtering-sync-load  
+brave-rewards-verbose-logging  
+brave-rewards-allow-unsupported-wallet-providers  
+brave-rewards-allow-self-custody-providers  
+brave-rewards-new-rewards-ui  
+brave-rewards-animated-background  
+brave-rewards-platform-creator-detection  
+brave-ads-allowed-to-fallback-to-custom-push-notification-ads  
+native-brave-wallet  
+brave-wallet-zcash  
+brave-wallet-bitcoin  
+brave-wallet-enable-ankr-balances  
+brave-wallet-enable-transaction-simulations  
+brave-news-peek  
+brave-news-feed-update  
+ethereum_remote-client_new-installs  
+brave-rewards-gemini  
+brave-ai-chat  
+brave-ai-chat-history  
+brave-ai-chat-context-menu-rewrite-in-place  
+brave-ai-chat-page-content-refine  
+brave-ai-chat-open-leo-from-brave-search  
+brave-ai-chat-web-content-association-default  
+brave-ai-rewriter
 
-### ⚙️ Optional Flags
+### ⚙️ Optional Flags (without the #)
 
-- [ ] `ozone-platform-hint` → `Wayland`
-- [ ] `fill-on-account-select`
-- [ ] `enable-pending-mode-passwords-promo`
+ozone-platform-hint → `Wayland`
+fill-on-account-select → `Disabled`  
+enable-pending-mode-passwords-promo → `Disabled`
 
 # extensions
 
