@@ -61,5 +61,4 @@ disable `Show bookmarks bar`
 
 # web apps
 
-Place to manage your web apps.
-chrome://apps/
+Place to manage your web apps: `chrome://apps/`
