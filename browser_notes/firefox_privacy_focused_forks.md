@@ -4,7 +4,7 @@ Notes From Repo: https://github.com/dillacorn/arch-hypr-dots
 
 # install librewolf from flathub
 ```sh
-flatpak install --user flathub io.gitlab.librewolf-community
+flatpak install flathub io.gitlab.librewolf-community
 ```
 
 # install mullvad-browser from flathub (prefered)
