@@ -101,7 +101,7 @@ declare -a pkg_groups=(
     "Fonts:ttf-font-awesome ttf-hack ttf-dejavu ttf-liberation noto-fonts"
     "Themes:papirus-icon-theme materia-gtk-theme xcursor-comix"
     "Terminal Apps:micro alacritty fastfetch btop htop curl wget git dos2unix brightnessctl ipcalc cmatrix sl asciiquarium figlet cava man-db man-pages unzip octave ncdu"
-    "Utilities:steam polkit-gnome gnome-keyring lxappearance networkmanager network-manager-applet tailscale bluez bluez-utils blueman pavucontrol pcmanfm gvfs gvfs-smb gvfs-mtp gvfs-afc qbittorrent speedcrunch timeshift imagemagick pipewire pipewire-pulse pipewire-alsa ufw"
+    "Utilities:steam polkit-gnome gnome-keyring lxappearance networkmanager network-manager-applet tailscale bluez bluez-utils blueman pavucontrol pcmanfm-qt gvfs gvfs-smb gvfs-mtp gvfs-afc qbittorrent speedcrunch timeshift imagemagick pipewire pipewire-pulse pipewire-alsa ufw"
     "Multimedia:ffmpeg avahi mpv cheese exiv2 audacity krita shotcut filezilla gthumb handbrake zathura zathura-pdf-poppler"
     "Development:base-devel archlinux-keyring clang ninja go rust virt-manager qemu virt-viewer vde2 libguestfs dmidecode gamemode nftables swtpm"
     "Network Tools:wireguard-tools wireplumber openssh iptables systemd-resolvconf bridge-utils qemu-guest-agent dnsmasq dhcpcd inetutils openbsd-netcat"
