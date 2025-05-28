@@ -1,9 +1,9 @@
 [Default Applications]
-x-scheme-handler/http=io.github.ungoogled_software.ungoogled_chromium.desktop
-x-scheme-handler/https=io.github.ungoogled_software.ungoogled_chromium.desktop
-text/html=io.github.ungoogled_software.ungoogled_chromium.desktop
-x-scheme-handler/about=io.github.ungoogled_software.ungoogled_chromium.desktop
-x-scheme-handler/unknown=io.github.ungoogled_software.ungoogled_chromium.desktop
+x-scheme-handler/http=cromite.desktop
+x-scheme-handler/https=cromite.desktop
+text/html=cromite.desktop
+x-scheme-handler/about=cromite.desktop
+x-scheme-handler/unknown=cromite.desktop
 text/plain=micro.desktop
 image/png=qimgv.desktop
 video/mp4=mpv.desktop

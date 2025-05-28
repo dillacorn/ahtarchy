@@ -40,7 +40,6 @@ flatpak_apps=(
   'dev.lizardbyte.app.Sunshine'
   'com.moonlight_stream.Moonlight'
   'net.mullvad.MullvadBrowser'
-  'io.github.ungoogled_software.ungoogled_chromium'
   'com.github.tchx84.Flatseal'
   'com.github.wwmm.easyeffects'
   'io.github.seadve.Kooha'
