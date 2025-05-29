@@ -81,6 +81,7 @@ sudo ./setup_installer.sh
 > ℹ️ Modify scripts to suit your preferences
 
 ## 🌐 Browser Notes
+- [Brave](browser_notes/brave.md)
 - [Ungoogled-Chromium](browser_notes/ungoogled-chromium.md)
 - [Firefox Privacy Forks](browser_notes/firefox_privacy_focused_forks.md)
 
