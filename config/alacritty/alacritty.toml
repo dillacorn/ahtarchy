@@ -74,25 +74,25 @@ multiplier = 1  # Default: 3
 [font]
 
 # Normal font style
-normal = { family = "monospace", style = "Regular" }  # Default for Linux/BSD: "monospace", Regular
+normal = { family = "NotoSansM Nerd Font Mono", style = "Regular" }
 
 # Bold font style
-bold = { style = "Bold" }  # Inherits family from normal, Default style: Bold
+bold = { family = "NotoSansM Nerd Font Mono", style = "Bold" }
 
 # Italic font style
-italic = { style = "Italic" }  # Inherits family from normal, Default style: Italic
+italic = { family = "NotoSansM Nerd Font Mono", style = "Italic" }
 
 # Bold Italic font style
-bold_italic = { style = "Bold Italic" }  # Inherits family from normal, Default style: Bold Italic
+bold_italic = { family = "NotoSansM Nerd Font Mono", style = "Bold Italic" }
 
 # Font size in points
-size = 11.25  # Default: 11.25
+size = 12.00
 
 # Offset is extra space around each character
 offset = { x = 0, y = 0 }  # Default: x = 0, y = 0
 
 # Glyph offset determines the locations of the glyphs within their cells
-glyph_offset = { x = 0, y = 0 }  # Default: x = 0, y = 0
+glyph_offset = { x = 0, y = 2 }  # Default: x = 0, y = 0
 
 # Use built-in font for box drawing characters
 builtin_box_drawing = true  # Default: true
@@ -328,5 +328,7 @@ ipc_socket = true  # Default: true
 
 # Import additional configuration files
 import = [
-  "~/.config/alacritty/themes/themes/gruvbox_dark.toml"
+  "~/.config/alacritty/themes/themes/taerminal.toml"
 ]
+
+
