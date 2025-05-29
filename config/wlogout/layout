@@ -1,9 +1,14 @@
-
 {
     "label" : "lock",
     "action" : "hyprlock",
     "text" : "Lock (L)",
-    "keybind" : "l",
+    "keybind" : "l"
+}
+{
+    "label" : "hibernate",
+    "action" : "systemctl hibernate || loginctl hibernate",
+    "text" : "hibernate (H)",
+    "keybind" : "h"
 }
 {
     "label" : "reboot",
@@ -28,4 +33,4 @@
     "action" : "hyprlock & sleep 1; systemctl suspend -i",
     "text" : "Suspend (Z)",
     "keybind" : "z"
-}
+}}
