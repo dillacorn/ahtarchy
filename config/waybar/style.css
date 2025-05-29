@@ -4,6 +4,7 @@
 }
 
 window#waybar {
+    /* `otf-font-awesome 、 is required to be installed for icons */
     font-family: Noto Sans, monospace;
     background-color: transparent;
     border-bottom: 0px;
