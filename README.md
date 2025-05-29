@@ -84,6 +84,7 @@ sudo ./setup_installer.sh
 - [Brave](browser_notes/brave.md)
 - [Ungoogled-Chromium](browser_notes/ungoogled-chromium.md)
 - [Firefox Privacy Forks](browser_notes/firefox_privacy_focused_forks.md)
+- [Cromite](browser_notes/cromite.md)
 
 ---
 
