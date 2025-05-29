@@ -88,6 +88,7 @@ echo -e "${COLOR_YELLOW}
 - ~/.config/mako
 - ~/.config/gtk-3.0
 - ~/.config/Kvantum
+- ~/.config/pcmanfm-qt
 - ~/.config/SpeedCrunch
 - ~/.config/fastfetch
 - ~/.config/wlogout
@@ -191,7 +192,7 @@ done
 # Copy all configuration files
 echo -e "${COLOR_BLUE}Copying configuration files...${COLOR_RESET}"
 config_dirs=("hypr" "waybar" "alacritty" "wlogout" "waypaper" "mako" "wofi" 
-    "gtk-3.0" "Kvantum" "SpeedCrunch" "fastfetch" "xdg-desktop-portal")
+    "gtk-3.0" "Kvantum" "SpeedCrunch" "fastfetch" "pcmanfm-qt" "xdg-desktop-portal")
 
 for dir in "${config_dirs[@]}"; do
     retry_command cp -r "$REPO_DIR/config/$dir" "$HOME_DIR/.config/" || exit 1
