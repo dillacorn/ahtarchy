@@ -1,33 +1,25 @@
-enable_keyring_pam() {
-    local pam_file="/etc/pam.d/login"
-    
-    echo "[DEBUG] Checking $pam_file"
-    
-    # Verify file exists
-    if [ ! -f "$pam_file" ]; then
-        echo "[ERROR] $pam_file does not exist!"
-        return 1
-    fi
-    
-    # Verify readable
-    if [ ! -r "$pam_file" ]; then
-        echo "[ERROR] Cannot read $pam_file"
-        return 1
-    fi
-    
-    # Check for existing entry
-    if grep -q "pam_gnome_keyring.so" "$pam_file"; then
-        echo "[INFO] Keyring PAM already configured"
-        return 0
-    fi
-    
-    # Attempt to append
-    echo "[DEBUG] Attempting to append to $pam_file"
-    if ! echo -e "\n# Added by dotfiles setup\nauth optional pam_gnome_keyring.so\nsession optional pam_gnome_keyring.so auto_start" | sudo tee -a "$pam_file" >/dev/null; then
-        echo "[ERROR] Failed to write to $pam_file"
-        return 1
-    fi
-    
-    echo "[SUCCESS] Updated $pam_file"
-    return 0
-}
+# Create a temporary file with the new contents
+TMPFILE=$(mktemp)
+sudo cat /etc/pam.d/login > "$TMPFILE"
+
+# Add our lines if they don't exist
+if ! grep -q "pam_gnome_keyring.so" "$TMPFILE"; then
+    echo -e "\n# GNOME Keyring Integration (added $(date))" >> "$TMPFILE"
+    echo "auth       optional     pam_gnome_keyring.so" >> "$TMPFILE"
+    echo "session    optional     pam_gnome_keyring.so auto_start" >> "$TMPFILE"
+fi
+
+# Verify the changes
+echo "=== New file contents ==="
+tail -n 5 "$TMPFILE"
+
+# Confirm with user
+read -p "Apply these changes to /etc/pam.d/login? [y/N] " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    sudo cp "$TMPFILE" /etc/pam.d/login
+    echo "Changes applied successfully!"
+else
+    echo "Changes cancelled."
+fi
+rm "$TMPFILE"
