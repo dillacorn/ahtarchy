@@ -1,8 +1,8 @@
 window {
-    font-family: CaskaydiaCove Nerd Font, monospace;
+    font-family: Noto Sans Nerd Font, monospace;
     font-size: 12pt;
-    color: #ebdbb2;
-    background-color: rgba(40, 40, 40, 0.76);
+    color: #cdd6f4;
+    background-color: rgba(15, 15, 15, 0.85);
 }
 
 button {
@@ -13,14 +13,14 @@ button {
     padding-bottom: 125px;
     background-size: 60%;
     border: none;
-    color: #ebdbb2;
+    color: #cdd6f4;
     text-shadow: none;
     border-radius: 20px 20px 20px 20px;
-    background-color: rgba(40, 40, 40, 0.76);
+    background-color: rgba(30, 30, 30, 0.85);
     margin: 5px;
     transition: box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
 
 button:hover {
-    background-color: rgba(104, 157, 106, 0.92);
+    background-color: rgba(60, 60, 60, 0.92);
 }

@@ -2,13 +2,13 @@
 {
     "label" : "lock",
     "action" : "hyprlock",
-    "text" : "  Lock (L)  ",
+    "text" : "Lock (L)",
     "keybind" : "l",
 }
 {
     "label" : "reboot",
     "action" : "systemctl reboot",
-    "text" : " Reboot (R) ",
+    "text" : "Reboot (R)",
     "keybind" : "r"
 }
 {
@@ -20,12 +20,12 @@
 {
     "label" : "logout",
     "action" : "hyprctl dispatch exit",
-    "text" : " Logout (O) ",
+    "text" : "Logout (O)",
     "keybind" : "o"
 }
 {
     "label" : "suspend",
     "action" : "hyprlock & sleep 1; systemctl suspend -i",
-    "text" : " Suspend (Z)",
+    "text" : "Suspend (Z)",
     "keybind" : "z"
 }
