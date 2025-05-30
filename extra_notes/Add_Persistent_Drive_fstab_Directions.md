@@ -1,3 +1,4 @@
+```markdown
 Notes From Repo: https://github.com/dillacorn/arch-hypr-dots
 
 # list drives.
@@ -25,3 +26,4 @@ save and reboot.
 to view directory... use a terminal or file manager
 
 `cd /mnt/M2`
+```
