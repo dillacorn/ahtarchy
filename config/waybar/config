@@ -74,7 +74,7 @@
       "custom/apps": {
         "tooltip": false,
         "on-click": "pkill wofi || wofi --show drun",
-        "format": "    "
+        "format": ""
       },
       "load": {
         "format": " {} "
@@ -86,7 +86,7 @@
       "custom/power": {
         "tooltip": false,
         "on-click": "wlogout &",
-        "format": "   "
+        "format": " "
       },
       "cpu": {
         "format": "{usage}%  ",

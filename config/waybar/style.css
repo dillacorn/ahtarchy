@@ -1,91 +1,100 @@
+/* === Variables for easy theme tweaking === */
+@define-color bg-default #303446;
+@define-color bg-hover #737994;
+@define-color bg-active #626880;
+@define-color bg-urgent #e78284;
+@define-color bg-charging #a6d189;
+@define-color bg-critical #ef9f76;
+@define-color color-default #c6d0f5;
+@define-color color-dark #232634;
+@define-color color-hover #ca9ee6;
+
+/* === Global styles === */
 * {
-    font-size: 14px;
-    border-radius: 5px;
+  font-size: 14px;
+  border-radius: 5px;
 }
 
 window#waybar {
-    /* `otf-font-awesome 、 is required to be installed for icons */
-    font-family: Iosevka, FontAwesome, Noto Sans CJK;
-    background-color: transparent;
-    border-bottom: 0px;
-    color: #c6d0f5;
-    transition-property: background-color;
-    transition-duration: .5s;
+  font-family: Iosevka, FontAwesome, Noto Sans CJK;
+  background-color: transparent;
+  color: @color-default;
+  transition: background-color 0.5s;
 }
 
 window#waybar.hidden {
-    opacity: 0.2;
+  opacity: 0.2;
 }
 
 window#waybar.empty #window {
-    background-color: transparent;
+  background-color: transparent;
 }
 
-/*
-window#waybar.empty {
-    background-color: transparent;
-}
-window#waybar.solo {
-    background-color: #FFFFFF;
-}
-*/
-
+/* === Layout for modules === */
 .modules-right {
-    margin: 10px 10px 0 0;
+  margin: 10px 10px 0 0;
 }
+
 .modules-center {
-    margin: 10px 0 0 0;
+  margin: 10px 0 0 0;
 }
+
 .modules-left {
-    margin: 10px 0 0 10px;
+  margin: 10px 0 0 10px;
 }
 
+/* Remove left margin if workspaces is leftmost */
+.modules-left > widget:first-child > #workspaces {
+  margin-left: 0;
+}
+
+/* Remove right margin if workspaces is rightmost */
+.modules-right > widget:last-child > #workspaces {
+  margin-right: 0;
+}
+
+/* === Button styles === */
 button {
-    /* Use box-shadow instead of border so the text isn't offset */
-    /* box-shadow: inset 0 -3px transparent; */
-    border: none;
+  border: none;
+  /* box-shadow can be enabled if needed */
+  /* box-shadow: inset 0 -3px transparent; */
 }
 
-/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
-/*
-button:hover {
-    background: inherit;
-    box-shadow: inset 0 -3px #ebdbb2;
-} */
-
+/* === Workspaces styles === */
 #workspaces {
-    background-color: #303446;
+  background-color: @bg-default;
+  border-radius: 5px;
 }
 
 #workspaces button {
-    padding: 0 5px;
-    background-color: transparent;
-    color: #c6d0f5;
-    border-radius: 0;
+  padding: 0 5px;
+  background-color: transparent;
+  color: @color-default;
 }
 
 #workspaces button:first-child {
-    border-radius: 5px 0 0 5px;
+  border-radius: 5px 0 0 5px;
 }
 
 #workspaces button:last-child {
-    border-radius: 0 5px 5px 0;
+  border-radius: 0 5px 5px 0;
 }
 
 #workspaces button:hover {
-    color: #ca9ee6;
+  color: @color-hover;
 }
 
 #workspaces button.active {
-    background-color: #626880;
-    color: #c6d0f5;
+  background-color: @bg-active;
+  color: @color-default;
 }
 
 #workspaces button.urgent {
-    background-color: #e78284;
-    color: #232634;
+  background-color: @bg-urgent;
+  color: @color-dark;
 }
 
+/* === Common module styles === */
 #idle_inhibitor,
 #scratchpad,
 #mode,
@@ -98,91 +107,75 @@ button:hover {
 #load,
 #cpu,
 #temperature,
-#memory {
-    padding: 0 10px;
-    background-color: #303446;
-    color: #c6d0f5;
-}
-
-#mode {
-    background-color: #303446;
-    color: #232634;
-    /* box-shadow: inset 0 -3px #ffffff; */
-}
-
-#custom-apps {
-    background-color: #303446;
-    color: #c6d0f5;
-}
-
-#custom-apps:hover {
-    background-color: #303446;
-    color: #c6d0f5;
-}
-
+#memory,
+#custom-apps,
 #custom-power {
-    background-color: #303446;
-    color: #c6d0f5;
+  padding: 0 10px;
+  background-color: @bg-default;
+  color: @color-default;
 }
 
+/* === Mode special styles === */
+#mode {
+  background-color: @bg-default;
+  color: @color-dark;
+  /* box-shadow: inset 0 -3px #ffffff; */
+}
+
+/* === Custom power button hover === */
 #custom-power:hover {
-    background-color: #737994;
-    color: #c6d0f5;
+  background-color: @bg-hover;
+  color: @color-default;
 }
 
-/* If workspaces is the leftmost module, omit left margin */
-.modules-left > widget:first-child > #workspaces {
-    margin-left: 0;
+/* === Battery states === */
+#battery.charging,
+#battery.plugged {
+  background-color: @bg-charging;
+  color: @bg-default;
 }
 
-/* If workspaces is the rightmost module, omit right margin */
-.modules-right > widget:last-child > #workspaces {
-    margin-right: 0;
-}
-
-#battery.charging, #battery.plugged {
-    background-color: #a6d189;
-    color: #303446;
-}
-
-@keyframes blink {
-    to {
-        background-color: #303446;
-        color: #c6d0f5;
-    }
-}
-
-/* Using steps() instead of linear as a timing function to limit cpu usage */
 #battery.critical:not(.charging) {
-    background-color: #ef9f76;
-    color: #c6d0f5;
-    animation-name: blink;
-    animation-duration: 0.5s;
-    animation-timing-function: steps(12);
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
+  background-color: @bg-critical;
+  color: @color-default;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: steps(12);
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
 
+/* === Blink animation for critical battery === */
+@keyframes blink {
+  to {
+    background-color: @bg-default;
+    color: @color-default;
+  }
+}
+
+/* === Labels and other states === */
 label:focus {
-    background-color: #83a598;
+  background-color: #83a598;
 }
 
 #wireplumber.muted {
-    background-color: #737994;
+  background-color: @bg-hover;
 }
 
+/* === Tray styles === */
 #tray > .passive {
-    -gtk-icon-effect: dim;
+  -gtk-icon-effect: dim;
 }
 
 #tray > .needs-attention {
-    -gtk-icon-effect: highlight;
+  -gtk-icon-effect: highlight;
 }
 
 #tray menu {
-    font-family: Iosevka;
+  font-family: Iosevka;
 }
 
+/* === Scratchpad empty state === */
 #scratchpad.empty {
-    background: transparent;
+  background: transparent;
 }
