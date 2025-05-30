@@ -50,8 +50,8 @@
       "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {
-          "activated": "  ",
-          "deactivated": "  "
+          "activated": "",
+          "deactivated": ""
         }
       },
       "hyprland/mode": {
@@ -86,7 +86,7 @@
       "custom/power": {
         "tooltip": false,
         "on-click": "wlogout &",
-        "format": "    "
+        "format": "   "
       },
       "cpu": {
         "format": "{usage}%  ",
@@ -138,7 +138,7 @@
       },
       "wireplumber": {
         "scroll-step": 5,
-        "format": "{icon} {volume}%",
+        "format": "{icon}   {volume}%",
         "format-bluetooth": "{icon} {volume}% ",
         "format-bluetooth-muted": " {icon}",
         "format-muted": "",
