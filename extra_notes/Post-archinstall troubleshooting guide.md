@@ -1,4 +1,3 @@
-````markdown
 # 🛠️ Post-Archinstall Troubleshooting Guide
 
 This guide provides step-by-step instructions to troubleshoot common issues encountered after installing Arch Linux, especially around drive mounting and permissions.
@@ -96,4 +95,3 @@ cd /mnt/M2
 You should be able to create files, list contents, and navigate freely.
 
 > 📝 **Note:** If you encounter issues booting or mounting after editing `fstab`, boot into a live ISO to revert changes or troubleshoot.
-````
