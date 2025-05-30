@@ -1,4 +1,3 @@
-````markdown
 # ⚠️ Pre-Archinstall Troubleshooting Guide
 
 This guide helps you prepare your system for a smooth `archinstall` process. It focuses on checking and cleaning your target disk to avoid installation issues related to partitioning.
@@ -69,4 +68,3 @@ Follow the guided setup to partition and install Arch Linux on your clean drive.
 - Start `archinstall` only after confirming the target disk is clean.
 
 Taking these precautions will help ensure a smooth and trouble-free Arch Linux installation.
-````
