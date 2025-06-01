@@ -138,7 +138,7 @@ done
 # Apply Vesktop override only if Vesktop is installed
 if runuser -u "$target_user" -- flatpak $flatpak_user_flag list --app | grep -q 'dev.vencord.Vesktop'; then
   echo -e "${CYAN}Applying Flatpak override for Vesktop to disable X11 socket...${RESET}"
-  runuser -u "$target_user" -- flatpak override --nosocket=x11 dev.vencord.Vesktop
+  runuser -u "$target_user" -- flatpak $flatpak_user_flag override --nosocket=x11 dev.vencord.Vesktop
 else
   echo -e "${YELLOW}Vesktop is not installed. Skipping X11 override.${RESET}"
 fi
