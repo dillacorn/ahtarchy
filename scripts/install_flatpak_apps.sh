@@ -56,19 +56,22 @@ else
   flatpak_user_flag="--user"
 fi
 
-# Add Flatpak alias to .bashrc if not using Btrfs
+# Add Flatpak alias to .bashrc and .zshrc if not using Btrfs
 if [[ "$root_fs_type" != "btrfs" ]]; then
-  bashrc_path="$target_home/.bashrc"
   alias_line="alias flatpak='flatpak --user'"
 
-  # Append alias only if it doesn't already exist
-  if ! grep -Fxq "$alias_line" "$bashrc_path"; then
-    echo -e "\n# Automatically apply --user flag for Flatpak on non-Btrfs systems\n$alias_line" >> "$bashrc_path"
-    chown "$target_user:$target_user" "$bashrc_path"
-    echo -e "${GREEN}Appended Flatpak alias to ${bashrc_path}${RESET}"
-  else
-    echo -e "${YELLOW}Flatpak alias already present in ${bashrc_path}. Skipping...${RESET}"
-  fi
+  for shell_rc in ".bashrc" ".zshrc"; do
+    rc_path="$target_home/$shell_rc"
+    if [[ -f "$rc_path" ]]; then
+      if ! grep -qFx "$alias_line" "$rc_path"; then
+        echo -e "\n# Automatically apply --user flag for Flatpak on non-Btrfs systems\n$alias_line" >> "$rc_path"
+        chown "$target_user:$target_user" "$rc_path"
+        echo -e "${GREEN}Appended Flatpak alias to ${rc_path}${RESET}"
+      else
+        echo -e "${YELLOW}Flatpak alias already present in ${rc_path}. Skipping...${RESET}"
+      fi
+    fi
+  done
 fi
 
 # Check if Flatpak is installed; if not, install it via Pacman
