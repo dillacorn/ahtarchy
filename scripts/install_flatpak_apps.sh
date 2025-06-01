@@ -27,7 +27,7 @@ flatpak_origin='flathub'
 flatpak_apps=(
   'com.github.IsmaelMartinez.teams_for_linux'
   'com.brave.Browser'
-  'com.discordapp.Discord'
+  'dev.vencord.Vesktop'
   'com.spotify.Client'
   'io.itch.itch'
   'com.heroicgameslauncher.hgl'
