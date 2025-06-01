@@ -135,6 +135,10 @@ for app in "${flatpak_apps[@]}"; do
   fi
 done
 
+# Apply override for Vesktop to disable X11 socket (force Wayland)
+echo -e "${CYAN}Applying Flatpak override for Vesktop to disable X11 socket...${RESET}"
+runuser -u "$target_user" -- flatpak override --nosocket=x11 dev.vencord.Vesktop
+
 # Configure firewall rules for NDI (as root, since this requires system-level changes)
 echo -e "${CYAN}Configuring firewall rules for NDI...${RESET}"
 
