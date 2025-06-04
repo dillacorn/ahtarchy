@@ -101,7 +101,7 @@ declare -a pkg_groups=(
     "Fonts:ttf-font-awesome otf-font-awesome ttf-hack ttf-dejavu ttf-liberation ttf-noto-nerd noto-fonts-emoji"
     "Themes:papirus-icon-theme materia-gtk-theme xcursor-comix kvantum-theme-materia"
     "Terminal Apps:micro alacritty fastfetch btop htop curl wget git dos2unix brightnessctl ipcalc cmatrix sl asciiquarium figlet cava man-db man-pages unzip octave ncdu"
-    "Utilities:steam polkit-gnome gnome-keyring networkmanager network-manager-applet tailscale bluez bluez-utils blueman pavucontrol pcmanfm-qt gvfs gvfs-smb gvfs-mtp gvfs-afc qbittorrent speedcrunch timeshift imagemagick pipewire pipewire-pulse pipewire-alsa ufw"
+    "Utilities:steam polkit-gnome gnome-keyring networkmanager network-manager-applet tailscale bluez bluez-utils blueman pavucontrol pcmanfm-qt gvfs gvfs-smb gvfs-mtp gvfs-afc qbittorrent speedcrunch timeshift imagemagick pipewire pipewire-pulse pipewire-alsa ufw earlyoom"
     "Multimedia:ffmpeg avahi mpv cheese exiv2 audacity qpwgraph krita shotcut filezilla gthumb handbrake zathura zathura-pdf-poppler"
     "Development:base-devel archlinux-keyring clang ninja go rust virt-manager qemu virt-viewer vde2 libguestfs dmidecode gamemode nftables swtpm"
     "Network Tools:wireguard-tools wireplumber openssh iptables systemd-resolvconf bridge-utils qemu-guest-agent dnsmasq dhcpcd inetutils openbsd-netcat"
@@ -188,6 +188,16 @@ if [ "$IS_VM" = false ]; then
     ufw allow in on virbr0
     ufw allow out on virbr0
     ufw reload
+fi
+
+# =============================================
+# MEMORY SAFETY: EARLYOOM SETUP
+# =============================================
+if pacman -Qi earlyoom &>/dev/null; then
+    echo -e "${CYAN}Enabling earlyoom service...${NC}"
+    systemctl enable --now earlyoom
+else
+    echo -e "${YELLOW}earlyoom not installed — skipping service enable.${NC}"
 fi
 
 # =============================================
