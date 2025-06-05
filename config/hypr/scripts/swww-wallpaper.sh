@@ -10,42 +10,25 @@ DEFAULT_WALLPAPER="$HOME/Pictures/wallpapers/arch_geology.png"
 pkill -x swww-daemon 2>/dev/null
 sleep 0.2
 
-# --- Start swww-daemon silently ---
+# --- Start swww-daemon (silently) ---
 swww-daemon --format xrgb >/dev/null 2>&1 &
 sleep 0.5
 
-# --- Ensure cache directory exists ---
+# --- Ensure cache exists ---
 mkdir -p "$CACHE_DIR"
 
-# --- Set wallpaper function ---
+# --- Set wallpaper only if file exists ---
 set_wallpaper() {
-    local wallpaper="$1"
-    [[ ! -f "$wallpaper" ]] && return 1
-
-    # Wait until Hyprland has initialized monitors
-    until hyprctl monitors &>/dev/null; do sleep 0.1; done
-    sleep 0.5
-
-    # Add delay if fractional scaling is detected
-    if command -v jq >/dev/null; then
-        HAS_SCALING=$(hyprctl monitors -j | jq '[.[].scale] | any(. != 1)')
-        if [[ "$HAS_SCALING" == "true" ]]; then
-            echo "📏 Detected fractional scaling. Waiting for compositor to stabilize..."
-            sleep 1
-        fi
-    else
-        echo "⚠️ jq not found, skipping scale check. Install 'jq' for better behavior."
-    fi
-
-    swww img "$wallpaper" --transition-type simple >/dev/null 2>&1 && \
-        echo "$wallpaper" > "$LAST_WALLPAPER_FILE"
+    [[ ! -f "$1" ]] && return 1  # Cancel if missing
+    swww img "$1" --transition-type simple >/dev/null 2>&1 && \
+        echo "$1" > "$LAST_WALLPAPER_FILE"
 }
 
-# --- First run: set default wallpaper ---
+# --- First run: try default wallpaper (silently skip if missing) ---
 if [[ ! -f "$FIRST_RUN_FLAG" ]]; then
-    set_wallpaper "$DEFAULT_WALLPAPER" || true
+    set_wallpaper "$DEFAULT_WALLPAPER" || true  # Ignore failure
     touch "$FIRST_RUN_FLAG"
 else
-    # Subsequent runs: restore last wallpaper if available
+    # Subsequent runs: restore last wallpaper (if exists)
     [[ -f "$LAST_WALLPAPER_FILE" ]] && set_wallpaper "$(cat "$LAST_WALLPAPER_FILE")"
 fi

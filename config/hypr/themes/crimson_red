@@ -55,8 +55,6 @@ WAYBAR_CSS="$HOME/.config/waybar/style.css"
 WLOGOUT_CSS="$HOME/.config/wlogout/style.css"
 WOFI_CSS="$HOME/.config/wofi/style.css"
 MAKO_CONF="$HOME/.config/mako/config"
-CACHE_DIR="$HOME/.cache"
-LAST_WALLPAPER_FILE="$CACHE_DIR/last_wallpaper"
 
 ###########   APPLY CHANGES   ###########
 echo "🔄 Applying theme..."
@@ -123,23 +121,10 @@ nohup waybar >/dev/null 2>&1 &
 # Reload Mako
 makoctl reload
 
-###########   REAPPLY WALLPAPER SAFELY   ###########
-set_wallpaper() {
-    [[ ! -f "$1" ]] && return 1
-    until hyprctl monitors &>/dev/null; do sleep 0.1; done
-    sleep 0.4
+# Small delay to stabilize
+sleep 1
 
-    if command -v jq &>/dev/null; then
-        HAS_SCALING=$(hyprctl monitors -j | jq '[.[].scale] | any(. != 1)')
-        [[ "$HAS_SCALING" == "true" ]] && sleep 1
-    fi
-
-    swww img "$1" --transition-type simple >/dev/null 2>&1
-}
-
-if [[ -f "$LAST_WALLPAPER_FILE" ]]; then
-    echo "🎨 Reapplying wallpaper..."
-    set_wallpaper "$(cat "$LAST_WALLPAPER_FILE")"
-fi
+# Reapply wallpaper
+~/.config/hypr/scripts/swww-wallpaper.sh
 
 echo "✅ theme applied!"
