@@ -121,7 +121,4 @@ nohup waybar >/dev/null 2>&1 &
 # Reload Mako
 makoctl reload
 
-# Reload Hyprland Config
-hyprctl reload
-
 echo "✅ theme applied!"

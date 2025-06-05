@@ -20,7 +20,7 @@ mkdir -p "$CACHE_DIR"
 # --- Set wallpaper only if file exists ---
 set_wallpaper() {
     [[ ! -f "$1" ]] && return 1  # Cancel if missing
-    swww img "$1" --transition-type simple --transition-duration 60 >/dev/null 2>&1 && \
+    swww img "$1" --transition-type simple --transition-duration 60 --resize fit >/dev/null 2>&1 && \
         echo "$1" > "$LAST_WALLPAPER_FILE"
 }
 
