@@ -121,9 +121,6 @@ nohup waybar >/dev/null 2>&1 &
 # Reload Mako
 makoctl reload
 
-# Small delay to stabilize
-sleep 1
-
 # Reapply wallpaper
 ~/.config/hypr/scripts/swww-wallpaper.sh
 
