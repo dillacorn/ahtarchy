@@ -85,7 +85,7 @@ elif echo "$GPU_VENDOR" | grep -iq "NVIDIA"; then
         retry_command pacman -S --noconfirm lib32-nvidia-utils nvidia nvidia-utils nvidia-settings
 
         # Install video decoding libraries for NVIDIA
-        retry_command pacman -S --needed --noconfirm libva-vdpau-driver libvdpau-va-gl
+        retry_command pacman -S --needed --noconfirm libvdpau libvdpau-va-gl
     else
         echo -e "${GREEN}NVIDIA proprietary drivers already installed.${NC}"
     fi
