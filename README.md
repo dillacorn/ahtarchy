@@ -6,12 +6,7 @@
 
 ## 🚀 Quick Start
 
-### One-line Installer: (fresh Arch recommended)
-```bash
-curl -sL https://raw.githubusercontent.com/dillacorn/arch-hypr-dots/main/setup_installer.sh | sudo bash
-```
-
-### Manual Installation:
+### Installation:
 ```bash
 git clone https://github.com/dillacorn/arch-hypr-dots
 cd arch-hypr-dots
