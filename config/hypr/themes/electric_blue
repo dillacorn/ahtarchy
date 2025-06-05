@@ -13,7 +13,7 @@ NEW_INACTIVE_BORDER="00000000"
 W_COLOR="#89b4fa"
 W_BG="#1e1e2e"
 W_HOVER="#74c7ec"
-W_FOCUS="#74c7ec"
+W_FOCUS_BG="#74c7ec"
 W_ACTIVE_BG="#313244"
 W_ACTIVE_COLOR="#89b4fa"
 W_URGENT_BG="#f38ba8"
@@ -67,7 +67,7 @@ sed -i -e "s/^ *col\.active_border *= *.*/col.active_border = rgba(${NEW_ACTIVE_
 sed -i \
   -e "2s|.*|@define-color bg-default ${W_BG};|" \
   -e "3s|.*|@define-color bg-hover ${W_CUSTOM_HOVER_BG};|" \
-  -e "4s|.*|@define-color bg-focus ${W_FOCUS};|" \
+  -e "4s|.*|@define-color bg-focus ${W_FOCUS_BG};|" \
   -e "5s|.*|@define-color bg-active ${W_ACTIVE_BG};|" \
   -e "6s|.*|@define-color bg-urgent ${W_URGENT_BG};|" \
   -e "7s|.*|@define-color bg-charging ${W_BATT_CHARGING_BG};|" \
