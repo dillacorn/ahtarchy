@@ -121,4 +121,7 @@ nohup waybar >/dev/null 2>&1 &
 # Reload Mako
 makoctl reload
 
+# Resets wallpaper scaling after Hyprland config changes (for monitors scaled ≠1.0)
+~/.config/hypr/scripts/silent-wallpaper-fix.sh
+
 echo "✅ theme applied!"
