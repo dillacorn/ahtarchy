@@ -121,7 +121,7 @@ nohup waybar >/dev/null 2>&1 &
 # Reload Mako
 makoctl reload
 
-# Reapply wallpaper
-~/.config/hypr/scripts/swww-wallpaper.sh
+# Reload Hyprland Config
+hyprctl reload
 
 echo "✅ theme applied!"
