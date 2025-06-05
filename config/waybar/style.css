@@ -1,6 +1,7 @@
 /* === Variables for easy theme tweaking === */
 @define-color bg-default #0f0f0f;
 @define-color bg-hover #1e1e2e;
+@define-color bg-focus #1e1e2e;
 @define-color bg-active #1a1a1a;
 @define-color bg-urgent #ff5555;
 @define-color bg-charging #6a9955;
@@ -155,7 +156,7 @@ button {
 
 /* === Labels and other states === */
 label:focus {
-  background-color: #83a598;
+  background-color: @bg-focus;
 }
 
 #wireplumber.muted {
