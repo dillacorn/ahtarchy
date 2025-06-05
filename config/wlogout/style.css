@@ -1,6 +1,6 @@
 window {
     font-family: Noto Sans Nerd Font, monospace;
-    font-size: 12pt;
+    font-size: 14pt;
     color: #cdd6f4;
     background-color: rgba(15, 15, 15, 0.85);
 }
@@ -8,12 +8,10 @@ window {
 button {
     background-repeat: no-repeat;
     background-position: center;
-    font-size: 25px;
-    padding-top: 125px;
-    padding-bottom: 125px;
-    background-size: 60%;
+    background-size: 50%;
     border: none;
     color: #cdd6f4;
+    font-size: 25px;
     text-shadow: none;
     border-radius: 20px 20px 20px 20px;
     background-color: rgba(30, 30, 30, 0.85);
@@ -23,4 +21,8 @@ button {
 
 button:hover {
     background-color: rgba(60, 60, 60, 0.92);
+}
+
+button:focus {
+	background-color: rgba(60, 60, 60, 0.92);
 }

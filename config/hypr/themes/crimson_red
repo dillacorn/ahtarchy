@@ -32,6 +32,7 @@ WL_BG="rgba(30, 30, 46, 0.76)"
 WL_BTN_COLOR="#f38ba8"
 WL_BTN_BG="rgba(30, 30, 46, 0.76)"
 WL_BTN_HOVER_BG="rgba(235, 160, 172, 0.92)"
+WL_BTN_FOCUS_BG="rgba(235, 160, 172, 0.92)"
 
 # Wofi
 WO_BORDER="2px none #f38ba8"
@@ -78,9 +79,10 @@ sed -i \
 sed -i \
     -e "4s|.*|    color: ${WL_COLOR};|" \
     -e "5s|.*|    background-color: ${WL_BG};|" \
-    -e "16s|.*|    color: ${WL_BTN_COLOR};|" \
-    -e "19s|.*|    background-color: ${WL_BTN_BG};|" \
-    -e "25s|.*|    background-color: ${WL_BTN_HOVER_BG};|" \
+    -e "13s|.*|    color: ${WL_BTN_COLOR};|" \
+    -e "17s|.*|    background-color: ${WL_BG};|" \
+    -e "23s|.*|    background-color: ${WL_BTN_HOVER_BG};|" \
+    -e "27s|.*|    background-color: ${WL_BTN_FOCUS_BG};|" \
     "$WLOGOUT_CSS"
 
 # 4) Wofi
