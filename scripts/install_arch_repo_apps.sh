@@ -230,13 +230,20 @@ ExecStart=$HOME/.config/hypr/scripts/swww-wallpaper.sh
 WantedBy=suspend.target
 EOF
 
-systemctl --user daemon-reload
-systemctl --user enable wakeup-wallpaper.service
+# Use sudo -u to run user commands as the original user if script is run via sudo
+if [ -n "${SUDO_USER-}" ]; then
+    echo -e "${CYAN}Running systemctl commands as user: $SUDO_USER${NC}"
+    sudo -u "$SUDO_USER" systemctl --user daemon-reload
+    sudo -u "$SUDO_USER" systemctl --user enable wakeup-wallpaper.service
+else
+    systemctl --user daemon-reload
+    systemctl --user enable wakeup-wallpaper.service
+fi
 
 echo -e "${GREEN}Wallpaper restore service installed and enabled.${NC}"
 
 echo -e "${CYAN}Enabling linger so systemd user services run even when logged out...${NC}"
-sudo loginctl enable-linger "$USER"
+sudo loginctl enable-linger "${SUDO_USER:-$USER}"
 
 echo -e "\n${GREEN}Installation complete!${NC}"
 echo -e "${YELLOW}Note: Some changes may require reboot.${NC}"
