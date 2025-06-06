@@ -147,18 +147,29 @@ else
 fi
 
 # Configure firewall rules for NDI (as root, since this requires system-level changes)
-echo -e "${CYAN}Configuring firewall rules for NDI...${RESET}"
+echo -e "${CYAN}Configuring firewall rules for NDI...${NC}"
 
-# Add firewall rules for NDI (ports 5959-5969, 6960-6970, 7960-7970 for TCP and UDP, and 5353 for mDNS)
-echo -e "${CYAN}Adding firewall rules...${RESET}"
-ufw allow 5353/udp
-ufw allow 5959:5969/tcp
-ufw allow 5959:5969/udp
-ufw allow 6960:6970/tcp
-ufw allow 6960:6970/udp
-ufw allow 7960:7970/tcp
-ufw allow 7960:7970/udp
-ufw allow 5960/tcp
+# Add firewall rules for NDI (ports 5959–5969, 6960–6970, 7960–7970 for TCP and UDP, and 5353 for mDNS)
+echo -e "${CYAN}Adding firewall rules...${NC}"
+ufw allow 5353/udp                            # mDNS discovery
+ufw allow 5959:5969/tcp                       # Core NDI (TCP)
+ufw allow 5959:5969/udp                       # Core NDI (UDP)
+ufw allow 6960:6970/tcp                       # WAN streaming (TCP)
+ufw allow 6960:6970/udp                       # WAN streaming (UDP)
+ufw allow 7960:7970/tcp                       # Metadata/audio/etc (TCP)
+ufw allow 7960:7970/udp                       # Metadata/audio/etc (UDP)
+ufw allow 5960/tcp                            # Optional explicit NDI Remote control port
+
+# Check if Moonlight (Flatpak) is installed
+if flatpak list --app | grep -q com.moonlight_stream.Moonlight; then
+    echo -e "${CYAN}Moonlight Flatpak detected! Configuring firewall rules for Moonlight...${NC}"
+    ufw allow 48010/tcp
+    ufw allow 48000/udp
+    ufw allow 48010/udp
+    echo -e "${GREEN}Firewall rules for Moonlight configured successfully.${NC}"
+else
+    echo -e "${YELLOW}Moonlight is not installed via Flatpak. Skipping firewall configuration for Moonlight.${NC}"
+fi
 
 echo -e "${GREEN}Firewall rules for NDI configured successfully.${RESET}"
 
