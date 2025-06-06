@@ -201,12 +201,42 @@ else
 fi
 
 # =============================================
-# FINAL CONFIGURATION
+# BLUETOOTH
 # =============================================
 # Bluetooth
 if pacman -Qi bluez &>/dev/null; then
     systemctl enable --now bluetooth.service
 fi
+
+# =============================================
+# WALLPAPER SCALING FIX
+# =============================================
+# Setup systemd user service to run swww-wallpaper.sh on suspend/wake
+# This fixes wallpaper scaling issues by restoring the wallpaper correctly after wakeup,
+# especially when scaling factor != 1.0.
+
+echo -e "${CYAN}Setting up wallpaper restore systemd user service...${NC}"
+
+mkdir -p "$HOME/.config/systemd/user"
+
+cat > "$HOME/.config/systemd/user/wakeup-wallpaper.service" <<EOF
+[Unit]
+Description=Restore wallpaper on wake from suspend
+
+[Service]
+ExecStart=$HOME/.config/hypr/scripts/swww-wallpaper.sh
+
+[Install]
+WantedBy=suspend.target
+EOF
+
+systemctl --user daemon-reload
+systemctl --user enable wakeup-wallpaper.service
+
+echo -e "${GREEN}Wallpaper restore service installed and enabled.${NC}"
+
+echo -e "${CYAN}Enabling linger so systemd user services run even when logged out...${NC}"
+sudo loginctl enable-linger "$USER"
 
 echo -e "\n${GREEN}Installation complete!${NC}"
 echo -e "${YELLOW}Note: Some changes may require reboot.${NC}"
