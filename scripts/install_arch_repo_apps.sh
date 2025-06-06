@@ -217,33 +217,43 @@ fi
 
 echo -e "${CYAN}Setting up wallpaper restore systemd user service...${NC}"
 
-mkdir -p "$HOME/.config/systemd/user"
+# Determine the target user and home directory for the service file
+if [ -n "${SUDO_USER-}" ]; then
+    TARGET_USER="$SUDO_USER"
+else
+    TARGET_USER="$USER"
+fi
+USER_HOME=$(eval echo "~$TARGET_USER")
 
-cat > "$HOME/.config/systemd/user/wakeup-wallpaper.service" <<EOF
+# Create systemd user service directory if not exists
+mkdir -p "$USER_HOME/.config/systemd/user"
+
+# Write the service file
+cat > "$USER_HOME/.config/systemd/user/wakeup-wallpaper.service" <<EOF
 [Unit]
 Description=Restore wallpaper on wake from suspend
 
 [Service]
-ExecStart=$HOME/.config/hypr/scripts/swww-wallpaper.sh
+ExecStart=$USER_HOME/.config/hypr/scripts/swww-wallpaper.sh
 
 [Install]
 WantedBy=suspend.target
 EOF
 
-# Use sudo -u to run user commands as the original user if script is run via sudo
-if [ -n "${SUDO_USER-}" ]; then
-    echo -e "${CYAN}Running systemctl commands as user: $SUDO_USER${NC}"
-    sudo -u "$SUDO_USER" systemctl --user daemon-reload
-    sudo -u "$SUDO_USER" systemctl --user enable wakeup-wallpaper.service
-else
-    systemctl --user daemon-reload
-    systemctl --user enable wakeup-wallpaper.service
-fi
+# Ensure the service file is owned by the target user
+chown "$TARGET_USER":"$TARGET_USER" "$USER_HOME/.config/systemd/user/wakeup-wallpaper.service"
+
+# Prepare environment variables for user systemctl commands
+XDG_RUNTIME_DIR="/run/user/$(id -u "$TARGET_USER")"
+
+echo -e "${CYAN}Running systemctl commands as user: $TARGET_USER${NC}"
+sudo -u "$TARGET_USER" XDG_RUNTIME_DIR="$XDG_RUNTIME_DIR" systemctl --user daemon-reload
+sudo -u "$TARGET_USER" XDG_RUNTIME_DIR="$XDG_RUNTIME_DIR" systemctl --user enable wakeup-wallpaper.service
 
 echo -e "${GREEN}Wallpaper restore service installed and enabled.${NC}"
 
 echo -e "${CYAN}Enabling linger so systemd user services run even when logged out...${NC}"
-sudo loginctl enable-linger "${SUDO_USER:-$USER}"
+sudo loginctl enable-linger "$TARGET_USER"
 
 echo -e "\n${GREEN}Installation complete!${NC}"
 echo -e "${YELLOW}Note: Some changes may require reboot.${NC}"
