@@ -6,7 +6,7 @@ FIRST_RUN_FLAG="$CACHE_DIR/swww_first_run"
 DEFAULT_WALLPAPER="$HOME/Pictures/wallpapers/arch_geology.png"
 
 # --- Restart swww-daemon cleanly to ensure correct session ---
-pkill -x swww-daemon 2>/dev/null
+swww kill 2>/dev/null
 sleep 0.2
 
 # --- Start swww-daemon (silently) ---
