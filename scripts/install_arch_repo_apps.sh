@@ -215,45 +215,45 @@ fi
 # This fixes wallpaper scaling issues by restoring the wallpaper correctly after wakeup,
 # especially when scaling factor != 1.0.
 
-echo -e "${CYAN}Setting up wallpaper restore systemd user service...${NC}"
+# echo -e "${CYAN}Setting up wallpaper restore systemd user service...${NC}"
 
 # Determine the target user and home directory for the service file
-if [ -n "${SUDO_USER-}" ]; then
-    TARGET_USER="$SUDO_USER"
-else
-    TARGET_USER="$USER"
-fi
-USER_HOME=$(eval echo "~$TARGET_USER")
+# if [ -n "${SUDO_USER-}" ]; then
+#     TARGET_USER="$SUDO_USER"
+# else
+#     TARGET_USER="$USER"
+# fi
+# USER_HOME=$(eval echo "~$TARGET_USER")
 
 # Create systemd user service directory if not exists
-mkdir -p "$USER_HOME/.config/systemd/user"
+# mkdir -p "$USER_HOME/.config/systemd/user"
 
 # Write the service file
-cat > "$USER_HOME/.config/systemd/user/wakeup-wallpaper.service" <<EOF
-[Unit]
-Description=Restore wallpaper on wake from suspend
+# cat > "$USER_HOME/.config/systemd/user/wakeup-wallpaper.service" <<EOF
+# [Unit]
+# Description=Restore wallpaper on wake from suspend
 
-[Service]
-ExecStart=$USER_HOME/.config/hypr/scripts/swww-wallpaper.sh
+# [Service]
+# ExecStart=$USER_HOME/.config/hypr/scripts/swww-wallpaper.sh
 
-[Install]
-WantedBy=suspend.target
-EOF
+# [Install]
+# WantedBy=suspend.target
+# EOF
 
 # Ensure the service file is owned by the target user
-chown "$TARGET_USER":"$TARGET_USER" "$USER_HOME/.config/systemd/user/wakeup-wallpaper.service"
+# chown "$TARGET_USER":"$TARGET_USER" "$USER_HOME/.config/systemd/user/wakeup-wallpaper.service"
 
 # Prepare environment variables for user systemctl commands
-XDG_RUNTIME_DIR="/run/user/$(id -u "$TARGET_USER")"
+# XDG_RUNTIME_DIR="/run/user/$(id -u "$TARGET_USER")"
 
-echo -e "${CYAN}Running systemctl commands as user: $TARGET_USER${NC}"
-sudo -u "$TARGET_USER" XDG_RUNTIME_DIR="$XDG_RUNTIME_DIR" systemctl --user daemon-reload
-sudo -u "$TARGET_USER" XDG_RUNTIME_DIR="$XDG_RUNTIME_DIR" systemctl --user enable wakeup-wallpaper.service
+# echo -e "${CYAN}Running systemctl commands as user: $TARGET_USER${NC}"
+# sudo -u "$TARGET_USER" XDG_RUNTIME_DIR="$XDG_RUNTIME_DIR" systemctl --user daemon-reload
+# sudo -u "$TARGET_USER" XDG_RUNTIME_DIR="$XDG_RUNTIME_DIR" systemctl --user enable wakeup-wallpaper.service
 
-echo -e "${GREEN}Wallpaper restore service installed and enabled.${NC}"
+ #echo -e "${GREEN}Wallpaper restore service installed and enabled.${NC}"
 
-echo -e "${CYAN}Enabling linger so systemd user services run even when logged out...${NC}"
-sudo loginctl enable-linger "$TARGET_USER"
+# echo -e "${CYAN}Enabling linger so systemd user services run even when logged out...${NC}"
+# sudo loginctl enable-linger "$TARGET_USER"
 
 echo -e "\n${GREEN}Installation complete!${NC}"
 echo -e "${YELLOW}Note: Some changes may require reboot.${NC}"
