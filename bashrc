@@ -7,7 +7,7 @@
 
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
-PS1='\w\ '
+PS1=' \w\$ '  # 🐧 Tux in the prompt
 export EDITOR=/usr/bin/micro
 export GTK_THEME=Materia-dark
 alias hypr='XDG_SESSION_TYPE=wayland exec Hyprland'
