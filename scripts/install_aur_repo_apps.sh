@@ -1,20 +1,34 @@
 #!/bin/bash
 
-# Ensure the script is run with sudo
-if [ -z "$SUDO_USER" ]; then
-    echo "This script must be run with sudo!"
-    exit 1
-fi
-
-# Temporarily enable passwordless sudo for the current user
-sudo bash -c "echo '$SUDO_USER ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers.d/temp_sudo_nopasswd"
-
 # Define color codes
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 CYAN='\033[1;96m'
 NC='\033[0m' # No Color
+
+# Ensure the script is run with sudo
+if [ -z "$SUDO_USER" ]; then
+    echo "This script must be run with sudo!"
+    exit 1
+fi
+
+# Create and validate temporary sudoers file
+echo -e "${CYAN}Creating temporary sudo permissions...${NC}"
+TMP_SUDOERS=$(sudo mktemp /tmp/temp_sudoers.XXXXXX) || exit 1
+echo "${SUDO_USER} ALL=(ALL) NOPASSWD: ALL" | sudo tee "$TMP_SUDOERS" > /dev/null
+
+# Validate syntax before installing
+if ! sudo visudo -c -f "$TMP_SUDOERS"; then
+    echo -e "${RED}Error: Generated sudoers file is invalid!${NC}" >&2
+    sudo rm -f "$TMP_SUDOERS"
+    exit 1
+fi
+
+# Install with proper permissions
+sudo install -m 0440 "$TMP_SUDOERS" /etc/sudoers.d/temp_sudo_nopasswd
+sudo rm -f "$TMP_SUDOERS"
+echo -e "${GREEN}Temporary sudo permissions created successfully.${NC}"
 
 # Check if yay is installed, if not, install it as the normal user
 if ! command -v yay &> /dev/null; then
