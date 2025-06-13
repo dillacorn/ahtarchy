@@ -47,3 +47,56 @@ background() {
 
   echo "$1 started in background. Logs: ~/.cache/$cmd_name.log"
 }
+
+# Dry-run function for scripts
+dryrun() {
+    # Check if file exists and is readable
+    if [[ ! -f "$1" || ! -r "$1" ]]; then
+        echo -e "\033[1;31m✘ Error: '$1' is not a readable script file\033[0m" >&2
+        return 1
+    fi
+
+    local script_name
+    script_name=$(basename "$1")
+    echo -e "\n\033[1;33m🏗️  DRY RUN: \033[1;37m${script_name}\033[0m"
+    
+    # Syntax check with exact error reporting
+    echo -e "\n\033[1;34m🔎 Syntax Check:\033[0m"
+    if bash -nv "$1" 2>/dev/null; then
+        echo -e "\033[1;32m✓ Syntax validation passed\033[0m"
+    else
+        echo -e "\n\033[1;31m✘ Syntax errors detected:\033[0m" >&2
+        bash -nv "$1" 2>&1 | grep --color -n -B1 -A1 'error'
+        return 1
+    fi
+
+    # Command analysis with improved detection
+    echo -e "\n\033[1;34m📊 Operations Analysis:\033[0m"
+    
+    declare -A categories=(
+        ["🔧 System Modifications"]='sudo|install|ch(mod|own)|ufw|mount'
+        ["📦 Package Management"]='yay|pacman|makepkg|flatpak|dnf|apt'
+        ["🗂️  File Operations"]='rm\>|mv\>|cp\>|mkdir|ln\>'
+        ["🔄 Git Operations"]='git\s+(clone|push|pull|reset|checkout)'
+        ["🌐 Network Operations"]='curl\>|wget\>|ssh\>|scp\>'
+    )
+    
+    local found_operations=false
+    for category in "${!categories[@]}"; do
+        local matches
+        matches=$(grep -E --color=always -n "${categories[$category]}" "$1")
+        if [[ -n "$matches" ]]; then
+            found_operations=true
+            echo -e "\n\033[1;35m${category}:\033[0m"
+            echo "$matches" | while read -r line; do
+                echo -e "  \033[1;36mLine ${line%%:*}\033[0m: ${line#*:}"
+            done
+        fi
+    done
+
+    if ! $found_operations; then
+        echo -e "\033[1;37mNo potentially impactful operations found\033[0m"
+    fi
+
+    echo -e "\n\033[1;33m💡 Dry run complete. To execute:\033[0m\n\033[1;32m./${script_name}\033[0m"
+}
