@@ -6,8 +6,8 @@ set -euo pipefail
 
 ###########   THEME COLORS   ###########
 # Hyprland
-NEW_ACTIVE_BORDER="3c3c3cff"
-NEW_INACTIVE_BORDER="00000000"
+NEW_ACTIVE_BORDER="a0a0a0ff"
+NEW_INACTIVE_BORDER="5c5c5cff"
 
 # Waybar
 W_COLOR="#cdd6f4"
