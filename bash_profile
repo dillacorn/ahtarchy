@@ -1,19 +1,37 @@
 #
-# ~/.bash_profile
+# ~/.bash_profile - User login configuration
 #
 
-[[ -f ~/.bashrc ]] && . ~/.bashrc
+# Source ~/.bashrc if it exists (common practice to keep shell settings centralized)
+if [[ -f ~/.bashrc ]]; then
+  . ~/.bashrc
+fi
 
+# Run fastfetch with a TTY-friendly config (system info tool)
 fastfetch --config ~/.config/fastfetch/tty_compatible.jsonc
 
-echo -e "\033[1;34mTo start hype, type: \033[1;31mhypr\033[0m"
+# Inform user how to start Hyprland (your Wayland compositor)
+echo -e "\033[1;34mTo start Hyprland, type: \033[1;31mhypr\033[0m"
 
-# Function to generate a random message
+# --- Fun message function ---
+# Randomly suggests a fun terminal command to try on login
 add_random_fun_message() {
-  fun_messages=("cacafire" "cmatrix" "aafire" "sl" "asciiquarium" "figlet TTY is cool")
-  RANDOM_FUN_MESSAGE=${fun_messages[$((RANDOM % ${#fun_messages[@]}))]}
+  # Array of fun commands to try
+  local fun_messages=(
+    "cacafire"
+    "cmatrix"
+    "aafire"
+    "sl"
+    "asciiquarium"
+    "figlet TTY is cool"
+  )
+  
+  # Pick a random command from the list
+  RANDOM_FUN_MESSAGE="${fun_messages[RANDOM % ${#fun_messages[@]}]}"
+  
+  # Print a colorful suggestion message
   echo -e "\033[1;33mFor some fun, try running \033[1;31m$RANDOM_FUN_MESSAGE\033[1;33m!\033[0m"
 }
 
-# Call the random fun message function on login
+# Call the fun message function on login
 add_random_fun_message
