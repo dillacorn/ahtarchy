@@ -126,12 +126,14 @@ fi
 # Check if Moonlight is installed via yay (from AUR)
 if yay -Qs moonlight-qt-bin > /dev/null; then
     echo -e "${CYAN}Moonlight detected! Configuring firewall rules for Moonlight...${NC}"
-    ufw allow 48010/tcp
-    ufw allow 48000/udp
-    ufw allow 48010/udp
-    echo -e "${GREEN}Firewall rules for Moonlight configured successfully.${NC}"
-else
-    echo -e "${YELLOW}Moonlight is not installed. Skipping firewall configuration for Moonlight.${NC}"
+    if command -v ufw &> /dev/null; then
+        sudo ufw allow 48010/tcp
+        sudo ufw allow 48000/udp
+        sudo ufw allow 48010/udp
+        echo -e "${GREEN}Firewall rules for Moonlight configured successfully.${NC}"
+    else
+        echo -e "${YELLOW}UFW is not installed. Skipping firewall configuration.${NC}"
+    fi
 fi
 
 # Remove the temporary passwordless sudo entry
