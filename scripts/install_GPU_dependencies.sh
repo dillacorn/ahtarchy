@@ -23,6 +23,27 @@ retry_command() {
     done
 }
 
+# Safely remove NVIDIA drivers without touching firmware files
+clean_nvidia_drivers() {
+    echo -e "${BLUE}Checking for NVIDIA drivers...${NC}"
+    local nvidia_pkgs
+    nvidia_pkgs=$(pacman -Qq | grep -E '^nvidia|^lib32-nvidia|nvidia-settings')
+
+    if [[ -n "$nvidia_pkgs" ]]; then
+        echo -e "${YELLOW}Removing NVIDIA packages...${NC}"
+        echo -e "${BLUE}Found packages:\n$nvidia_pkgs${NC}"
+
+        IFS=$'\n' read -rd '' -a nvidia_array <<< "$nvidia_pkgs"
+        retry_command pacman -Rns --noconfirm "${nvidia_array[@]}"
+
+        # Reinstall linux-firmware to ensure clean state (without forcing overwrites)
+        echo -e "${BLUE}Ensuring firmware is in clean state...${NC}"
+        retry_command pacman -S --noconfirm --needed linux-firmware
+    else
+        echo -e "${GREEN}No NVIDIA packages found.${NC}"
+    fi
+}
+
 # Ensure the script is run with sudo/root privileges
 if [ "$(id -u)" -ne 0 ]; then
     echo -e "${RED}This script must be run with sudo!${NC}"
@@ -35,7 +56,7 @@ if systemd-detect-virt -q; then
     exit 0
 fi
 
-# Detect GPU type and apply appropriate settings for AMD, Intel, or Nvidia users
+# Detect GPU type and apply appropriate settings for AMD, Intel, or NVIDIA users
 GPU_VENDOR=$(lspci | grep -i 'vga\|3d\|2d' | grep -i 'Radeon\|NVIDIA\|Intel\|Advanced Micro Devices')
 
 echo -e "${BLUE}Detecting GPU vendor...${NC}"
@@ -45,8 +66,8 @@ if [ -z "$GPU_VENDOR" ]; then
     exit 0
 fi
 
-# Install required GPU dependencies
-echo -e "${BLUE}Installing GPU-specific dependencies...${NC}"
+# Update system and install core GPU dependencies
+echo -e "${BLUE}Updating system and installing GPU-specific dependencies...${NC}"
 retry_command pacman -Syu --noconfirm
 retry_command pacman -S --noconfirm lib32-mesa lib32-vulkan-icd-loader lib32-libglvnd
 
@@ -54,13 +75,17 @@ retry_command pacman -S --noconfirm lib32-mesa lib32-vulkan-icd-loader lib32-lib
 if echo "$GPU_VENDOR" | grep -iq "Radeon\|Advanced Micro Devices"; then
     echo -e "${GREEN}AMD GPU detected. Applying AMD-specific settings...${NC}"
 
-    # Ensure the linux-firmware package is installed for AMD GPUs
+    # Clean up any existing NVIDIA drivers to avoid conflicts
+    clean_nvidia_drivers
+
+    # Install linux-firmware package which includes AMD firmware blobs
+    echo -e "${BLUE}Ensuring linux-firmware package is installed...${NC}"
     retry_command pacman -S --needed --noconfirm linux-firmware
 
     # Install AMD video decoding libraries (VA-API and VDPAU)
     retry_command pacman -S --needed --noconfirm libva-mesa-driver mesa-vdpau lib32-mesa-vdpau
 
-    # Check if VA-API tools are available, install if missing
+    # Install VA-API tools if not present
     if ! command -v vainfo &> /dev/null; then
         echo -e "${BLUE}Installing libva-utils for VA-API support...${NC}"
         retry_command pacman -S --needed --noconfirm libva-utils
@@ -79,7 +104,7 @@ if echo "$GPU_VENDOR" | grep -iq "Radeon\|Advanced Micro Devices"; then
 elif echo "$GPU_VENDOR" | grep -iq "NVIDIA"; then
     echo -e "${YELLOW}NVIDIA GPU detected. Applying NVIDIA-specific settings...${NC}"
 
-    # Install NVIDIA proprietary drivers
+    # Install NVIDIA proprietary drivers if not already installed
     if ! pacman -Qq nvidia &> /dev/null; then
         echo -e "${BLUE}Installing NVIDIA proprietary drivers...${NC}"
         retry_command pacman -S --noconfirm lib32-nvidia-utils nvidia nvidia-utils nvidia-settings
@@ -98,7 +123,7 @@ elif echo "$GPU_VENDOR" | grep -iq "NVIDIA"; then
 elif echo "$GPU_VENDOR" | grep -iq "Intel"; then
     echo -e "${YELLOW}Intel GPU detected. Applying Intel-specific settings...${NC}"
 
-    # Install Intel GPU drivers
+    # Install Intel GPU drivers if not installed
     if ! pacman -Qq xf86-video-intel &> /dev/null; then
         echo -e "${BLUE}Installing Intel GPU driver...${NC}"
         retry_command pacman -S --noconfirm xf86-video-intel libva-intel-driver libvdpau-va-gl
