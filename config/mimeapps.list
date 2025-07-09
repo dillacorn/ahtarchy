@@ -18,6 +18,7 @@ inode/directory=pcmanfm-qt.desktop
 application/x-bittorrent=org.qbittorrent.qBittorrent.desktop
 video/x-matroska=mpv.desktop
 application/pdf=org.pwmt.zathura.desktop
+application/zip=xarchiver.desktop
 
 [Added Associations]
 application/octet-stream=micro.desktop;
