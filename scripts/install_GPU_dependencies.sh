@@ -82,6 +82,9 @@ if echo "$GPU_VENDOR" | grep -iq "Radeon\|Advanced Micro Devices"; then
     echo -e "${BLUE}Ensuring linux-firmware package is installed...${NC}"
     retry_command pacman -S --needed --noconfirm linux-firmware
 
+    # Install Vulkan RADV driver, 32-bit Vulkan support, and tools
+    retry_command pacman -S --needed --noconfirm vulkan-radeon lib32-vulkan-radeon vulkan-tools
+
     # Install AMD video decoding libraries (VA-API and VDPAU)
     retry_command pacman -S --needed --noconfirm libva-mesa-driver mesa-vdpau lib32-mesa-vdpau
 
