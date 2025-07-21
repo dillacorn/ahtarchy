@@ -30,6 +30,8 @@ experimental_present_mode = "mailbox"
 ```
 cap frame rate to a consistantly achieved value.. for me that's 120fps unfortunantly and I hate how this game preforms but it's a good example.
 
+Ideally I won't be using lossless scaling for this title.
+
 ## Elden Ring
 (60fps lock multiplied by 4 = 240 fps)
 
