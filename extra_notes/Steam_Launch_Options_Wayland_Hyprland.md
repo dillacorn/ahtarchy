@@ -24,7 +24,6 @@ lsfg-vk conf.toml
 exe = "TheFinals"
 
 multiplier = 2
-flow_scale = 0.7
 performance_mode = true
 experimental_present_mode = "mailbox"
 ```
