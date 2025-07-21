@@ -14,10 +14,11 @@ hyprctl keyword monitor "DP-2,1352x1080@240,0x0,1"; gamemoderun %command% -novid
 # Lossless Scaling Enabled
 
 ## The Finals [note to disable by commenting out when not wanting to use lossless scaling!]
-[[game]] # override GameThread
+```[[game]] # override GameThread
 exe = "GameThread"
 
 multiplier = 2
 flow_scale = 0.7
 performance_mode = true
 experimental_present_mode = "mailbox"
+```
