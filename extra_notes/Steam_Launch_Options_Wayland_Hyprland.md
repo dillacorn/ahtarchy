@@ -15,9 +15,12 @@ hyprctl keyword monitor "DP-2,1352x1080@240,0x0,1"; gamemoderun %command% -novid
 # [lsfg-vk for Linux](https://github.com/PancakeTAS/lsfg-vk)
 
 ## The Finals
-[note to disable lossless scaling commenting out for games that also show up in btop as "GameThread"]
-```[[game]] # override GameThread
-exe = "GameThread"
+Launch Options:
+```LSFG_PROCESS=TheFinals gamemoderun %command% -novid +fps_max 0 -high -dx12```
+
+lsfg-vk conf.toml
+```[[game]] # override The Finals
+exe = "TheFinals"
 
 multiplier = 2
 flow_scale = 0.7
