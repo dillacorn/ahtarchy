@@ -19,11 +19,25 @@ Launch Options:
 ```LSFG_PROCESS=TheFinals gamemoderun %command% -novid +fps_max 0 -high -dx12```
 
 lsfg-vk conf.toml
-```[[game]] # override The Finals
+```
+[[game]] # override The Finals
 exe = "TheFinals"
 
 multiplier = 2
 flow_scale = 0.7
 performance_mode = true
 experimental_present_mode = "mailbox"
+```
+cap frame rate to a consistantly achieved value.. for me that's 120fps unfortunantly and I hate how this game preforms but it's a good example.
+
+## Elden Ring
+(60fps lock multiplied by 4 = 240 fps)
+
+lsfg-vk conf.toml
+```
+[[game]] # override Elden Ring Nightreign
+exe = "nightreign"
+
+multiplier = 4
+performance_mode = false
 ```
