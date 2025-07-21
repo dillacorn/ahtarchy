@@ -13,7 +13,8 @@ hyprctl keyword monitor "DP-2,1352x1080@240,0x0,1"; gamemoderun %command% -novid
 
 # Lossless Scaling Enabled
 
-## The Finals [note to disable by commenting out when not wanting to use lossless scaling!]
+## The Finals
+[note to disable lossless scaling commenting out for games that also show up in btop as "GameThread"]
 ```[[game]] # override GameThread
 exe = "GameThread"
 
