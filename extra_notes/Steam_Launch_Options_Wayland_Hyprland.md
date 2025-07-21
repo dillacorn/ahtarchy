@@ -11,7 +11,8 @@ hyprctl keyword monitor "DP-2,1352x1080@240,0x0,1"; gamemoderun %command% -novid
 ## The Finals ~ stretched 1352x1080 240hz
 hyprctl keyword monitor "DP-2,1352x1080@240,0x0,1"; gamemoderun %command% -novid +fps_max 0 -high -dx12; hyprctl keyword monitor "DP-2,1920x1080@240,0x0,1"
 
-# Lossless Scaling Enabled
+# [Lossless Scaling](https://store.steampowered.com/app/993090/Lossless_Scaling/)
+# [lsfg-vk for Linux](https://github.com/PancakeTAS/lsfg-vk)
 
 ## The Finals
 [note to disable lossless scaling commenting out for games that also show up in btop as "GameThread"]
