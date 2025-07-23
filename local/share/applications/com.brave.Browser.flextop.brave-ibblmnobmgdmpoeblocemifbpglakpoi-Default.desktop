@@ -8,4 +8,4 @@ Exec=flatpak 'run' '--command=brave' 'com.brave.Browser' '--profile-directory=De
 Icon=brave-ibblmnobmgdmpoeblocemifbpglakpoi-Default
 StartupWMClass=crx_ibblmnobmgdmpoeblocemifbpglakpoi
 X-Flatpak-Part-Of=com.brave.Browser
-TryExec=/home/dillacorn/.local/share/flatpak/exports/bin/com.brave.Browser
+#TryExec=/home/dillacorn/.local/share/flatpak/exports/bin/com.brave.Browser
