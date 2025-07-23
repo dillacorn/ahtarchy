@@ -1,0 +1,11 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Terminal=false
+Type=Application
+Name=Arch Repo
+Exec=flatpak run --command=brave com.brave.Browser --profile-directory=Default --app=https://archlinux.org/packages/
+Icon=brave-hokbbggbmfmgjadanggfkpjflclgnllg-Default
+StartupWMClass=crx_hokbbggbmfmgjadanggfkpjflclgnllg
+X-Flatpak-Part-Of=com.brave.Browser
+#TryExec=/home/dillacorn/.local/share/flatpak/exports/bin/com.brave.Browser
