@@ -98,7 +98,7 @@ fi
 # =============================================
 declare -a pkg_groups=(
     "Window Management:hyprland hyprpaper hyprlock hypridle hyprpicker waybar wofi swww grim satty slurp wl-clipboard zbar wf-recorder zenity qt5ct qt5-wayland kvantum-qt5 qt6ct qt6-wayland xdg-desktop-portal-hyprland xdg-desktop-portal-gtk mako nwg-look"
-    "Fonts:ttf-font-awesome otf-font-awesome ttf-hack ttf-dejavu ttf-liberation ttf-noto-nerd noto-fonts-emoji"
+    "Fonts:woff2-font-awesome otf-font-awesome ttf-hack ttf-dejavu ttf-liberation ttf-noto-nerd noto-fonts-emoji"
     "Themes:papirus-icon-theme materia-gtk-theme xcursor-comix kvantum-theme-materia"
     "Terminal Apps:nano micro alacritty fastfetch btop htop curl wget git dos2unix brightnessctl ipcalc cmatrix sl asciiquarium figlet cava man-db man-pages unzip xarchiver octave ncdu"
     "Utilities:steam polkit-gnome gnome-keyring networkmanager network-manager-applet tailscale bluez bluez-utils blueman pavucontrol pcmanfm-qt gvfs gvfs-smb gvfs-mtp gvfs-afc qbittorrent speedcrunch timeshift imagemagick pipewire pipewire-pulse pipewire-alsa ufw jq earlyoom"
