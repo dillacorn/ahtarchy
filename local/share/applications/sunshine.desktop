@@ -1,0 +1,16 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Sunshine
+Comment=A self-hosted game stream host for Moonlight.
+Exec=/usr/bin/sunshine
+Icon=sunshine
+Categories=Network;RemoteAccess;
+Keywords=gamestream;stream;moonlight;remote play;
+Terminal=false
+Actions=RunInTerminal;
+
+[Desktop Action RunInTerminal]
+Exec=alacritty -e /usr/bin/sunshine
+Icon=application-x-executable
+Name=Run in Terminal
