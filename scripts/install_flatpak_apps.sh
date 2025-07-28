@@ -38,7 +38,6 @@ flatpak_apps=(
   'com.rustdesk.RustDesk'
   'org.localsend.localsend_app'
   'net.davidotek.pupgui2'
-  'dev.lizardbyte.app.Sunshine'
   'com.moonlight_stream.Moonlight'
   'net.mullvad.MullvadBrowser'
   'com.github.tchx84.Flatseal'

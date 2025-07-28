@@ -104,6 +104,7 @@ if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
             otpclient
             wlogout
             waypaper
+            sunshine-bin
         )
 
         # Install each package and clean up afterward
