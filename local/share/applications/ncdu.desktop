@@ -2,6 +2,6 @@
 Type=Application
 Terminal=false
 Exec=alacritty -e ncdu
-Name=ncdu (disk analyzer)
+Name=ncdu (file drive disk analyzer)
 Icon=utilities-terminal
   
