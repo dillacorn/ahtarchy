@@ -1,8 +1,13 @@
 notes from repo: https://github.com/dillacorn/arch-hypr-dots
 
-# install brave from flathub
+# install brave (pick your poison)
+## flathub
 ```sh
 flatpak install flathub com.brave.Browser
+```
+## AUR
+```sh
+yay -S braves in
 ```
 ---
 
