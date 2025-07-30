@@ -2,14 +2,24 @@ Notes From Repo: https://github.com/dillacorn/arch-hypr-dots
 
 # choose a browser
 
-# install librewolf from flathub
+# install librewolf
+## flathub
 ```sh
 flatpak install flathub io.gitlab.librewolf-community
 ```
+## AUR
+```sh
+yay -S librewolf-bin
+```
 
-# install mullvad-browser from flathub (prefered)
+# install mullvad-browser
+## flathub
 ```sh
 flatpak install --user flathub net.mullvad.MullvadBrowser
+```
+## AUR
+```sh
+mullvad-browser-bin
 ```
 
 # config
