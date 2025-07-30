@@ -19,7 +19,7 @@ flatpak install --user flathub net.mullvad.MullvadBrowser
 ```
 ## AUR
 ```sh
-mullvad-browser-bin
+yay -S mullvad-browser-bin
 ```
 
 # config
