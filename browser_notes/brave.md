@@ -7,7 +7,7 @@ flatpak install flathub com.brave.Browser
 ```
 ## AUR
 ```sh
-yay -S braves in
+yay -S brave-bin
 ```
 ---
 
