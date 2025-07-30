@@ -25,13 +25,9 @@ flatpak_origin='flathub'
 
 # List of desktop apps to be installed (specified by app ID)
 flatpak_apps=(
-  'com.github.IsmaelMartinez.teams_for_linux'
   'com.brave.Browser'
   'dev.vencord.Vesktop'
-  'com.spotify.Client'
-  'io.itch.itch'
   'com.heroicgameslauncher.hgl'
-  'com.ultimaker.cura'
   'com.dec05eba.gpu_screen_recorder'
   'com.obsproject.Studio'
   'com.obsproject.Studio.Plugin.DistroAV'
@@ -39,9 +35,7 @@ flatpak_apps=(
   'org.localsend.localsend_app'
   'net.davidotek.pupgui2'
   'com.moonlight_stream.Moonlight'
-  'net.mullvad.MullvadBrowser'
   'com.github.tchx84.Flatseal'
-  'com.github.wwmm.easyeffects'
   'io.github.seadve.Kooha'
 )
 
