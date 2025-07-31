@@ -42,16 +42,16 @@ sudo ./setup_installer.sh
 # ⌨️ Hyprland Keybindings
 
 ## 🛠️ Custom Scripts & Commands
-| Keybind               | Action                          |
-|-----------------------|---------------------------------|
-| `SUPER + r`          | Rotate navigation keys (SUPER/ALT toggle) |
-| `SUPER + t`          | Run theme scripts               |
-| `SUPER + w`          | Change wallpaper (Waypaper GUI) |
-| `SUPER + SHIFT + c`  | Open SpeedCrunch (Calculator)   |
-| `SUPER + SHIFT + g`  | Record cropped GIF              |
-| `SUPER + SHIFT + s`  | Take cropped screenshot         |
-| `SUPER + SHIFT + f`  | Take fullscreen screenshot      |
-| `SUPER + q`          | Scan QR code                    |
+| Keybind               | Action                                                     |
+|-----------------------|------------------------------------------------------------|
+| `SUPER + r`          | Rotate navigation keys (toggle SUPER/ALT)                   |
+| `SUPER + t`          | Run theme scripts                                           |
+| `SUPER + w`          | Change wallpaper (Waypaper GUI)                             |
+| `SUPER + SHIFT + c`  | Open SpeedCrunch (Calculator)                               |
+| `SUPER + SHIFT + g`  | Record cropped GIF                                          |
+| `SUPER + SHIFT + s`  | Take cropped screenshot (CTRL+t to display edit UI)         |
+| `SUPER + SHIFT + f`  | Take fullscreen screenshot                                  |
+| `SUPER + q`          | Scan QR code                                                |
 
 ## 🖱️ Navigation & Windows
 | Keybind                     | Action                      |
