@@ -41,34 +41,70 @@ sudo ./setup_installer.sh
 
 # ⌨️ Hyprland Keybindings
 
-## 🛠️ Custom Scripts & Commands
-| Keybind               | Action                                                     |
-|-----------------------|------------------------------------------------------------|
-| `SUPER + r`          | Rotate navigation keys (toggle SUPER/ALT)                   |
-| `SUPER + t`          | Run theme scripts                                           |
-| `SUPER + w`          | Change wallpaper (Waypaper GUI)                             |
-| `SUPER + SHIFT + c`  | Open SpeedCrunch (Calculator)                               |
-| `SUPER + SHIFT + g`  | Record cropped GIF                                          |
-| `SUPER + SHIFT + s`  | Take cropped screenshot (CTRL+t to display edit UI)         |
-| `SUPER + SHIFT + f`  | Take fullscreen screenshot                                  |
-| `SUPER + q`          | Scan QR code                                                |
+> 💡 `$mod = ALT`, `$super = SUPER`, `$rotate = ALT or SUPER` (toggled by `rotate_mod.sh`)
 
-## 🖱️ Navigation & Windows
-| Keybind                     | Action                      |
-|-----------------------------|-----------------------------|
-| `SUPER + SHIFT + Enter`     | Open terminal (Alacritty)   |
-| `SUPER + p`                 | Application launcher (Wofi) |
-| `SUPER + SHIFT + q`         | Close focused window        |
-| `SUPER + f`                 | Toggle floating/tiling      |
-| `SUPER + arrow keys`        | Change window focus         |
-| `SUPER + mouse1/2`          | Move/resize floating window |
+## 🛠️ Custom Scripts & Applications
+| Keybind                 | Action                                                  |
+|-------------------------|---------------------------------------------------------|
+| `SUPER + r`             | Rotate navigation keys (toggle SUPER/ALT)               |
+| `SUPER + t`             | Run theme switcher script                               |
+| `SUPER + w`             | Launch or kill Waypaper (wallpaper GUI)                 |
+| `SUPER + q`             | Scan QR code using Flameshot + ZBar                     |
+| `SUPER + SHIFT + s`     | Take cropped screenshot                                 |
+| `SUPER + SHIFT + f`     | Take fullscreen screenshot                              |
+| `SUPER + SHIFT + g`     | Record cropped GIF using ffmpeg                         |
+| `ALT/SUPER + SHIFT + c` | Launch SpeedCrunch (calculator)                         |
+| `ALT + SHIFT + Enter`   | Launch terminal (Alacritty)                             |
+| `ALT + SHIFT + b`       | Launch btop in terminal                                 |
+| `ALT + SHIFT + h`       | Launch htop in terminal                                 |
+| `ALT + p`               | Launch Wofi (app launcher)                              |
+| `ALT + SPACE`           | Dismiss notifications (makoctl)                         |
+| `SUPER + p`             | Launch or kill wlogout                                  |
+| `SUPER + i`             | Launch hyprpicker (color picker)                        |
+| `SUPER + m`             | Toggle audio mute (wpctl)                               |
+| `SUPER + l`             | Lock screen (hyprlock)                                  |
+| `ALT/SUPER + v`         | Launch or kill pavucontrol (audio control)              |
 
-## 🗂️ Workspaces
-| Keybind                     | Action                      |
-|-----------------------------|-----------------------------|
-| `SUPER + 1-9`              | Switch workspace           |
-| `SUPER + SHIFT + 1-9`      | Move window to workspace   |
-| `SUPER + CTRL + SHIFT + arrows` | Move workspace to monitor |
+## 🪟 Window & Workspace Management
+| Keybind                         | Action                                        |
+|----------------------------------|----------------------------------------------|
+| `ALT/SUPER + SHIFT + q`         | Close focused window                          |
+| `ALT + f`                       | Toggle floating window                        |
+| `ALT + y`                       | Pin focused window                            |
+| `ALT/SUPER + CTRL + f`          | Toggle fullscreen                             |
+| `ALT/SUPER + ←/→/↑/↓`           | Move focus between windows                    |
+| `ALT/SUPER + SHIFT + ←/→/↑/↓`   | Move active window within workspace           |
+| `ALT/SUPER + CTRL + SHIFT + ←/→/↑/↓` | Move active workspace to another monitor |
+| `ALT/SUPER + 1-0`               | Switch to workspace 1–10                      |
+| `ALT/SUPER + SHIFT + 1-0`       | Move window to workspace 1–10                 |
+| `ALT/SUPER + x`                 | Toggle scratchpad workspace (`magic`)         |
+| `ALT/SUPER + SHIFT + x`         | Move window to scratchpad (`magic`)           |
+
+## 🎛️ Resize & Move Windows
+| Keybind                      | Action                        |
+|------------------------------|-------------------------------|
+| `ALT/SUPER + CTRL + ←/→`     | Resize window horizontally    |
+| `ALT/SUPER + CTRL + ↑/↓`     | Resize window vertically      |
+| `ALT/SUPER + Mouse Left`     | Move window (floating)        |
+| `ALT/SUPER + Mouse Right`    | Resize window (floating)      |
+
+## 🔊 Media & Display Keys
+| Keybind                  | Action                                   |
+|--------------------------|------------------------------------------|
+| `XF86AudioRaiseVolume`   | Increase volume (wpctl)                  |
+| `XF86AudioLowerVolume`   | Decrease volume (wpctl)                  |
+| `XF86AudioMute`          | Toggle speaker mute (wpctl)              |
+| `XF86AudioMicMute`       | Toggle mic mute (wpctl)                  |
+| `XF86MonBrightnessUp`    | Increase brightness (brightnessctl)      |
+| `XF86MonBrightnessDown`  | Decrease brightness (brightnessctl)      |
+| `XF86AudioPlay`          | Play/pause media (`play_pause.sh`)       |
+| `XF86AudioNext`          | Next media track (playerctl)             |
+| `XF86AudioPrev`          | Previous media track (playerctl)         |
+
+## 🧪 Miscellaneous
+| Keybind            | Action                                      |
+|--------------------|---------------------------------------------|
+| `ALT/SUPER + F12`  | Display current Hyprland version in notify  |
 
 ---
 
