@@ -114,10 +114,6 @@ sed -i '331s|.*|  "~\/.config\/alacritty\/themes\/themes\/catppuccin_frappe.toml
 # 8) SpeedCrunch
 sed -i '5s|.*|Display\\ColorSchemeName=catppuccin-frappe|' "$HOME/.config/SpeedCrunch/SpeedCrunch.ini"
 
-# Restart Waybar
-pkill waybar || true
-nohup waybar >/dev/null 2>&1 &
-
 # Reload Mako
 makoctl reload
 

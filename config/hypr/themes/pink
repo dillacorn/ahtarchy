@@ -114,10 +114,6 @@ sed -i '331s|.*|  "~\/.config\/alacritty\/themes\/themes\/snazzy.toml"|' "$HOME/
 # 8) SpeedCrunch
 sed -i '5s|.*|Display\\ColorSchemeName=pink|' "$HOME/.config/SpeedCrunch/SpeedCrunch.ini"
 
-# Restart Waybar
-pkill waybar || true
-nohup waybar >/dev/null 2>&1 &
-
 # Reload Mako
 makoctl reload
 
