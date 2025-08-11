@@ -2,11 +2,15 @@
 set -euo pipefail
 
 # mode:
-#   --auto  -> show once per session (guarded by /tmp marker)
+#   --auto  -> show once (guarded by persistent marker)
 #   default -> always show (for manual hotkey)
 MODE="${1:-manual}"
 
-MARKER="/tmp/wofi_keybinds_shown"
+# persistent per-user marker (XDG_STATE_HOME preferred)
+STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/hypr"
+mkdir -p "$STATE_DIR"
+MARKER="$STATE_DIR/wofi_keybinds_shown"
+
 if [[ "$MODE" == "--auto" ]]; then
   [[ -f "$MARKER" ]] && exit 0
   : > "$MARKER"
