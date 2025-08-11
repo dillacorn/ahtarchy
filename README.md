@@ -46,6 +46,7 @@ sudo ./setup_installer.sh
 ## 🛠️ Custom Scripts & Applications
 | Keybind                 | Action                                                  |
 |-------------------------|---------------------------------------------------------|
+| `SUPER + h`             | Shows keybinds in hyprland.conf in wofi                 |
 | `SUPER + r`             | Rotate navigation keys (toggle SUPER/ALT)               |
 | `SUPER + t`             | Run theme switcher script                               |
 | `SUPER + w`             | Launch or kill Waypaper (wallpaper GUI)                 |
@@ -126,3 +127,4 @@ sudo ./setup_installer.sh
 ## 📜 License
 All code and notes are unlicensed - use freely!  
 [See UNLICENSED file](https://github.com/dillacorn/arch-hypr-dots/blob/main/UNLICENSED)
+
