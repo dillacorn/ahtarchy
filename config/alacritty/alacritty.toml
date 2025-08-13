@@ -20,7 +20,7 @@ dimensions = { columns = 0, lines = 0 }  # Default: columns = 0, lines = 0
 position = "None"  # Default: "None"
 
 # Padding
-padding = { x = 0, y = 0 }  # Default: x = 0, y = 0
+padding = { x = 22, y = 22 }  # Default: x = 0, y = 0
 
 # Dynamic padding
 dynamic_padding = false  # Default: false
@@ -330,5 +330,6 @@ ipc_socket = true  # Default: true
 import = [
   "~/.config/alacritty/themes/themes/taerminal.toml"
 ]
+
 
 
