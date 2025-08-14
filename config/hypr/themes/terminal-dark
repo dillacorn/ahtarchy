@@ -1,0 +1,86 @@
+#!/usr/bin/env bash
+#
+# terminal dark
+set -euo pipefail
+
+###########   THEME COLORS   ###########
+# Hyprland
+NEW_ACTIVE_BORDER="f0a0ff"
+NEW_INACTIVE_BORDER="3c3c3c"
+
+# Wlogout
+WL_COLOR="#b6e880"
+WL_BG="rgba(0, 0, 0, 0.7)"  # Reversed to include transparency
+WL_BTN_COLOR="#b6e880"
+WL_BTN_BG="#151515"
+WL_BTN_HOVER_BG="#3c3c3c"
+WL_BTN_FOCUS_BG="#3c3c3c"
+
+# Wofi
+WO_BORDER="2px none #3c3c3c"
+WO_BG="#000000"
+WO_INPUT_COLOR="#b6e880"
+WO_OUTER_BORDER="0px solid #3c3c3c"
+WO_OUTER_BG="#000000"
+WO_TEXT_UNSEL="#6c7086"
+
+# Mako
+MKO_BG="#1f242a"
+MKO_TEXT="#b6e880"
+MKO_BORDER="#2e343a"
+MKO_PROG="#3c3c3c"
+
+###########   FILE PATHS   ###########
+HYPR_CONF="$HOME/.config/hypr/hyprland.conf"
+WLOGOUT_CSS="$HOME/.config/wlogout/style.css"
+WOFI_CSS="$HOME/.config/wofi/style.css"
+MAKO_CONF="$HOME/.config/mako/config"
+
+###########   APPLY CHANGES   ###########
+echo "🔄 Applying dark terminal theme..."
+
+# 1) Hyprland
+sed -i -e "s/^_col\.active_border_ = _._/col.active_border = rgba(${NEW_ACTIVE_BORDER})/" \
+       -e "s/^_col\.inactive_border_ = _._/col.inactive_border = rgba(${NEW_INACTIVE_BORDER})/" "$HYPR_CONF"
+
+# 2) Wlogout
+sed -i \
+    -e "4s|.*|    color: ${WL_COLOR};|" \
+    -e "5s|.*|    background-color: ${WL_BG};|" \
+    -e "13s|.*|    color: ${WL_BTN_COLOR};|" \
+    -e "17s|.*|    background-color: ${WL_BTN_BG};|" \
+    -e "23s|.*|    background-color: ${WL_BTN_HOVER_BG};|" \
+    -e "27s|.*|    background-color: ${WL_BTN_FOCUS_BG};|" \
+    "$WLOGOUT_CSS"
+
+# 3) Wofi
+sed -i \
+    -e "3s|.*|    border: ${WO_BORDER};|" \
+    -e "5s|.*|    background-color: ${WO_OUTER_BG};|" \
+    -e "14s|.*|    color: ${WL_COLOR};|" \
+    -e "39s|.*|    border: ${WO_OUTER_BORDER};|" \
+    -e "41s|.*|    background-color: ${WO_OUTER_BG};|" \
+    -e "68s|.*|    color: ${WO_TEXT_UNSEL};|" \
+    "$WOFI_CSS"
+
+# 4) Mako
+sed -i \
+    -e "3s|.*|background-color=${MKO_BG}|" \
+    -e "4s|.*|text-color=${MKO_TEXT}|" \
+    -e "5s|.*|border-color=${MKO_BORDER}|" \
+    -e "6s|.*|progress-color=over ${MKO_PROG}|" \
+    "$MAKO_CONF"
+
+# 5) Micro
+sed -i '2s|.*|    "colorscheme": "railscast"|' "$HOME/.config/micro/settings.json"
+
+# 6) Alacritty
+sed -i '331s|.*|  "~\/.config\/alacritty\/themes\/themes\/taerminal.toml"|' "$HOME/.config/alacritty/alacritty.toml"
+
+# 7) SpeedCrunch
+sed -i '5s|.*|Display\\ColorSchemeName=obsidian_night|' "$HOME/.config/SpeedCrunch/SpeedCrunch.ini"
+
+# Reload Mako
+makoctl reload
+
+echo "✅ terminal dark theme applied!"
