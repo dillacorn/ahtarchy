@@ -53,7 +53,7 @@ fill-on-account-select → `Disabled`
 
 enable-pending-mode-passwords-promo → `Disabled`
 
-# Add filter list to built-in ad-block
+# Add filter list to built-in adblock
 https://filterlists.com/
 
 # extensions

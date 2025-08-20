@@ -34,8 +34,6 @@ Privacy centric extensions:
 ##### Quick install with [chromium-web-store](https://github.com/NeverDecaf/chromium-web-store) ~ copy pasta
 ```
 uBlock Origin|cjpalhdlnbpafiamejdnhcphjbkeiagm
-ClearURLs|lckanjgmijmafbedllaakclkaicjfmnk
-LocalCDN|njdfdhgcmkocbgbhcioffdbicglldapd
 ```
 
 ---
