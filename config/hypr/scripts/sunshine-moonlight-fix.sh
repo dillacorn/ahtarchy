@@ -1,64 +1,87 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Moves Steam Big Picture to workspace 1 on Sunshine connect.
+# Works with native Steam or Flatpak Steam. Hyprland + jq required.
 
-SUNSHINE_LOG="$HOME/.config/sunshine/sunshine.log"
-TARGET_WORKSPACE="1"
-STEAM_CLASS="steam"
-WAIT_TIMEOUT=300  # seconds to wait for log file before exit
+# REQUIREMENT
+# add to your "Do Command" in sunshine web-ui: (without the #)
+# /usr/bin/env bash -lc "$HOME/.config/hypr/scripts/sunshine-moonlight-fix.sh"
 
-echo "[Moonlight Auto-Fix] Waiting for $SUNSHINE_LOG to appear (timeout $WAIT_TIMEOUT seconds)..."
+set -euo pipefail
 
-elapsed=0
-while [ ! -f "$SUNSHINE_LOG" ]; do
-    sleep 2
-    elapsed=$((elapsed + 2))
-    if [ "$elapsed" -ge "$WAIT_TIMEOUT" ]; then
-        echo "[Moonlight Auto-Fix] Timeout waiting for log file. Exiting."
-        exit 1
-    fi
-done
+# ---- YOUR SESSION ENV ----
+# Set these to match your Hyprland session.
+export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
+# Hyprland sets both DISPLAY (Xwayland) and WAYLAND_DISPLAY; pick what you actually use.
+export DISPLAY="${DISPLAY:-:0}"
+export WAYLAND_DISPLAY="${WAYLAND_DISPLAY:-wayland-1}"
+export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=${XDG_RUNTIME_DIR}/bus}"
 
-echo "[Moonlight Auto-Fix] Found log, starting monitor..."
+TARGET_WS="1"
+TIMEOUT=30
+POLL=0.2
+LOGPFX="[Sunshine Connect]"
 
-tail -F -n0 "$SUNSHINE_LOG" | while read -r line; do
-    if echo "$line" | grep -qi "Client connected"; then
-        echo "$(date) [Moonlight Auto-Fix] Moonlight connection detected."
+log(){ printf '%s %s %s\n' "$(date '+%F %T')" "$LOGPFX" "$*"; }
+need(){ command -v "$1" >/dev/null 2>&1 || { log "Missing command: $1"; exit 1; }; }
 
-        STEAM_INFO=$(hyprctl clients -j 2>/dev/null | jq -r --arg class "$STEAM_CLASS" '.[] | select(.class==$class) | "\(.address) \(.workspace.id)"' | head -n1)
-        if [ $? -ne 0 ] || [ -z "$STEAM_INFO" ]; then
-            echo "$(date) [Moonlight Auto-Fix] Error retrieving Steam window info or not found."
-            continue
-        fi
+need hyprctl
+need jq
 
-        STEAM_WINDOW=$(echo "$STEAM_INFO" | awk '{print $1}')
-        CURRENT_WS=$(echo "$STEAM_INFO" | awk '{print $2}')
+# Launch/open Big Picture in the running Steam, falling back to starting it.
+launch_bigpicture() {
+  if command -v flatpak >/dev/null 2>&1 && flatpak list --app | grep -q 'com\.valvesoftware\.Steam'; then
+    # Flatpak Steam
+    log "Opening Big Picture via Flatpak Steam…"
+    flatpak run --branch=stable --file-forwarding com.valvesoftware.Steam "steam://open/bigpicture" >/dev/null 2>&1 &
+  elif command -v steam >/dev/null 2>&1; then
+    # Native Steam
+    log "Opening Big Picture via native Steam…"
+    steam "steam://open/bigpicture" >/dev/null 2>&1 &
+  else
+    log "Steam not found (native or Flatpak)."
+    exit 1
+  fi
+}
 
-        if [ -z "$STEAM_WINDOW" ]; then
-            echo "$(date) [Moonlight Auto-Fix] Steam window not found."
-            continue
-        fi
+addr_wrap() {
+  local a="${1:-}"
+  case "$a" in
+    address:0x*|address:0X*) printf '%s\n' "$a" ;;
+    0x*|0X*)                  printf 'address:%s\n' "$a" ;;
+    *)                        printf 'address:0x%s\n' "$a" ;;
+  esac
+}
 
-        echo "$(date) [Moonlight Auto-Fix] Found Steam window $STEAM_WINDOW on workspace $CURRENT_WS."
+# Return ADDR for Big Picture, empty if not found
+find_bp_addr() {
+  hyprctl clients -j 2>/dev/null \
+    | jq -r '.[] | select(.title | test("Steam Big Picture|Big Picture Mode|Big Picture"; "i")) | .address' \
+    | head -n1
+}
 
-        if [ "$CURRENT_WS" != "$TARGET_WORKSPACE" ]; then
-            echo "$(date) [Moonlight Auto-Fix] Switching to workspace $CURRENT_WS to focus Steam..."
-            hyprctl dispatch workspace "$CURRENT_WS"
-            sleep 0.5
-        fi
+# 1) Ask Steam for Big Picture (this fixes “error -1” by not relying on Sunshine’s internal trigger)
+launch_bigpicture
 
-        echo "$(date) [Moonlight Auto-Fix] Focusing Steam window $STEAM_WINDOW..."
-        hyprctl dispatch focuswindow "$STEAM_WINDOW"
-        sleep 0.5
-
-        ACTIVE_WIN_CLASS=$(hyprctl activewindow -j 2>/dev/null | jq -r '.class')
-        if [ "$ACTIVE_WIN_CLASS" = "$STEAM_CLASS" ]; then
-            echo "$(date) [Moonlight Auto-Fix] Steam focused, moving to workspace $TARGET_WORKSPACE..."
-            hyprctl dispatch movetoworkspace "$TARGET_WORKSPACE"
-            sleep 0.5
-        else
-            echo "$(date) [Moonlight Auto-Fix] Failed to focus Steam window; active window is $ACTIVE_WIN_CLASS. Not moving."
-        fi
-
-        echo "$(date) [Moonlight Auto-Fix] Switching to workspace $TARGET_WORKSPACE..."
-        hyprctl dispatch workspace "$TARGET_WORKSPACE"
-    fi
+# 2) Poll for the Big Picture window and move it to the target workspace
+log "Waiting for Big Picture window…"
+deadline=$(( $(date +%s) + TIMEOUT ))
+while :; do
+  addr="$(find_bp_addr || true)"
+  if [[ -n "${addr:-}" ]]; then
+    waddr="$(addr_wrap "$addr")"
+    log "Found Big Picture ($waddr). Moving to workspace ${TARGET_WS}…"
+    hyprctl dispatch focuswindow "$waddr" >/dev/null
+    sleep 0.1
+    # Use silent move to avoid workspace jump flicker, then explicitly switch.
+    hyprctl dispatch movetoworkspacesilent "$TARGET_WS" >/dev/null
+    sleep 0.1
+    hyprctl dispatch workspace "$TARGET_WS" >/dev/null
+    log "Done."
+    exit 0
+  fi
+  if (( $(date +%s) >= deadline )); then
+    log "Timed out waiting for Big Picture (${TIMEOUT}s)."
+    exit 1
+  fi
+  sleep "$POLL"
 done
