@@ -50,7 +50,8 @@ sudo ./setup_installer.sh
 | `SUPER + r`             | Rotate navigation keys (toggle SUPER/ALT)               |
 | `SUPER + t`             | Run theme switcher script                               |
 | `SUPER + w`             | Launch or kill Waypaper (wallpaper GUI)                 |
-| `SUPER + q`             | Scan QR code using Flameshot + ZBar                     |
+| `SUPER + q`             | Scan QR code                                            |
+| `SUPER + b`             | Launch or kill Waypaper (waybar)                        |
 | `SUPER + SHIFT + s`     | Take cropped screenshot                                 |
 | `SUPER + SHIFT + f`     | Take fullscreen screenshot                              |
 | `SUPER + SHIFT + g`     | Record cropped GIF using ffmpeg                         |
