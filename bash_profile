@@ -24,6 +24,10 @@ add_random_fun_message() {
     "sl"
     "asciiquarium"
     "figlet TTY is cool"
+    "termdown 10"
+    "termdown -z"
+    "termdown -v en 10"
+    "espeak-ng -s 150 'I, love, TTY'"
   )
   
   # Pick a random command from the list
