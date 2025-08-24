@@ -80,7 +80,7 @@ additionally you can make systemd-boot choose last chosen kernal by adding these
 micro /boot/loader/loader.conf
 ```
 
-my loader.conf with `default default` added
+my loader.conf with `default @saved` added
 
 ```
 default @saved
@@ -101,3 +101,4 @@ sudo bootctl update
 ```
 
 now last chosen kernal will be the next to be shosen automatically
+
