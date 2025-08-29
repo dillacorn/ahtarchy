@@ -1,0 +1,122 @@
+#!/usr/bin/env bash
+#
+# iron forge
+
+set -euo pipefail
+
+###########   THEME COLORS   ###########
+# Hyprland
+NEW_ACTIVE_BORDER="b74141ff"
+NEW_INACTIVE_BORDER="8c7851ff"
+
+# Waybar
+W_COLOR="#c0c0c0"
+W_BG="#1e1e1e"
+W_HOVER="#2a2a2a"
+W_FOCUS_BG="#2a2a2a"
+W_ACTIVE_BG="#121212"
+W_ACTIVE_COLOR="#b74141"
+W_URGENT_BG="#aa0000"
+W_URGENT_COLOR="#ffffff"
+W_MODE_BG="#121212"
+W_MODE_COLOR="#b74141"
+W_CUSTOM_HOVER_BG="#252525"
+W_BATT_CHARGING_BG="#8c7851"
+W_BATT_CHARGING_COLOR="#0f0f0f"
+W_BATT_CRITICAL_BG="#aa0000"
+W_FOCUS="#2a2a2a"
+W_MUTED="#555555"
+
+# Wlogout
+WL_COLOR="#c0c0c0"
+WL_BG="rgba(30, 30, 30, 0.88)"
+WL_BTN_COLOR="#b74141"
+WL_BTN_BG="rgba(18, 18, 18, 0.85)"
+WL_BTN_HOVER_BG="rgba(42, 42, 42, 0.92)"
+WL_BTN_FOCUS_BG="rgba(42, 42, 42, 0.92)"
+
+# Wofi
+WO_BORDER="2px solid #8c7851"
+WO_BG="#1e1e1e"
+WO_INPUT_COLOR="#c0c0c0"
+WO_OUTER_BORDER="0px solid #8c7851"
+WO_OUTER_BG="#1e1e1e"
+WO_TEXT_UNSEL="#888888"
+
+# Mako
+MKO_BG="#1e1e1e"
+MKO_TEXT="#c0c0c0"
+MKO_BORDER="#121212"
+MKO_PROG="#8c7851"
+
+###########   FILE PATHS   ###########
+HYPR_CONF="$HOME/.config/hypr/hyprland.conf"
+WAYBAR_CSS="$HOME/.config/waybar/style.css"
+WLOGOUT_CSS="$HOME/.config/wlogout/style.css"
+WOFI_CSS="$HOME/.config/wofi/style.css"
+MAKO_CONF="$HOME/.config/mako/config"
+
+###########   APPLY CHANGES   ###########
+echo "Applying iron forge theme..."
+
+# 1) Hyprland
+sed -i \
+  -e "s/^ *col\.active_border *= *.*/col.active_border = rgba(${NEW_ACTIVE_BORDER})/" \
+  -e "s/^ *col\.inactive_border *= *.*/col.inactive_border = rgba(${NEW_INACTIVE_BORDER})/" \
+  "$HYPR_CONF"
+
+# 2) Waybar
+sed -i \
+  -e "2s|.*|@define-color bg-default ${W_BG};|" \
+  -e "3s|.*|@define-color bg-hover ${W_CUSTOM_HOVER_BG};|" \
+  -e "4s|.*|@define-color bg-focus ${W_FOCUS_BG};|" \
+  -e "5s|.*|@define-color bg-active ${W_ACTIVE_BG};|" \
+  -e "6s|.*|@define-color bg-urgent ${W_URGENT_BG};|" \
+  -e "7s|.*|@define-color bg-charging ${W_BATT_CHARGING_BG};|" \
+  -e "8s|.*|@define-color bg-critical ${W_BATT_CRITICAL_BG};|" \
+  -e "9s|.*|@define-color color-default ${W_COLOR};|" \
+  -e "10s|.*|@define-color color-dark ${W_URGENT_COLOR};|" \
+  -e "11s|.*|@define-color color-hover ${W_HOVER};|" \
+  "$WAYBAR_CSS"
+
+# 3) Wlogout
+sed -i \
+  -e "4s|.*|    color: ${WL_COLOR};|" \
+  -e "5s|.*|    background-color: ${WL_BG};|" \
+  -e "13s|.*|    color: ${WL_BTN_COLOR};|" \
+  -e "17s|.*|    background-color: ${WL_BTN_BG};|" \
+  -e "23s|.*|    background-color: ${WL_BTN_HOVER_BG};|" \
+  -e "27s|.*|    background-color: ${WL_BTN_FOCUS_BG};|" \
+  "$WLOGOUT_CSS"
+
+# 4) Wofi
+sed -i \
+  -e "3s|.*|    border: ${WO_BORDER};|" \
+  -e "5s|.*|    background-color: ${WO_BG};|" \
+  -e "14s|.*|    color: ${WO_INPUT_COLOR};|" \
+  -e "39s|.*|    border: ${WO_OUTER_BORDER};|" \
+  -e "41s|.*|    background-color: ${WO_OUTER_BG};|" \
+  -e "68s|.*|    color: ${WO_TEXT_UNSEL};|" \
+  "$WOFI_CSS"
+
+# 5) Mako
+sed -i \
+  -e "3s|.*|background-color=${MKO_BG}|" \
+  -e "4s|.*|text-color=${MKO_TEXT}|" \
+  -e "5s|.*|border-color=${MKO_BORDER}|" \
+  -e "6s|.*|progress-color=over ${MKO_PROG}|" \
+  "$MAKO_CONF"
+
+# 6) Micro
+sed -i '2s|.*|    "colorscheme": "railscast"|' "$HOME/.config/micro/settings.json"
+
+# 7) Alacritty
+sed -i '331s|.*|  "~\/.config\/alacritty\/themes\/themes\/taerminal.toml"|' "$HOME/.config/alacritty/alacritty.toml"
+
+# 8) SpeedCrunch
+sed -i '5s|.*|Display\\ColorSchemeName=iron_forge|' "$HOME/.config/SpeedCrunch/SpeedCrunch.ini"
+
+# Reload Mako
+makoctl reload
+
+echo "iron forge theme applied."
