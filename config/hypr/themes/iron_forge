@@ -6,48 +6,48 @@ set -euo pipefail
 
 ###########   THEME COLORS   ###########
 # Hyprland
-NEW_ACTIVE_BORDER="b74141ff"
-NEW_INACTIVE_BORDER="8c7851ff"
+NEW_ACTIVE_BORDER="ffffffff"
+NEW_INACTIVE_BORDER="242a32ff"
 
 # Waybar
-W_COLOR="#c0c0c0"
-W_BG="#1e1e1e"
-W_HOVER="#2a2a2a"
-W_FOCUS_BG="#2a2a2a"
-W_ACTIVE_BG="#121212"
+W_COLOR="#bcd2d2"
+W_BG="#0f1113"
+W_HOVER="#1a1f24"
+W_FOCUS_BG="#242a32"
+W_ACTIVE_BG="#0d0f12"
 W_ACTIVE_COLOR="#b74141"
-W_URGENT_BG="#aa0000"
+W_URGENT_BG="#a31717"
 W_URGENT_COLOR="#ffffff"
-W_MODE_BG="#121212"
+W_MODE_BG="#0d0f12"
 W_MODE_COLOR="#b74141"
-W_CUSTOM_HOVER_BG="#252525"
-W_BATT_CHARGING_BG="#8c7851"
-W_BATT_CHARGING_COLOR="#0f0f0f"
-W_BATT_CRITICAL_BG="#aa0000"
-W_FOCUS="#2a2a2a"
-W_MUTED="#555555"
+W_CUSTOM_HOVER_BG="#1f2328"
+W_BATT_CHARGING_BG="#1f6f6f"
+W_BATT_CHARGING_COLOR="#0d0f12"
+W_BATT_CRITICAL_BG="#a31717"
+W_FOCUS="#242a32"
+W_MUTED="#6a7b86"
 
 # Wlogout
-WL_COLOR="#c0c0c0"
-WL_BG="rgba(30, 30, 30, 0.88)"
+WL_COLOR="#bcd2d2"
+WL_BG="rgba(15, 17, 19, 0.90)"
 WL_BTN_COLOR="#b74141"
-WL_BTN_BG="rgba(18, 18, 18, 0.85)"
-WL_BTN_HOVER_BG="rgba(42, 42, 42, 0.92)"
-WL_BTN_FOCUS_BG="rgba(42, 42, 42, 0.92)"
+WL_BTN_BG="rgba(13, 15, 18, 0.88)"
+WL_BTN_HOVER_BG="rgba(31, 35, 40, 0.94)"
+WL_BTN_FOCUS_BG="rgba(31, 35, 40, 0.94)"
 
-# Wofi
-WO_BORDER="2px solid #8c7851"
-WO_BG="#1e1e1e"
-WO_INPUT_COLOR="#c0c0c0"
-WO_OUTER_BORDER="0px solid #8c7851"
-WO_OUTER_BG="#1e1e1e"
-WO_TEXT_UNSEL="#888888"
+# Wofi (neutral borders; no global white)
+WO_BORDER="1px solid #1a1f24"
+WO_BG="#0f1113"
+WO_INPUT_COLOR="#c7d9d9"
+WO_OUTER_BORDER="1px solid #1a1f24"
+WO_OUTER_BG="#0f1113"
+WO_TEXT_UNSEL="#6a7b86"
 
 # Mako
-MKO_BG="#1e1e1e"
-MKO_TEXT="#c0c0c0"
-MKO_BORDER="#121212"
-MKO_PROG="#8c7851"
+MKO_BG="#0f1113"
+MKO_TEXT="#cfd6d8"
+MKO_BORDER="#1a1f24"
+MKO_PROG="#2a9c9c"
 
 ###########   FILE PATHS   ###########
 HYPR_CONF="$HOME/.config/hypr/hyprland.conf"
@@ -55,11 +55,14 @@ WAYBAR_CSS="$HOME/.config/waybar/style.css"
 WLOGOUT_CSS="$HOME/.config/wlogout/style.css"
 WOFI_CSS="$HOME/.config/wofi/style.css"
 MAKO_CONF="$HOME/.config/mako/config"
+MICRO_SETTINGS="$HOME/.config/micro/settings.json"
+ALACRITTY_CONF="$HOME/.config/alacritty/alacritty.toml"
+SPEEDCRUNCH_INI="$HOME/.config/SpeedCrunch/SpeedCrunch.ini"
 
 ###########   APPLY CHANGES   ###########
 echo "Applying iron forge theme..."
 
-# 1) Hyprland
+# 1) Hyprland borders
 sed -i \
   -e "s/^ *col\.active_border *= *.*/col.active_border = rgba(${NEW_ACTIVE_BORDER})/" \
   -e "s/^ *col\.inactive_border *= *.*/col.inactive_border = rgba(${NEW_INACTIVE_BORDER})/" \
@@ -89,7 +92,7 @@ sed -i \
   -e "27s|.*|    background-color: ${WL_BTN_FOCUS_BG};|" \
   "$WLOGOUT_CSS"
 
-# 4) Wofi
+# 4) Wofi (neutral borders restored)
 sed -i \
   -e "3s|.*|    border: ${WO_BORDER};|" \
   -e "5s|.*|    background-color: ${WO_BG};|" \
@@ -107,14 +110,14 @@ sed -i \
   -e "6s|.*|progress-color=over ${MKO_PROG}|" \
   "$MAKO_CONF"
 
-# 6) Micro
-sed -i '2s|.*|    "colorscheme": "railscast"|' "$HOME/.config/micro/settings.json"
+# 6) Micro (keep)
+sed -i '2s|.*|    "colorscheme": "gotham"|' "$MICRO_SETTINGS"
 
-# 7) Alacritty
-sed -i '331s|.*|  "~\/.config\/alacritty\/themes\/themes\/taerminal.toml"|' "$HOME/.config/alacritty/alacritty.toml"
+# 7) Alacritty (keep)
+sed -i '331s|.*|  "~\/.config\/alacritty\/themes\/themes\/terafox.toml"|' "$ALACRITTY_CONF"
 
-# 8) SpeedCrunch
-sed -i '5s|.*|Display\\ColorSchemeName=iron_forge|' "$HOME/.config/SpeedCrunch/SpeedCrunch.ini"
+# 8) SpeedCrunch (keep)
+sed -i '5s|.*|Display\\ColorSchemeName=iron_forge|' "$SPEEDCRUNCH_INI"
 
 # Reload Mako
 makoctl reload

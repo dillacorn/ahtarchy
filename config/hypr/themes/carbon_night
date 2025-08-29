@@ -5,7 +5,6 @@
 set -euo pipefail
 
 ###########   THEME COLORS   ###########
-# Hyprland (must be 8-hex RGBA for rgba(...))
 NEW_ACTIVE_BORDER="a0a0a0ff"
 NEW_INACTIVE_BORDER="4b4b4bff"
 
@@ -55,6 +54,9 @@ WAYBAR_CSS="$HOME/.config/waybar/style.css"
 WLOGOUT_CSS="$HOME/.config/wlogout/style.css"
 WOFI_CSS="$HOME/.config/wofi/style.css"
 MAKO_CONF="$HOME/.config/mako/config"
+MICRO_SETTINGS="$HOME/.config/micro/settings.json"
+ALACRITTY_CONF="$HOME/.config/alacritty/alacritty.toml"
+SPEEDCRUNCH_INI="$HOME/.config/SpeedCrunch/SpeedCrunch.ini"
 
 ###########   APPLY CHANGES   ###########
 echo "Applying graphite dark theme..."
@@ -108,13 +110,13 @@ sed -i \
   "$MAKO_CONF"
 
 # 6) Micro
-sed -i '2s|.*|    "colorscheme": "railscast"|' "$HOME/.config/micro/settings.json"
+sed -i '2s|.*|    "colorscheme": "material-tc"|' "$MICRO_SETTINGS"
 
 # 7) Alacritty
-sed -i '331s|.*|  "~\/.config\/alacritty\/themes\/themes\/taerminal.toml"|' "$HOME/.config/alacritty/alacritty.toml"
+sed -i '331s|.*|  "~\/.config\/alacritty\/themes\/themes\/sonokai.toml"|' "$ALACRITTY_CONF"
 
 # 8) SpeedCrunch
-sed -i '5s|.*|Display\\ColorSchemeName=graphite_dark|' "$HOME/.config/SpeedCrunch/SpeedCrunch.ini"
+sed -i '5s|.*|Display\\ColorSchemeName=carbon_night|' "$SPEEDCRUNCH_INI"
 
 # Reload Mako
 makoctl reload

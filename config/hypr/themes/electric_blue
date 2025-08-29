@@ -55,6 +55,9 @@ WAYBAR_CSS="$HOME/.config/waybar/style.css"
 WLOGOUT_CSS="$HOME/.config/wlogout/style.css"
 WOFI_CSS="$HOME/.config/wofi/style.css"
 MAKO_CONF="$HOME/.config/mako/config"
+MICRO_SETTINGS="$HOME/.config/micro/settings.json"
+ALACRITTY_CONF="$HOME/.config/alacritty/alacritty.toml"
+SPEEDCRUNCH_INI="$HOME/.config/SpeedCrunch/SpeedCrunch.ini"
 
 ###########   APPLY CHANGES   ###########
 echo "🔄 Applying theme..."
@@ -106,13 +109,13 @@ sed -i \
     "$MAKO_CONF"
 
 # 6) Micro
-sed -i '2s|.*|    "colorscheme": "geany"|' "$HOME/.config/micro/settings.json"
+sed -i '2s|.*|    "colorscheme": "geany"|' "$MICRO_SETTINGS"
 
 # 7) Alacritty
-sed -i '331s|.*|  "~\/.config\/alacritty\/themes\/themes\/msx.toml"|' "$HOME/.config/alacritty/alacritty.toml"
+sed -i '331s|.*|  "~\/.config\/alacritty\/themes\/themes\/msx.toml"|' "$ALACRITTY_CONF"
 
 # 8) SpeedCrunch
-sed -i '5s|.*|Display\\ColorSchemeName=electric_blue|' "$HOME/.config/SpeedCrunch/SpeedCrunch.ini"
+sed -i '5s|.*|Display\\ColorSchemeName=electric_blue|' "$SPEEDCRUNCH_INI"
 
 # Reload Mako
 makoctl reload
