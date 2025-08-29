@@ -28,14 +28,14 @@ W_FOCUS="#242a32"
 W_MUTED="#6a7b86"
 
 # Wlogout
-WL_COLOR="#bcd2d2"
-WL_BG="rgba(15, 17, 19, 0.90)"
-WL_BTN_COLOR="#b74141"
+WL_COLOR="#cfd6d8"
+WL_BG="rgba(13, 15, 18, 0.92)"
+WL_BTN_COLOR="#cfd6d8"
 WL_BTN_BG="rgba(13, 15, 18, 0.88)"
-WL_BTN_HOVER_BG="rgba(31, 35, 40, 0.94)"
-WL_BTN_FOCUS_BG="rgba(31, 35, 40, 0.94)"
+WL_BTN_HOVER_BG="rgba(31, 35, 40, 0.96)"
+WL_BTN_FOCUS_BG="rgba(36, 42, 50, 0.96)"
 
-# Wofi (neutral borders; no global white)
+# Wofi
 WO_BORDER="1px solid #1a1f24"
 WO_BG="#0f1113"
 WO_INPUT_COLOR="#c7d9d9"
