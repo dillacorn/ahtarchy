@@ -7,12 +7,15 @@
     "modules-left": [
       "custom/apps",
       "hyprland/workspaces",
-      "hyprland/window",
+      "clock#time",
+      "clock#date",
       "wlr/taskbar",
       "hyprland/mode",
       "hyprland/scratchpad"
     ],
-    "modules-center": ["clock"],
+    "modules-center": [
+    "hyprland/window"
+    ],
     "modules-right": [
       "idle_inhibitor",
       "cpu",
@@ -54,7 +57,7 @@
     "wlr/taskbar": {
       "format": "{icon}",
       "tooltip-format": "{title}",
-      "icon-size": 14,              // smaller to prevent bar growth
+      "icon-size": 14,
       "all-outputs": false,
       "on-click": "activate",
       "on-click-middle": "close",
@@ -63,10 +66,7 @@
 
     "idle_inhibitor": {
       "format": "{icon}",
-      "format-icons": {
-        "activated": "",
-        "deactivated": ""
-      }
+      "format-icons": { "activated": "", "deactivated": "" }
     },
 
     "hyprland/mode": { "format": "{}" },
@@ -79,10 +79,7 @@
       "tooltip-format": "{app}: {title}"
     },
 
-    "tray": {
-      "icon-size": 14,
-      "spacing": 10
-    },
+    "tray": { "icon-size": 14, "spacing": 10 },
 
     "custom/apps": {
       "tooltip": false,
@@ -92,19 +89,21 @@
 
     "load": { "format": " {} " },
 
-    "clock": {
-      "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-      "format": " {:%H:%M    %m-%d-%Y}"
+    "clock#time": {
+      "interval": 1,
+      "format": " {:%H:%M}",
+      "tooltip-format": "<big>{:%A, %B %d, %Y}</big>\n<tt><small>{calendar}</small></tt>"
     },
 
-    "custom/power": {
-      "tooltip": false,
-      "on-click": "wlogout &",
-      "format": " "
+    "clock#date": {
+      "interval": 60,
+      "format": " {:%m-%d-%Y}",
+      "tooltip-format": "<big>{:%A, %B %d, %Y}</big>"
     },
+
+    "custom/power": { "tooltip": false, "on-click": "wlogout &", "format": " " },
 
     "cpu": { "format": "{usage}%  ", "tooltip": true },
-
     "memory": { "format": "{}%  " },
 
     "temperature": {
