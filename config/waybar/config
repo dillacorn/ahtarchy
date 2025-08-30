@@ -7,16 +7,16 @@
     "modules-left": [
       "custom/apps",
       "hyprland/workspaces",
-      "clock#time",
-      "clock#date",
-      "wlr/taskbar",
       "hyprland/mode",
-      "hyprland/scratchpad"
+      "hyprland/scratchpad",
+      "hyprland/window"
     ],
     "modules-center": [
-    "hyprland/window"
+      "clock#time",
+      "clock#date"
     ],
     "modules-right": [
+      "wlr/taskbar",
       "idle_inhibitor",
       "cpu",
       "temperature",
