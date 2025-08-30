@@ -328,8 +328,7 @@ ipc_socket = true  # Default: true
 
 # Import additional configuration files
 import = [
-  "~/.config/alacritty/themes/themes/taerminal.toml"
+  "~/.config/alacritty/themes/themes/sonokai.toml"
 ]
-
 
 

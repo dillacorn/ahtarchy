@@ -1,14 +1,14 @@
 /* === Variables for easy theme tweaking === */
-@define-color bg-default #0f0f0f;
-@define-color bg-hover #1e1e2e;
-@define-color bg-focus #313244;
-@define-color bg-active #1a1a1a;
+@define-color bg-default #353535;
+@define-color bg-hover #404040;
+@define-color bg-focus #4a4a4a;
+@define-color bg-active #2b2b2b;
 @define-color bg-urgent #ff5555;
 @define-color bg-charging #6a9955;
 @define-color bg-critical #ff5555;
-@define-color color-default #cdd6f4;
-@define-color color-dark #1e1e2e;
-@define-color color-hover #313244;
+@define-color color-default #d0d0d0;
+@define-color color-dark #1a1a1a;
+@define-color color-hover #4a4a4a;
 
 /* === Global styles === */
 * {
