@@ -12,8 +12,9 @@
       "hyprland/window"
     ],
     "modules-center": [
-      "clock#time",
-      "clock#date"
+      "clock#day",
+      "clock#date",
+      "clock#time"
     ],
     "modules-right": [
       "wlr/taskbar",
@@ -90,18 +91,21 @@
 
     "load": { "format": " {} " },
 
-    "clock#time": {
-      "interval": 1,
-      "format": " {0:%H:%M}",
-      "tooltip": true,
-      "tooltip-format": "<tt>24h: {0:%H:%M}</tt>\n<tt>12h: {0:%I:%M %p}</tt>"
+    "clock#day": {
+      "format": "{:%a}",
+      "tooltip": false
     },
 
     "clock#date": {
-      "interval": 60,
-      "format": " {0:%m-%d-%Y}",
+      "format": " {0:%m-%d}",
       "tooltip": true,
       "tooltip-format": "<big>{0:%A, %B %d, %Y}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+
+    "clock#time": {
+      "format": " {0:%H:%M}",
+      "tooltip": true,
+      "tooltip-format": "<tt>24h: {0:%H:%M}</tt>\n<tt>12h: {0:%I:%M %p}</tt>"
     },
 
     "custom/power": {
