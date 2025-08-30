@@ -12,8 +12,8 @@
 
 /* === Global styles === */
 * {
-  font-size: 14;
-  border-radius: 5;
+  font-size: 14px;
+  border-radius: 5px;
   min-height: 0;
 }
 
@@ -28,9 +28,9 @@ window#waybar.hidden { opacity: 0.2; }
 window#waybar.empty #window { background-color: transparent; }
 
 /* === Layout for modules (no vertical margins that fatten the bar) === */
-.modules-left   { margin: 5 0 0 10; }
-.modules-center { margin: 5 0 0 0; }
-.modules-right  { margin: 5 10 0 0; }
+.modules-left   { margin: 5px 0 0 10px; }
+.modules-center { margin: 5px 4em 0 0; }   /* responsive horizontal nudge */
+.modules-right  { margin: 5px 10px 0 0; }
 
 /* Remove left margin if workspaces is leftmost */
 .modules-left > widget:first-child > #workspaces { margin-left: 0; }
@@ -40,23 +40,23 @@ window#waybar.empty #window { background-color: transparent; }
 /* === Button styles === */
 button {
   border: none;
-  /* box-shadow: inset 0 -3 transparent; */
+  /* box-shadow: inset 0 -3px transparent; */
 }
 
 /* === Workspaces styles === */
 #workspaces {
   background-color: @bg-default;
-  border-radius: 5;
+  border-radius: 5px;
 }
 
 #workspaces button {
-  padding: 0 5;
+  padding: 0 5px;
   background-color: transparent;
   color: @color-default;
 }
 
-#workspaces button:first-child { border-radius: 5 0 0 5; }
-#workspaces button:last-child  { border-radius: 0 5 5 0; }
+#workspaces button:first-child { border-radius: 5px 0 0 5px; }
+#workspaces button:last-child  { border-radius: 0 5px 5px 0; }
 
 #workspaces button:hover  { color: @color-hover; }
 #workspaces button.active { background-color: @bg-active; color: @color-default; }
@@ -79,7 +79,7 @@ button {
 #custom-apps,
 #custom-power,
 #taskbar {
-  padding: 0 8;
+  padding: 0 8px;
   background-color: @bg-default;
   color: @color-default;
 }
@@ -88,20 +88,12 @@ button {
 #mode {
   background-color: @bg-default;
   color: @color-dark;
-  /* box-shadow: inset 0 -3 #ffffff; */
+  /* box-shadow: inset 0 -3px #ffffff; */
 }
 
-/* === Custom apps button hover === */
-#custom-apps:hover {
-  background-color: @bg-hover;
-  color: @color-default;
-}
-
-/* === Custom power button hover === */
-#custom-power:hover {
-  background-color: @bg-hover;
-  color: @color-default;
-}
+/* === Custom apps/power hover === */
+#custom-apps:hover  { background-color: @bg-hover;  color: @color-default; }
+#custom-power:hover { background-color: @bg-hover;  color: @color-default; }
 
 /* === Battery states === */
 #battery.charging,
@@ -138,11 +130,11 @@ label:focus { background-color: @bg-focus; }
 #scratchpad.empty { background: transparent; }
 
 /* === Taskbar (wlr/taskbar) sizing and behavior === */
-#taskbar { padding: 0 0; }
+#taskbar { padding: 0; }
 
 #taskbar button {
-  padding: 0 3;
-  margin: 0 2;
+  padding: 0 3px;
+  margin: 0 2px;
   background-color: transparent;
   color: @color-default;
 }
@@ -171,8 +163,8 @@ label:focus { background-color: @bg-focus; }
 
 /* === Optional: if you enable workspace-taskbar later, keep it tight too === */
 .workspace-taskbar button {
-  padding: 0 6;
-  margin: 0 2;
+  padding: 0 6px;
+  margin: 0 2px;
   background: transparent;
 }
 
@@ -183,7 +175,10 @@ label:focus { background-color: @bg-focus; }
   min-height: 0;
 }
 
-#clock.time,
-#clock.date {
-  padding: 0 6;
+/* === Center clocks: tight, baseline-aligned === */
+#clock.day,
+#clock.date,
+#clock.time {
+  padding: 0 6px;
+  margin-top: -1px;
 }
