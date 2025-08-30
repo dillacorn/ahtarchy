@@ -84,4 +84,4 @@ label:focus { background: @bg-focus; }
 #taskbar image { margin: 0; padding: 0; min-width: 0; min-height: 0; }
 
 /* Right-side clocks: tight and baseline-aligned */
-#clock.date, #clock.time { padding: 0 6px; margin-top: -1px; }
+#clock.date, #clock.time { padding: 0 6px; margin-top: 0px; }
