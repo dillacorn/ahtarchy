@@ -81,6 +81,14 @@
       "tooltip-format": "{app}: {title}"
     },
 
+    "hyprland/submap": {
+      "format": "   {}",
+      "tooltip": false,
+      "on-click": "~/.config/hypr/scripts/toggle_resize_if_ok.sh reset",
+      "on-click-middle": "~/.config/hypr/scripts/toggle_resize_if_ok.sh reset",
+      "on-click-right": "~/.config/hypr/scripts/toggle_resize_if_ok.sh reset"
+    },
+
     "tray": { "icon-size": 14, "spacing": 10 },
 
     "custom/apps": {
