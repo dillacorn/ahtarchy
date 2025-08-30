@@ -91,14 +91,16 @@
 
     "clock#time": {
       "interval": 1,
-      "format": " {:%H:%M}",
-      "tooltip-format": "<big>{:%A, %B %d, %Y}</big>\n<tt><small>{calendar}</small></tt>"
+      "format": " {0:%H:%M}",
+      "tooltip": true,
+      "tooltip-format": "<tt>24h: {0:%H:%M}</tt>\n<tt>12h: {0:%I:%M %p}</tt>"
     },
 
     "clock#date": {
       "interval": 60,
-      "format": " {:%m-%d-%Y}",
-      "tooltip-format": "<big>{:%A, %B %d, %Y}</big>"
+      "format": " {0:%m-%d-%Y}",
+      "tooltip": true,
+      "tooltip-format": "<big>{0:%A, %B %d, %Y}</big>\n<tt><small>{calendar}</small></tt>"
     },
 
     "custom/power": { "tooltip": false, "on-click": "wlogout &", "format": " " },
