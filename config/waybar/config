@@ -82,9 +82,10 @@
     "tray": { "icon-size": 14, "spacing": 10 },
 
     "custom/apps": {
-      "tooltip": false,
       "on-click": "pkill wofi || wofi --show drun",
-      "format": ""
+      "format": "",
+      "tooltip": true,
+      "tooltip-format": "launch wofi"
     },
 
     "load": { "format": " {} " },
@@ -103,7 +104,12 @@
       "tooltip-format": "<big>{0:%A, %B %d, %Y}</big>\n<tt><small>{calendar}</small></tt>"
     },
 
-    "custom/power": { "tooltip": false, "on-click": "wlogout &", "format": " " },
+    "custom/power": {
+      "on-click": "wlogout &",
+      "format": " ",
+      "tooltip": true,
+      "tooltip-format": "launch wlogout"
+    },
 
     "cpu": { "format": "{usage}%  ", "tooltip": true },
     "memory": { "format": "{}%  " },
