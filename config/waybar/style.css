@@ -1,16 +1,16 @@
-/* === Variables for easy theme tweaking === */
+/* === Variables === */
 @define-color bg-default #353535;
-@define-color bg-hover #404040;
-@define-color bg-focus #4a4a4a;
-@define-color bg-active #2b2b2b;
-@define-color bg-urgent #ff5555;
+@define-color bg-hover   #404040;
+@define-color bg-focus   #4a4a4a;
+@define-color bg-active  #2b2b2b;
+@define-color bg-urgent  #ff5555;
 @define-color bg-charging #6a9955;
 @define-color bg-critical #ff5555;
 @define-color color-default #d0d0d0;
-@define-color color-dark #1a1a1a;
-@define-color color-hover #4a4a4a;
+@define-color color-dark    #1a1a1a;
+@define-color color-hover   #4a4a4a;
 
-/* === Global styles === */
+/* === Global === */
 * {
   font-size: 14px;
   border-radius: 5px;
@@ -27,158 +27,61 @@ window#waybar {
 window#waybar.hidden { opacity: 0.2; }
 window#waybar.empty #window { background-color: transparent; }
 
-/* === Layout for modules (no vertical margins that fatten the bar) === */
+/* === Layout === */
 .modules-left   { margin: 5px 0 0 10px; }
-.modules-center { margin: 5px 4em 0 0; }   /* responsive horizontal nudge */
+.modules-center { margin: 5px 0 0 0; }
 .modules-right  { margin: 5px 10px 0 0; }
 
-/* Remove left margin if workspaces is leftmost */
-.modules-left > widget:first-child > #workspaces { margin-left: 0; }
-/* Remove right margin if workspaces is rightmost */
-.modules-right > widget:last-child > #workspaces { margin-right: 0; }
-
-/* === Button styles === */
-button {
-  border: none;
-  /* box-shadow: inset 0 -3px transparent; */
-}
-
-/* === Workspaces styles === */
-#workspaces {
-  background-color: @bg-default;
-  border-radius: 5px;
-}
-
-#workspaces button {
-  padding: 0 5px;
-  background-color: transparent;
-  color: @color-default;
-}
-
+/* Workspaces */
+#workspaces { background: @bg-default; border-radius: 5px; }
+#workspaces button { padding: 0 5px; background: transparent; color: @color-default; }
 #workspaces button:first-child { border-radius: 5px 0 0 5px; }
 #workspaces button:last-child  { border-radius: 0 5px 5px 0; }
-
 #workspaces button:hover  { color: @color-hover; }
-#workspaces button.active { background-color: @bg-active; color: @color-default; }
-#workspaces button.urgent { background-color: @bg-urgent; color: @color-dark; }
+#workspaces button.active { background: @bg-active; color: @color-default; }
+#workspaces button.urgent { background: @bg-urgent; color: @color-dark; }
 
-/* === Common module styles === */
-#idle_inhibitor,
-#scratchpad,
-#mode,
-#window,
-#clock,
-#battery,
-#backlight,
-#wireplumber,
-#tray,
-#load,
-#cpu,
-#temperature,
-#memory,
-#custom-apps,
-#custom-power,
-#taskbar {
-  padding: 0 8px;
-  background-color: @bg-default;
+/* Common module pill styling */
+#idle_inhibitor,#scratchpad,#submap,#window,#clock,#battery,#backlight,#wireplumber,
+#tray,#load,#cpu,#temperature,#memory,#custom-apps,#custom-power,#taskbar {
+  padding: 0 6px;
+  background: @bg-default;
   color: @color-default;
 }
 
-/* === Mode special styles === */
-#mode {
-  background-color: @bg-default;
-  color: @color-dark;
-  /* box-shadow: inset 0 -3px #ffffff; */
-}
+/* Window title in the center group */
+#window { padding: 0 10px; }  /* removed unsupported text-align */
 
-/* === Custom apps/power hover === */
-#custom-apps:hover  { background-color: @bg-hover;  color: @color-default; }
-#custom-power:hover { background-color: @bg-hover;  color: @color-default; }
+/* Mode chip (shows during submaps like 'resize') */
+#mode { padding: 0 10px; }
 
-/* === Battery states === */
-#battery.charging,
-#battery.plugged {
-  background-color: @bg-charging;
-  color: @bg-default;
-}
+/* Hover pills */
+#custom-apps:hover, #custom-power:hover { background: @bg-hover; color: @color-default; }
 
+/* Battery */
+#battery.charging, #battery.plugged { background: @bg-charging; color: @bg-default; }
 #battery.critical:not(.charging) {
-  background-color: @bg-critical;
-  color: @color-default;
-  animation-name: blink;
-  animation-duration: 0.5s;
-  animation-timing-function: steps(12);
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
+  background: @bg-critical; color: @color-default;
+  animation: blink 0.5s steps(12) infinite alternate;
 }
+@keyframes blink { to { background: @bg-default; color: @color-default; } }
 
-/* === Blink animation for critical battery === */
-@keyframes blink {
-  to { background-color: @bg-default; color: @color-default; }
-}
-
-/* === Labels and other states === */
-label:focus { background-color: @bg-focus; }
-#wireplumber.muted { background-color: @bg-hover; }
-
-/* === Tray styles === */
+/* Misc */
+label:focus { background: @bg-focus; }
+#wireplumber.muted { background: @bg-hover; }
 #tray > .passive { -gtk-icon-effect: dim; }
 #tray > .needs-attention { -gtk-icon-effect: highlight; }
 #tray menu { font-family: Iosevka; }
-
-/* === Scratchpad empty state === */
 #scratchpad.empty { background: transparent; }
 
-/* === Taskbar (wlr/taskbar) sizing and behavior === */
+/* Taskbar */
 #taskbar { padding: 0; }
+#taskbar button { padding: 0 3px; margin: 0 2px; background: transparent; color: @color-default; }
+#taskbar button:hover  { background: @bg-hover; }
+#taskbar button.active { background: @bg-active; color: @color-default; }
+#taskbar button.urgent { background: @bg-urgent; color: @color-dark; }
+#taskbar .taskbar-title { font-size: 0; color: transparent; margin: 0; padding: 0; min-width: 0; min-height: 0; }
+#taskbar image { margin: 0; padding: 0; min-width: 0; min-height: 0; }
 
-#taskbar button {
-  padding: 0 3px;
-  margin: 0 2px;
-  background-color: transparent;
-  color: @color-default;
-}
-
-#taskbar button:hover  { background-color: @bg-hover; }
-#taskbar button.active { background-color: @bg-active; color: @color-default; }
-#taskbar button.urgent { background-color: @bg-urgent; color: @color-dark; }
-
-/* icons only; titles off to keep width tight */
-#taskbar .taskbar-title {
-  font-size: 0;        /* hide text without unsupported 'display' */
-  color: transparent;
-  margin: 0;
-  padding: 0;
-  min-width: 0;
-  min-height: 0;
-}
-
-/* prevent icons from forcing extra height */
-#taskbar image {
-  margin: 0;
-  padding: 0;
-  min-width: 0;
-  min-height: 0;
-}
-
-/* === Optional: if you enable workspace-taskbar later, keep it tight too === */
-.workspace-taskbar button {
-  padding: 0 6px;
-  margin: 0 2px;
-  background: transparent;
-}
-
-.workspace-taskbar image {
-  margin: 0;
-  padding: 0;
-  min-width: 0;
-  min-height: 0;
-}
-
-/* === Center clocks: tight, baseline-aligned === */
-#clock.day,
-#clock.date,
-#clock.time {
-  padding: 0 6px;
-  margin-top: -1px;
-}
+/* Right-side clocks: tight and baseline-aligned */
+#clock.date, #clock.time { padding: 0 6px; margin-top: -1px; }

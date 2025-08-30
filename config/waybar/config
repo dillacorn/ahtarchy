@@ -6,25 +6,26 @@
 
     "modules-left": [
       "custom/apps",
+      "idle_inhibitor",
       "hyprland/workspaces",
-      "hyprland/mode",
+      "wlr/taskbar",
       "hyprland/scratchpad",
+      "hyprland/submap"
+    ],
+
+    "modules-center": [
       "hyprland/window"
     ],
-    "modules-center": [
-      "clock#day",
-      "clock#date",
-      "clock#time"
-    ],
+
     "modules-right": [
-      "wlr/taskbar",
-      "idle_inhibitor",
       "cpu",
       "temperature",
       "memory",
-      "wireplumber",
       "backlight",
       "battery",
+      "clock#date",
+      "clock#time",
+      "wireplumber",
       "tray",
       "custom/power"
     ],
@@ -89,13 +90,6 @@
       "tooltip-format": "launch wofi"
     },
 
-    "load": { "format": " {} " },
-
-    "clock#day": {
-      "format": "{:%a}",
-      "tooltip": false
-    },
-
     "clock#date": {
       "format": " {0:%m-%d}",
       "tooltip": true,
@@ -126,7 +120,7 @@
 
     "backlight": {
       "format": "{icon} {percent}%",
-      "format-icons": ["", "", "", "", "", "", "", "", ""]
+      "format-icons": ["","","","","","","","",""]
     },
 
     "battery": {
@@ -136,7 +130,7 @@
       "format-charging": " {capacity}%",
       "format-plugged": " {capacity}%",
       "format-alt": "{icon} {time}",
-      "format-icons": ["", "", "", "", ""]
+      "format-icons": ["","","","",""]
     },
 
     "wireplumber": {
@@ -152,7 +146,7 @@
         "phone": "",
         "portable": "",
         "car": "",
-        "default": ["", "", ""]
+        "default": ["","",""]
       },
       "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
     }
