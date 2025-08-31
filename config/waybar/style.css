@@ -43,7 +43,7 @@ window#waybar.empty #window { background-color: transparent; }
 
 /* Common module pill styling */
 #idle_inhibitor,#scratchpad,#submap,#window,#clock,#battery,#backlight,#wireplumber,
-#tray,#load,#cpu,#temperature,#memory,#custom-apps,#custom-power,#taskbar {
+#tray,#load,#cpu,#temperature,#memory,#custom-apps,#custom-power {
   padding: 0 6px;
   background: @bg-default;
   color: @color-default;
@@ -74,14 +74,29 @@ label:focus { background: @bg-focus; }
 #tray menu { font-family: Iosevka; }
 #scratchpad.empty { background: transparent; }
 
-/* Taskbar */
-#taskbar { padding: 0; }
-#taskbar button { padding: 0 3px; margin: 0 2px; background: transparent; color: @color-default; }
-#taskbar button:hover  { background: @bg-hover; }
-#taskbar button.active { background: @bg-active; color: @color-default; }
-#taskbar button.urgent { background: @bg-urgent; color: @color-dark; }
-#taskbar .taskbar-title { font-size: 0; color: transparent; margin: 0; padding: 0; min-width: 0; min-height: 0; }
-#taskbar image { margin: 0; padding: 0; min-width: 0; min-height: 0; }
+/* Replace your TASKBAR section with this */
 
-/* Right-side clocks: tight and baseline-aligned */
-#clock.date, #clock.time { padding: 0 6px; margin-top: 0px; }
+/* Taskbar: transparent bar, spaced pills */
+#taskbar { padding: 0 2px; background: transparent; color: @color-default; }
+#taskbar.empty { padding: 0; background: transparent; min-width: 0; margin: 0; box-shadow: none; }
+
+#taskbar button {
+  padding: 0 3px;
+  margin: 0 1px;              /* gap so pills don't touch */
+  background: @bg-default;    /* inactive/open app background */
+  color: @color-default;
+  border-radius: 5px;         /* crisp corners */
+}
+#taskbar button:first-child { margin-left: 0; }
+#taskbar button:last-child  { margin-right: 0; }
+
+#taskbar button:hover   { background: @bg-hover; }
+#taskbar button.active  { background: @bg-active; color: @color-default; }
+#taskbar button.urgent  { background: @bg-urgent; color: @color-dark; }
+#taskbar button.minimized { opacity: 0.85; }
+
+#taskbar .taskbar-title { font-size: 0; color: transparent; margin: 0; padding: 0; min-width: 0; min-height: 0; }
+#taskbar image          { margin: 0; padding: 1px; min-width: 0; min-height: 0; }
+
+/* Right-side clocks */
+#clock.date, #clock.time { padding: 0 5px; margin-top: 0; }
