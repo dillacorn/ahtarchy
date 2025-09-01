@@ -52,8 +52,9 @@ sudo ./setup_installer.sh
 | `SUPER + w`             | Launch or kill Waypaper (wallpaper GUI)                 |
 | `SUPER + q`             | Scan QR code                                            |
 | `SUPER + b`             | Launch or kill Waypaper (waybar)                        |
-| `SUPER + SHIFT + s`     | Take cropped screenshot                                 |
-| `SUPER + SHIFT + f`     | Take fullscreen screenshot                              |
+| `SUPER + SHIFT + s`     | Take cropped screenshot and edit                        |
+| `SUPER + SHIFT + a`     | Take fullscreen screenshot and edit                     |
+| `SUPER + SHIFT + f`     | Take fullscreen screenshot without edit                 |
 | `SUPER + SHIFT + g`     | Record cropped GIF using ffmpeg                         |
 | `ALT/SUPER + SHIFT + c` | Launch SpeedCrunch (calculator)                         |
 | `ALT + SHIFT + Enter`   | Launch terminal (Alacritty)                             |
@@ -66,6 +67,7 @@ sudo ./setup_installer.sh
 | `SUPER + m`             | Toggle audio mute (wpctl)                               |
 | `SUPER + l`             | Lock screen (hyprlock)                                  |
 | `ALT/SUPER + v`         | Launch or kill pavucontrol (audio control)              |
+| `SUPER + CTRL + w`      | restart swww                                            |
 
 ## 🪟 Window & Workspace Management
 | Keybind                         | Action                                        |
