@@ -24,9 +24,9 @@
       "memory",
       "backlight",
       "battery",
-      "clock#date",
-      "clock#time",
       "wireplumber",
+      "clock#time",
+      "clock#date",
       "tray",
       "custom/power"
     ],
@@ -109,7 +109,7 @@
     "clock#date": {
       "format": " {0:%m-%d}",
       "tooltip": true,
-      "tooltip-format": "<big>{0:%A, %B %d, %Y}</big>\n<tt><small>{calendar}</small></tt>"
+      "tooltip-format": "<big>{0:%A, %d, %Y}</big>\n<tt><small>{calendar}</small></tt>"
     },
 
     "clock#time": {
