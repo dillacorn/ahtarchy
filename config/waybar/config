@@ -35,7 +35,7 @@
       "format": "",
       "tooltip": true,
       "tooltip-format": "Toggle resize submap",
-      "on-click": "exec ~/.config/hypr/scripts/toggle_resize_if_ok.sh"
+      "on-click": "exec ~/.config/hypr/scripts/toggle_resize_waybar.sh"
     },
 
     "hyprland/workspaces": {
