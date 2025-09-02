@@ -1,14 +1,14 @@
 /* === Variables === */
 @define-color bg-default #353535;
-@define-color bg-hover   #404040;
-@define-color bg-focus   #4a4a4a;
-@define-color bg-active  #2b2b2b;
-@define-color bg-urgent  #ff5555;
+@define-color bg-hover #404040;
+@define-color bg-focus #4a4a4a;
+@define-color bg-active #2b2b2b;
+@define-color bg-urgent #ff5555;
 @define-color bg-charging #6a9955;
 @define-color bg-critical #ff5555;
 @define-color color-default #d0d0d0;
-@define-color color-dark    #1a1a1a;
-@define-color color-hover   #4a4a4a;
+@define-color color-dark #1a1a1a;
+@define-color color-hover #4a4a4a;
 
 /* === Global === */
 * {
@@ -43,20 +43,32 @@ window#waybar.empty #window { background-color: transparent; }
 
 /* Common module pill styling */
 #idle_inhibitor,#scratchpad,#submap,#window,#clock,#battery,#backlight,#wireplumber,
-#tray,#load,#cpu,#temperature,#memory,#custom-apps,#custom-power {
+#tray,#load,#cpu,#temperature,#memory,#custom-apps {
   padding: 0 6px;
   background: @bg-default;
   color: @color-default;
 }
 
+#custom-resize {
+  padding: 0 11px 0 5px;
+  background: @bg-default;
+  color: @color-default;
+}
+
+#custom-power {
+  padding: 0 4px 0 5px;
+  background: @bg-default;
+  color: @color-default;
+}
+
 /* Window title in the center group */
-#window { padding: 0 10px; }  /* removed unsupported text-align */
+#window { padding: 0 6px; }  /* removed unsupported text-align */
 
 /* Mode chip (shows during submaps like 'resize') */
-#mode { padding: 0 10px; }
+#mode { padding: 0 6px; }
 
 /* Hover pills */
-#custom-apps:hover, #custom-power:hover { background: @bg-hover; color: @color-default; }
+#custom-apps:hover, #custom-power:hover, #custom-resize:hover { background: @bg-hover; color: @color-default; }
 
 /* Battery */
 #battery.charging, #battery.plugged { background: @bg-charging; color: @bg-default; }
