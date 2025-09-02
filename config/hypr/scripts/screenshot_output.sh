@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # deps
-for cmd in grim hyprctl jq notify-send; do
+for cmd in grim hyprctl jq notify-send wl-copy; do
   command -v "$cmd" >/dev/null 2>&1 || { echo "$cmd missing" >&2; exit 1; }
 done
 
@@ -27,4 +27,5 @@ fi
 [[ -n "${mon:-}" ]] || { echo "No monitor found" >&2; exit 1; }
 
 grim -o "$mon" "$file" >/dev/null 2>&1
-notify-send "Screenshot saved" "$file"
+wl-copy < "$file"
+notify-send "Screenshot saved & copied" "$file"
