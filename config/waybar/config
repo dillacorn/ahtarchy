@@ -35,7 +35,8 @@
       "format": "",
       "tooltip": true,
       "tooltip-format": "Toggle resize submap",
-      "on-click": "exec ~/.config/hypr/scripts/toggle_resize_waybar.sh"
+      "on-click": "exec ~/.config/hypr/scripts/toggle_resize_waybar.sh",
+      "on-click-right": "exec ~/.config/hypr/scripts/toggle_resize_waybar.sh"
     },
 
     "hyprland/workspaces": {
@@ -101,6 +102,7 @@
 
     "custom/apps": {
       "on-click": "pkill wofi || wofi --show drun",
+      "on-click-right": "pkill wofi || wofi --show drun",
       "format": "",
       "tooltip": true,
       "tooltip-format": "launch wofi"
@@ -120,6 +122,7 @@
 
     "custom/power": {
       "on-click": "wlogout &",
+      "on-click-right": "wlogout &",
       "format": " ",
       "tooltip": true,
       "tooltip-format": "launch wlogout"
