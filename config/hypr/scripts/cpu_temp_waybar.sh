@@ -1,13 +1,11 @@
 # ~/.config/waybar/scripts/cpu_temp_waybar.sh
 #!/usr/bin/env bash
-# CPU temp for Waybar custom module with icon selection
-# Prints: "<icon> <temp>°"
-# ShellCheck-clean.
+# CPU temp for Waybar custom module with icon on the right side
+# Prints: "<temp>° <icon>"
 
 set -euo pipefail
 export LC_ALL=C
 
-# Ordered preference of hwmon "name"
 PREF_CHIPS=(k10temp coretemp zenpower cpu_thermal x86_pkg_temp)
 
 trim() { sed -e 's/^[[:space:]]\+//' -e 's/[[:space:]]\+$//'; }
@@ -30,14 +28,12 @@ read_hwmon_celsius() {
   local f lbl inp val
 
   for f in "$d"/temp*_label; do
-    # SC2189 fix: move redirection to the command, not before the pipe
     lbl="$(tr -d '\0\r' < "$f" | trim)"
     inp="${f/_label/_input}"
     [[ -r "$inp" ]] || continue
     map["$lbl"]="$inp"
   done
 
-  # Prefer labels that match btop first (Tdie), then reasonable fallbacks
   local prefs=("Tdie" "Tctl/Tdie" "Package id 0" "Package" "CPU Temp" "Core 0" "Tctl")
   local p
   for p in "${prefs[@]}"; do
@@ -63,7 +59,6 @@ get_temp() {
   for d in /sys/class/thermal/thermal_zone*; do
     local t="$d/temp"
     [[ -r "$t" ]] || continue
-    # SC2155 fix: declare and assign separately
     local v
     v="$(<"$t")"
     [[ "$v" =~ ^[0-9]+$ ]] || continue
@@ -96,7 +91,8 @@ main() {
     icon=""
   fi
 
-  echo "$icon $temp°"
+  # icon on the right
+  echo "$temp° $icon"
 }
 
 main
