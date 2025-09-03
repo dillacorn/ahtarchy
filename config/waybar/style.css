@@ -43,7 +43,7 @@ window#waybar.empty #window { background-color: transparent; }
 
 /* Common module pill styling */
 #idle_inhibitor,#scratchpad,#submap,#window,#clock,#battery,#backlight,#wireplumber,
-#tray,#load,#cpu,#temperature,#memory,#custom-apps {
+#tray,#load,#cpu,#memory,#custom-apps,#custom-cputemp {
   padding: 0 6px;
   background: @bg-default;
   color: @color-default;

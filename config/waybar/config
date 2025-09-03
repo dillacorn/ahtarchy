@@ -20,7 +20,7 @@
     "modules-right": [
       "idle_inhibitor",
       "cpu",
-      "temperature",
+      "custom/cputemp",
       "memory",
       "backlight",
       "battery",
@@ -131,10 +131,11 @@
     "cpu": { "format": "{usage}%  ", "tooltip": true },
     "memory": { "format": "{}%  " },
 
-    "temperature": {
-      "critical-threshold": 80,
-      "format": "{temperatureC}°",
-      "format-icons": ["", "", ""]
+    "custom/cputemp": {
+      "exec": "~/.config/hypr/scripts/cpu_temp_waybar.sh",
+      "interval": 2,
+      "format": "{}",
+      "tooltip": false
     },
 
     "backlight": {
