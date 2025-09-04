@@ -1,4 +1,4 @@
-# ~/.config/hypr/scripts/toggle_resize_waybar.sh
+# ~/.config/waybar/scripts/toggle_resize.sh
 #!/usr/bin/env bash
 set -euo pipefail
 

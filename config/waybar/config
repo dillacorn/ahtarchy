@@ -35,8 +35,8 @@
       "format": "",
       "tooltip": true,
       "tooltip-format": "Toggle resize submap",
-      "on-click": "exec ~/.config/hypr/scripts/toggle_resize_waybar.sh",
-      "on-click-right": "exec ~/.config/hypr/scripts/toggle_resize_waybar.sh"
+      "on-click": "exec ~/.config/waybar/scripts/toggle_resize.sh",
+      "on-click-right": "exec ~/.config/waybar/scripts/toggle_resize.sh"
     },
 
     "hyprland/workspaces": {
@@ -74,7 +74,16 @@
       "on-click-middle": "close",
       "on-click-right": "minimize-raise",
       "ignore-list": [
-        "wofi"
+        "wofi",
+        "fuzzel",
+        "tofi",
+        "rofi",
+        "mako",
+        "wlogout",
+        "hyprlock",
+        "swaylock",
+        "swww",
+        "mpvpaper"
       ]
     },
 
@@ -135,7 +144,7 @@
     "memory": { "format": "{}%  " },
 
     "custom/cputemp": {
-      "exec": "~/.config/hypr/scripts/cpu_temp_waybar.sh",
+      "exec": "~/.config/waybar/scripts/cpu_temp.sh",
       "interval": 2,
       "format": "{}",
       "tooltip": false

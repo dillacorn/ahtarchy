@@ -244,7 +244,9 @@ retry_command cp "$REPO_DIR/arch_geology.png" "$HOME_DIR/Pictures/wallpapers/"
 # Final permissions
 find "$HOME_DIR/.config" -type d -exec chmod 755 {} +
 find "$HOME_DIR/.config" -type f -exec chmod 644 {} +
-find "$HOME_DIR/.config/hypr" -type f -exec chmod +x {} +
+find "$HOME_DIR/.config/hypr/scripts" -type f -exec chmod +x {} +
+find "$HOME_DIR/.config/hypr/themes" -type f -exec chmod +x {} +
+find "$HOME_DIR/.config/waybar/scripts" -type f -exec chmod +x {} +
 
 # Reboot prompt
 echo -e "${COLOR_GREEN}Setup complete! Reboot recommended.${COLOR_RESET}"
