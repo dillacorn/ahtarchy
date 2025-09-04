@@ -72,7 +72,10 @@
       "all-outputs": false,
       "on-click": "activate",
       "on-click-middle": "close",
-      "on-click-right": "minimize-raise"
+      "on-click-right": "minimize-raise",
+      "ignore-list": [
+        "wofi"
+      ]
     },
 
     "idle_inhibitor": {
