@@ -48,7 +48,6 @@ background() {
   echo "$1 started in background. Logs: ~/.cache/$cmd_name.log"
 }
 
-# Dry-run function for scripts
 dryrun() {
     # Check if file exists and is readable
     if [[ ! -f "$1" || ! -r "$1" ]]; then
@@ -60,13 +59,19 @@ dryrun() {
     script_name=$(basename "$1")
     echo -e "\n\033[1;33m🏗️  DRY RUN: \033[1;37m${script_name}\033[0m"
     
-    # Syntax check with exact error reporting
-    echo -e "\n\033[1;34m🔎 Syntax Check:\033[0m"
-    if bash -nv "$1" 2>/dev/null; then
-        echo -e "\033[1;32m✓ Syntax validation passed\033[0m"
+    # Syntax & lint check using ShellCheck
+    echo -e "\n\033[1;34m🔎 ShellCheck Analysis:\033[0m"
+    if command -v shellcheck >/dev/null 2>&1; then
+        if shellcheck "$1"; then
+            echo -e "\033[1;32m✓ ShellCheck passed (no issues)\033[0m"
+        else
+            echo -e "\n\033[1;31m✘ ShellCheck found issues\033[0m" >&2
+            return 1
+        fi
     else
-        echo -e "\n\033[1;31m✘ Syntax errors detected:\033[0m" >&2
-        bash -nv "$1" 2>&1 | grep --color -n -B1 -A1 'error'
+        echo -e "\033[1;31m✘ ShellCheck is not installed. Install it first:\033[0m"
+        echo "  pacman -S shellcheck   # Arch"
+        echo "  apt install shellcheck # Debian/Ubuntu"
         return 1
     fi
 
