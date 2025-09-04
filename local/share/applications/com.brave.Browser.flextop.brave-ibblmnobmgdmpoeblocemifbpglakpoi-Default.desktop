@@ -3,7 +3,7 @@
 Version=1.0
 Terminal=false
 Type=Application
-Name=Telegram Web
+Name=Telegram Web (brave)
 Exec=flatpak run --command=brave com.brave.Browser --profile-directory=Default --app=https://web.telegram.org/a/
 Icon=brave-ibblmnobmgdmpoeblocemifbpglakpoi-Default
 StartupWMClass=crx_ibblmnobmgdmpoeblocemifbpglakpoi

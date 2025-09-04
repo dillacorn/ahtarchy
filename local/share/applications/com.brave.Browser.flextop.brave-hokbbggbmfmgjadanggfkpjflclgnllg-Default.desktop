@@ -3,7 +3,7 @@
 Version=1.0
 Terminal=false
 Type=Application
-Name=Arch Repo
+Name=Arch Repo (brave)
 Exec=flatpak run --command=brave com.brave.Browser --profile-directory=Default --app=https://archlinux.org/packages/
 Icon=brave-hokbbggbmfmgjadanggfkpjflclgnllg-Default
 StartupWMClass=crx_hokbbggbmfmgjadanggfkpjflclgnllg
