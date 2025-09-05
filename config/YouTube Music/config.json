@@ -47,7 +47,7 @@
 			"enabled": false
 		},
 		"crossfade": {
-			"enabled": true
+			"enabled": false
 		},
 		"auth-proxy-adapter": {
 			"enabled": true
