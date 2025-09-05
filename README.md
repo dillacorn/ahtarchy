@@ -66,7 +66,7 @@ sudo ./setup_installer.sh
 | `SUPER + i`             | Launch hyprpicker (color picker)                        |
 | `SUPER + m`             | Toggle audio mute (wpctl)                               |
 | `SUPER + l`             | Lock screen (hyprlock)                                  |
-| `ALT/SUPER + v`         | Launch or kill pavucontrol (audio control)              |
+| `ALT/SUPER + v`         | Launch or kill pulsemixer (audio control)               |
 | `SUPER + CTRL + w`      | restart swww                                            |
 
 ## 🪟 Window & Workspace Management
@@ -130,4 +130,5 @@ sudo ./setup_installer.sh
 ## 📜 License
 All code and notes are unlicensed - use freely!  
 [See UNLICENSED file](https://github.com/dillacorn/arch-hypr-dots/blob/main/UNLICENSED)
+
 
