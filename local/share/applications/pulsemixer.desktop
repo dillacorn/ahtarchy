@@ -1,0 +1,11 @@
+# ~/.local/share/applications/audio-pulsemixer.desktop
+[Desktop Entry]
+Name=Audio Mixer (Pulsemixer)
+Comment=Launch Pulsemixer in Alacritty
+Type=Application
+Exec=alacritty --class Pulsemixer --title Pulsemixer -o window.dynamic_title=false -e pulsemixer
+Icon=audio-volume-high
+Terminal=false
+Categories=Audio;Utility;System;
+StartupWMClass=Pulsemixer
+Keywords=audio;volume;mixer;pulsemixer;pipewire;alsa;
