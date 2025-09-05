@@ -34,7 +34,6 @@ COLOR_RESET="\033[0m"
 # Global Variables
 HOME_DIR="/home/$SUDO_USER"
 REPO_DIR="$HOME_DIR/arch-hypr-dots"
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
 REQUIRED_SPACE_MB=1024
 INSTALL_SCRIPTS=(
     "install_arch_repo_apps.sh"
@@ -72,8 +71,8 @@ retry_command() {
 create_directory() {
     local dir="$1"
     if [ ! -d "$dir" ]; then
-        echo -e "${COLOR_YELLOW}Creating missing directory: $dir${COLOR_RESET}"
-        retry_command mkdir -p "$dir" || { echo -e "${COLOR_RED}Failed to create directory $dir. Exiting.${COLOR_RESET}"; exit 1; }
+        echo -e "${COLOR_YELLOW}Creating missing directory: ${COLOR_CYAN}$dir${COLOR_RESET}"
+        retry_command mkdir -p "$dir" || { echo -e "${COLOR_RED}Failed to create directory ${COLOR_CYAN}$dir${COLOR_RESET}. Exiting.${COLOR_RESET}"; exit 1; }
     fi
     retry_command chown "$SUDO_USER:$SUDO_USER" "$dir"
     retry_command chmod 755 "$dir"
@@ -98,7 +97,7 @@ echo -e "${COLOR_YELLOW}
 - ~/.config/qt6ct
 - ~/.config/xdg-desktop-portal
 - ~/.config/lsfg-vk
-- ~/.config/YouTube\ Music
+- ~/.config/YouTube Music
 - ~/.Xresources
 - ~/.local/share/nwg-look/gsettings${COLOR_RESET}"
 echo -e "${COLOR_RED}Are you sure you want to continue? This action CANNOT be undone.${COLOR_RESET}"
@@ -113,7 +112,7 @@ if [[ "$first_confirmation" != "y" && "$first_confirmation" != "Y" && "$first_co
 fi
 
 # Second confirmation
-echo -e "${COLOR_RED}This is your last chance! Are you absolutely sure? (y/n)${COLOR_RESET}"
+echo -e "${COLOR_MAGENTA}This is your last chance! Are you absolutely sure? (y/n)${COLOR_RESET}"
 read -r -n 1 second_confirmation
 echo
 
@@ -146,7 +145,7 @@ retry_command pacman -S --needed --noconfirm git ipcalc dos2unix reflector xcurs
 
 # Clone repository if not exists
 if [ ! -d "$REPO_DIR" ]; then
-    echo -e "${COLOR_BLUE}Cloning arch-hypr-dots repository...${COLOR_RESET}"
+    echo -e "${COLOR_BLUE}Cloning arch-hypr-dots repository to ${COLOR_CYAN}${REPO_DIR}${COLOR_RESET}...${COLOR_RESET}"
     retry_command git clone https://github.com/dillacorn/arch-hypr-dots "$REPO_DIR" || exit 1
 fi
 retry_command chown -R "$SUDO_USER:$SUDO_USER" "$REPO_DIR"
@@ -158,7 +157,7 @@ find "$REPO_DIR" -type f -exec dos2unix {} + 2>/dev/null
 # Run installation scripts in order
 cd "$REPO_DIR/scripts" || exit 1
 for script in "${INSTALL_SCRIPTS[@]}"; do
-    echo -e "${COLOR_BLUE}Running $script...${COLOR_RESET}"
+    echo -e "${COLOR_BLUE}Running ${COLOR_CYAN}$script${COLOR_RESET}...${COLOR_RESET}"
     chmod +x "$script"
     
     # Special handling for GPU script in VMs
@@ -196,7 +195,7 @@ done
 
 # Copy all configuration files
 echo -e "${COLOR_BLUE}Copying configuration files...${COLOR_RESET}"
-config_dirs=("hypr" "waybar" "alacritty" "wlogout" "waypaper" "mako" "wofi" 
+config_dirs=("hypr" "waybar" "alacritty" "wlogout" "waypaper" "mako" "wofi"
     "gtk-3.0" "Kvantum" "SpeedCrunch" "fastfetch" "pcmanfm-qt" "xdg-desktop-portal" "qt5ct" "qt6ct" "lsfg-vk" "YouTube Music")
 
 for dir in "${config_dirs[@]}"; do
