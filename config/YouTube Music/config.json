@@ -10,7 +10,7 @@
 	},
 	"url": "https://music.youtube.com/watch?v=lBFdX37Qpnk&list=PLYe3lqB8Lmx-siaZQU-Wl4pm-VbXCmVgH&index=0",
 	"options": {
-		"tray": true,
+		"tray": false,
 		"appVisible": true,
 		"autoUpdates": true,
 		"alwaysOnTop": false,
