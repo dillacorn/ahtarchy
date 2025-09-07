@@ -212,6 +212,7 @@ create_directory "$HOME_DIR/.local/share/SpeedCrunch/color-schemes"
 # Special files
 retry_command cp "$REPO_DIR/Xresources" "$HOME_DIR/.Xresources"
 retry_command cp "$REPO_DIR/config/mimeapps.list" "$HOME_DIR/.config/"
+retry_command cp "$REPO_DIR/config/gamemode.ini" "$HOME_DIR/.config/"
 retry_command cp "$REPO_DIR/local/share/nwg-look/gsettings" "$HOME_DIR/.local/share/nwg-look/"
 retry_command chown "$SUDO_USER:$SUDO_USER" "$HOME_DIR/.local/share/nwg-look/gsettings"
 retry_command chmod 644 "$HOME_DIR/.local/share/nwg-look/gsettings"
