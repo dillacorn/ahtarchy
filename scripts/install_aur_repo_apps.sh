@@ -105,6 +105,7 @@ if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
             wlogout
             waypaper
             sunshine-bin
+            gpu-screen-recorder
         )
 
         # Install each package and clean up afterward
