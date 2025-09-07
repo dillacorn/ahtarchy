@@ -101,8 +101,8 @@ declare -a pkg_groups=(
     "Fonts:woff2-font-awesome otf-font-awesome ttf-hack ttf-dejavu ttf-liberation ttf-noto-nerd noto-fonts-emoji"
     "Themes:papirus-icon-theme materia-gtk-theme xcursor-comix kvantum-theme-materia"
     "Terminal Apps:nano micro alacritty fastfetch btop htop curl wget git dos2unix brightnessctl ipcalc cmatrix sl asciiquarium figlet termdown espeak-ng cava man-db man-pages unzip xarchiver ncdu ddcutil"
-    "Utilities:steam polkit-gnome gnome-keyring networkmanager network-manager-applet tailscale bluez bluez-utils blueman pulsemixer pcmanfm-qt gvfs gvfs-smb gvfs-mtp gvfs-afc qbittorrent speedcrunch timeshift imagemagick pipewire pipewire-pulse pipewire-alsa ufw jq earlyoom"
-    "Multimedia:ffmpeg avahi mpv cheese exiv2 audacity qpwgraph krita shotcut filezilla gthumb handbrake zathura zathura-pdf-poppler mousai"
+    "Utilities:steam polkit-gnome gnome-keyring networkmanager network-manager-applet tailscale bluez bluez-utils blueman pulsemixer pcmanfm-qt gvfs gvfs-smb gvfs-mtp gvfs-afc qbittorrent speedcrunch timeshift imagemagick pipewire pipewire-pulse pipewire-alsa ufw jq earlyoom moonlight-qt"
+    "Multimedia:ffmpeg avahi mpv cheese exiv2 audacity qpwgraph krita shotcut filezilla gthumb handbrake zathura zathura-pdf-poppler mousai kooha"
     "Development:base-devel archlinux-keyring clang ninja go rust virt-manager qemu qemu-hw-usb-host virt-viewer vde2 libguestfs dmidecode gamemode nftables swtpm"
     "Network Tools:wireguard-tools wireplumber openssh iptables systemd-resolvconf bridge-utils qemu-guest-agent dnsmasq dhcpcd inetutils openbsd-netcat"
 )
