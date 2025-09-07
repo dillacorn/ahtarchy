@@ -31,9 +31,7 @@ flatpak_apps=(
   'com.rustdesk.RustDesk'
   'org.localsend.localsend_app'
   'net.davidotek.pupgui2'
-  'com.moonlight_stream.Moonlight'
   'com.github.tchx84.Flatseal'
-  'io.github.seadve.Kooha'
 )
 
 # Detect file system type of the root partition
