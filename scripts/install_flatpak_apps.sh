@@ -26,7 +26,6 @@ flatpak_origin='flathub'
 # List of desktop apps to be installed (specified by app ID)
 flatpak_apps=(
   'com.brave.Browser'
-  'dev.vencord.Vesktop'
   'com.heroicgameslauncher.hgl'
   'com.rustdesk.RustDesk'
   'org.localsend.localsend_app'
