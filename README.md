@@ -125,7 +125,8 @@ sudo ./setup_installer.sh
 - [Firefox Privacy Forks](browser_notes/firefox_privacy_focused_forks.md)
 - [Cromite](browser_notes/cromite.md)
 
----
+## 📦 Optional Packages
+- [Optional Packages link](extra_notes/optional_packages.md)
 
 ## 📜 License
 All code and notes are unlicensed - use freely!  
