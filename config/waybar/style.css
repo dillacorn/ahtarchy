@@ -62,9 +62,9 @@ window#waybar.empty #window { background-color: transparent; }
 }
 
 /* Window title in the center group */
-#window { padding: 0 6px; }  /* removed unsupported text-align */
+#window { padding: 0 6px; }
 
-/* Mode chip (shows during submaps like 'resize') */
+/* Mode chip */
 #mode { padding: 0 6px; }
 
 /* Hover pills */
@@ -86,18 +86,63 @@ label:focus { background: @bg-focus; }
 #tray menu { font-family: Iosevka; }
 #scratchpad.empty { background: transparent; }
 
-/* Replace your TASKBAR section with this */
+/* === Workspace-move arrow buttons (always visible) === */
+/* === ws-arrows: background when shown (works whether class is on container or label) === */
+#custom-ws-up,
+#custom-ws-down,
+#custom-ws-left,
+#custom-ws-right {
+  background: transparent;
+  padding: 0;
+  margin: 0; /* no gap when hidden (text is empty) */
+}
 
-/* Taskbar: transparent bar, spaced pills */
+/* add spacing only when shown */
+#custom-ws-up.ws-shown,
+#custom-ws-down.ws-shown,
+#custom-ws-left.ws-shown,
+#custom-ws-right.ws-shown {
+  margin: 0 0px;
+}
+
+/* pill background on container and/or label when shown */
+#custom-ws-up.ws-shown,
+#custom-ws-up.ws-shown > label,
+#custom-ws-down.ws-shown,
+#custom-ws-down.ws-shown > label,
+#custom-ws-left.ws-shown,
+#custom-ws-left.ws-shown > label,
+#custom-ws-right.ws-shown,
+#custom-ws-right.ws-shown > label {
+  padding: 0 4px;
+  background: @bg-default;
+  color: @color-default;
+  border-radius: 5px;
+}
+
+/* hover */
+#custom-ws-up.ws-shown:hover,
+#custom-ws-up.ws-shown:hover > label,
+#custom-ws-down.ws-shown:hover,
+#custom-ws-down.ws-shown:hover > label,
+#custom-ws-left.ws-shown:hover,
+#custom-ws-left.ws-shown:hover > label,
+#custom-ws-right.ws-shown:hover,
+#custom-ws-right.ws-shown:hover > label {
+  background: @bg-hover;
+  color: @color-default;
+}
+
+/* === Taskbar === */
 #taskbar { padding: 0 2px; background: transparent; color: @color-default; }
 #taskbar.empty { padding: 0; background: transparent; min-width: 0; margin: 0; box-shadow: none; }
 
 #taskbar button {
   padding: 0 3px;
-  margin: 0 1px;              /* gap so pills don't touch */
-  background: @bg-default;    /* inactive/open app background */
+  margin: 0 1px;
+  background: @bg-default;
   color: @color-default;
-  border-radius: 5px;         /* crisp corners */
+  border-radius: 5px;
 }
 #taskbar button:first-child { margin-left: 0; }
 #taskbar button:last-child  { margin-right: 0; }
