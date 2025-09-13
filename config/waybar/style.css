@@ -90,33 +90,39 @@ label:focus { background: @bg-focus; }
   color: @color-default;
   border-radius: 5px;
 }
-#custom-ws-hub:hover { background: @bg-hover; }
-
-/* Drawer container (kept neutral) */
-#group-ws-arrows .ws-drawer {
-  background: transparent;
-  padding: 0;
-  margin: 0;
-  border-radius: 5px;
+#custom-ws-hub:hover { 
+  background: @bg-hover; 
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 /* === Arrow pills (individual modules) === */
 /* Always give each arrow a pill background when it is present. */
 #custom-ws-up,
 #custom-ws-down,
-#custom-ws-left,
-#custom-ws-right {
+#custom-ws-left {
   padding: 0 4px;
-  margin: 0 2px;
+  margin: 0 0px;
   background: @bg-default;
   color: @color-default;
-  border-radius: 5px;
+  border-radius: 0px;
 }
 #custom-ws-up:hover,
 #custom-ws-down:hover,
 #custom-ws-left:hover,
 #custom-ws-right:hover {
   background: @bg-hover;
+}
+
+#custom-ws-right {
+  padding: 0 4px;
+  margin: 0 0px;
+  background: @bg-default;
+  color: @color-default;
+  border-top-left-radius: 0;
+  border-top-right-radius: 5;
+  border-bottom-right-radius: 5;
+  border-bottom-left-radius: 0;
 }
 
 /* === Taskbar === */

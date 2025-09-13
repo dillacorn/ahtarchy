@@ -8,12 +8,12 @@
       "custom/apps",
       "hyprland/workspaces",
       "wlr/taskbar",
+      "group/ws-arrows",
       "hyprland/scratchpad",
       "hyprland/submap"
     ],
 
     "modules-center": [
-      "group/ws-arrows",
       "hyprland/window"
     ],
 
