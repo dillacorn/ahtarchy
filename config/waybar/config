@@ -6,11 +6,7 @@
 
     "modules-left": [
       "custom/apps",
-      "custom/resize",
-      "custom/ws-up",
-      "custom/ws-down",
-      "custom/ws-left",
-      "custom/ws-right",
+      "group/ws-arrows",
       "hyprland/workspaces",
       "wlr/taskbar",
       "hyprland/scratchpad",
@@ -35,40 +31,51 @@
       "custom/power"
     ],
 
-    "custom/resize": {
+    "group/ws-arrows": {
+      "orientation": "horizontal",
+      "drawer": {
+        "transition-duration": 200,
+        "transition-left-to-right": true,
+        "children-class": "ws-drawer"
+      },
+      "modules": [
+        "custom/ws-hub",
+        "custom/ws-up",
+        "custom/ws-down",
+        "custom/ws-left",
+        "custom/ws-right"
+      ]
+    },
+
+    "custom/ws-hub": {
       "format": "",
       "tooltip": true,
       "tooltip-format": "Toggle resize submap",
       "on-click": "bash -lc 's=$(hyprctl submap 2>/dev/null | tr -d \"\\r\"); if echo \"$s\" | grep -q resize; then hyprctl dispatch submap reset; else hyprctl dispatch submap resize; fi; pkill -RTMIN+12 waybar 2>/dev/null || true'",
       "on-click-right": "bash -lc 's=$(hyprctl submap 2>/dev/null | tr -d \"\\r\"); if echo \"$s\" | grep -q resize; then hyprctl dispatch submap reset; else hyprctl dispatch submap resize; fi; pkill -RTMIN+12 waybar 2>/dev/null || true'"
     },
-
     "custom/ws-left": {
-      "exec": "~/.config/waybar/scripts/ws_arrow.sh left",
-      "return-type": "json",
-      "interval": 2,
-      "format": "{text}",
+      "format": "←",
+      "tooltip": true,
+      "tooltip-format": "Move workspace LEFT",
       "on-click": "hyprctl dispatch movecurrentworkspacetomonitor l"
     },
     "custom/ws-right": {
-      "exec": "~/.config/waybar/scripts/ws_arrow.sh right",
-      "return-type": "json",
-      "interval": 2,
-      "format": "{text}",
+      "format": "→",
+      "tooltip": true,
+      "tooltip-format": "Move workspace RIGHT",
       "on-click": "hyprctl dispatch movecurrentworkspacetomonitor r"
     },
     "custom/ws-up": {
-      "exec": "~/.config/waybar/scripts/ws_arrow.sh up",
-      "return-type": "json",
-      "interval": 2,
-      "format": "{text}",
+      "format": "↑",
+      "tooltip": true,
+      "tooltip-format": "Move workspace UP",
       "on-click": "hyprctl dispatch movecurrentworkspacetomonitor u"
     },
     "custom/ws-down": {
-      "exec": "~/.config/waybar/scripts/ws_arrow.sh down",
-      "return-type": "json",
-      "interval": 2,
-      "format": "{text}",
+      "format": "↓",
+      "tooltip": true,
+      "tooltip-format": "Move workspace DOWN",
       "on-click": "hyprctl dispatch movecurrentworkspacetomonitor d"
     },
 
