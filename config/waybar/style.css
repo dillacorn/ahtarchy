@@ -1,14 +1,14 @@
 /* === Variables === */
 @define-color bg-default #353535;
-@define-color bg-hover   #404040;
-@define-color bg-focus   #4a4a4a;
-@define-color bg-active  #2b2b2b;
-@define-color bg-urgent  #ff5555;
+@define-color bg-hover #404040;
+@define-color bg-focus #4a4a4a;
+@define-color bg-active #2b2b2b;
+@define-color bg-urgent #ff5555;
 @define-color bg-charging #6a9955;
 @define-color bg-critical #ff5555;
 @define-color color-default #d0d0d0;
-@define-color color-dark    #1a1a1a;
-@define-color color-hover   #4a4a4a;
+@define-color color-dark #1a1a1a;
+@define-color color-hover #4a4a4a;
 
 /* === Global === */
 * {
@@ -32,7 +32,7 @@ window#waybar.empty #window { background-color: transparent; }
 .modules-center { margin: 5px 0 0 0; }
 .modules-right  { margin: 5px 10px 0 0; }
 
-/* Workspaces */
+/* === Workspaces === */
 #workspaces { background: @bg-default; border-radius: 5px; }
 #workspaces button { padding: 0 5px; background: transparent; color: @color-default; }
 #workspaces button:first-child { border-radius: 5px 0 0 5px; }
@@ -41,7 +41,7 @@ window#waybar.empty #window { background-color: transparent; }
 #workspaces button.active { background: @bg-active; color: @color-default; }
 #workspaces button.urgent { background: @bg-urgent; color: @color-dark; }
 
-/* Common module pill styling */
+/* === Common module pill styling === */
 #idle_inhibitor,#scratchpad,#submap,#window,#clock,#battery,#backlight,#wireplumber,
 #tray,#load,#cpu,#memory,#custom-apps,#custom-cputemp {
   padding: 0 6px;
@@ -55,16 +55,16 @@ window#waybar.empty #window { background-color: transparent; }
   color: @color-default;
 }
 
-/* Window title in the center group */
+/* === Window title in the center group === */
 #window { padding: 0 6px; }
 
-/* Mode chip */
+/* === Mode chip === */
 #mode { padding: 0 6px; }
 
-/* Hover pills */
+/* === Hover pills === */
 #custom-apps:hover, #custom-power:hover { background: @bg-hover; color: @color-default; }
 
-/* Battery */
+/* === Battery === */
 #battery.charging, #battery.plugged { background: @bg-charging; color: @bg-default; }
 #battery.critical:not(.charging) {
   background: @bg-critical; color: @color-default;
@@ -72,7 +72,7 @@ window#waybar.empty #window { background-color: transparent; }
 }
 @keyframes blink { to { background: @bg-default; color: @color-default; } }
 
-/* Misc */
+/* === Misc === */
 label:focus { background: @bg-focus; }
 #wireplumber.muted { background: @bg-hover; }
 #tray > .passive { -gtk-icon-effect: dim; }
@@ -80,14 +80,10 @@ label:focus { background: @bg-focus; }
 #tray menu { font-family: Iosevka; }
 #scratchpad.empty { background: transparent; }
 
-/* === Workspace arrows: hover drawer (GTK3-safe; no pointer-events/transform) === */
-/* Group container */
-#group-ws-arrows {
-  background: @bg-default;
-  margin-left: 6px;
-}
+/* === Workspace arrows group (hub + drawer) === */
+#group-ws-arrows { background: @bg-default; margin-left: 6px; }
 
-/* Hub chip (always visible) */
+/* Do not change hub visuals */
 #custom-ws-hub {
   padding: 0 11px 0 5px;
   background: @bg-default;
@@ -96,29 +92,30 @@ label:focus { background: @bg-focus; }
 }
 #custom-ws-hub:hover { background: @bg-hover; }
 
-/* Children default: visually collapsed */
+/* Drawer container (kept neutral) */
 #group-ws-arrows .ws-drawer {
-  background: @bg-default;
-  color: @color-default;
+  background: transparent;
   padding: 0;
   margin: 0;
   border-radius: 5px;
-  opacity: 0;                 /* hide */
 }
 
-/* Reveal on group hover */
-#group-ws-arrows:hover .ws-drawer {
-  opacity: 1;
-  margin-left: 4px;
-  padding: 0 8px;
+/* === Arrow pills (individual modules) === */
+/* Always give each arrow a pill background when it is present. */
+#custom-ws-up,
+#custom-ws-down,
+#custom-ws-left,
+#custom-ws-right {
+  padding: 0 4px;
+  margin: 0 2px;
   background: @bg-default;
+  color: @color-default;
+  border-radius: 5px;
 }
-
-/* Hover on each arrow */
-#group-ws-arrows:hover #custom-ws-up.ws-drawer:hover,
-#group-ws-arrows:hover #custom-ws-down.ws-drawer:hover,
-#group-ws-arrows:hover #custom-ws-left.ws-drawer:hover,
-#group-ws-arrows:hover #custom-ws-right.ws-drawer:hover {
+#custom-ws-up:hover,
+#custom-ws-down:hover,
+#custom-ws-left:hover,
+#custom-ws-right:hover {
   background: @bg-hover;
 }
 
@@ -144,5 +141,5 @@ label:focus { background: @bg-focus; }
 #taskbar .taskbar-title { font-size: 0; color: transparent; margin: 0; padding: 0; min-width: 0; min-height: 0; }
 #taskbar image          { margin: 0; padding: 1px; min-width: 0; min-height: 0; }
 
-/* Right-side clocks */
+/* === Right-side clocks === */
 #clock.date, #clock.time { padding: 0 5px; margin-top: 0; }
