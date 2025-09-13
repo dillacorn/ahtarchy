@@ -6,7 +6,6 @@
 
     "modules-left": [
       "custom/apps",
-      "group/ws-arrows",
       "hyprland/workspaces",
       "wlr/taskbar",
       "hyprland/scratchpad",
@@ -14,6 +13,7 @@
     ],
 
     "modules-center": [
+      "group/ws-arrows",
       "hyprland/window"
     ],
 
