@@ -144,7 +144,7 @@
     },
 
     "hyprland/submap": {
-      "format": "   {}",
+      "format": "{}",
       "tooltip": false,
       "on-click": "hyprctl dispatch submap reset",
       "on-click-middle": "hyprctl dispatch submap reset",
@@ -181,8 +181,8 @@
       "tooltip-format": "wlogout"
     },
 
-    "cpu": { "format": "{usage}%  ", "tooltip": true },
-    "memory": { "format": "{}%  " },
+    "cpu": { "format": "{usage}  ", "tooltip": true },
+    "memory": { "format": "{}  " },
 
     "custom/cputemp": {
       "exec": "~/.config/waybar/scripts/cpu_temp.sh",
@@ -208,10 +208,10 @@
 
     "wireplumber": {
       "scroll-step": 5,
-      "format": "{icon}   {volume}%",
-      "format-bluetooth": "{icon} {volume}% ",
+      "format": "{icon}   {volume}",
+      "format-bluetooth": "{icon} {volume} ",
       "format-bluetooth-muted": " {icon}",
-      "format-muted": "",
+      "format-muted": " mute",
       "format-icons": {
         "headphone": "",
         "hands-free": "",
