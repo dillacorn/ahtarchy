@@ -34,9 +34,7 @@ window#waybar.empty #window { background-color: transparent; }
 
 /* === Workspaces === */
 #workspaces { background: @bg-default; border-radius: 5px; }
-#workspaces button { padding: 0 5px; background: transparent; color: @color-default; }
-#workspaces button:first-child { border-radius: 5px 0 0 5px; }
-#workspaces button:last-child  { border-radius: 0 5px 5px 0; }
+#workspaces button { padding: 0 5px; background: @bg-default; color: @color-default; }
 #workspaces button:hover  { color: @color-hover; }
 #workspaces button.active { background: @bg-active; color: @color-default; }
 #workspaces button.urgent { background: @bg-urgent; color: @color-dark; }
