@@ -14,6 +14,10 @@ yay -S brave-bin
 # guide to make brave better
 https://github.com/libalpm64/Better-Brave-Browser
 
+# JavaScript optimization & security (recommended)
+
+xx
+
 # flags
 
 navigate to: `brave://flags/`
