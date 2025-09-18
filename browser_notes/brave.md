@@ -16,7 +16,7 @@ https://github.com/libalpm64/Better-Brave-Browser
 
 # JavaScript optimization & security (recommended)
 
-xx
+<img src="browser_notes/chromium_javascript_optimization.png" alt="Chromium JavaScript optimization" width="900" />
 
 # flags
 
