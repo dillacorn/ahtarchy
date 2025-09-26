@@ -47,6 +47,7 @@ sudo ./setup_installer.sh
 | Keybind                 | Action                                                  |
 |-------------------------|---------------------------------------------------------|
 | `SUPER + h`             | Shows keybinds in hyprland.conf in wofi                 |
+| `SUPER + a`             | Toggle Hyprland animations                              |
 | `SUPER + r`             | Rotate navigation keys (toggle SUPER/ALT)               |
 | `SUPER + t`             | Run theme switcher script                               |
 | `SUPER + w`             | Launch or kill Waypaper (wallpaper GUI)                 |
