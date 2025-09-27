@@ -5,7 +5,7 @@
 set -euo pipefail
 
 POLL="0.20"       # seconds between checks while waiting
-SPLIT="0.35"      # ~65% Steam / 35% Friends
+SPLIT="0.60"      # split ratio %
 MAX_WAIT="300"    # total seconds to wait before giving up
 DEBUG="${DEBUG:-0}"
 
