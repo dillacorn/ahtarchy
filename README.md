@@ -90,8 +90,8 @@ sudo ./setup_installer.sh
 |------------------------------|-------------------------------|
 | `ALT/SUPER + CTRL + ←/→`     | Resize window horizontally    |
 | `ALT/SUPER + CTRL + ↑/↓`     | Resize window vertically      |
-| `ALT/SUPER + Mouse Left`     | Move window (floating)        |
-| `ALT/SUPER + Mouse Right`    | Resize window (floating)      |
+| `ALT/SUPER + Mouse Left`     | Move window                   |
+| `ALT/SUPER + Mouse Right`    | Resize window                 |
 
 ## 🔊 Media & Display Keys
 | Keybind                  | Action                                   |
@@ -128,6 +128,7 @@ sudo ./setup_installer.sh
 
 ## 📦 Optional Packages
 - [Optional Packages link](extra_notes/optional_packages.md)
+
 
 
 
