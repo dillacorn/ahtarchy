@@ -67,7 +67,7 @@ sudo ./setup_installer.sh
 | `SUPER + i`             | Launch hyprpicker (color picker)                        |
 | `SUPER + m`             | Toggle audio mute (wpctl)                               |
 | `SUPER + l`             | Lock screen (hyprlock)                                  |
-| `ALT/SUPER + v`         | Launch or kill pulsemixer (audio control)               |
+| `ALT/SUPER + v`         | Launch or kill pavucontrol/pulsemixer (audio control)   |
 | `SUPER + CTRL + w`      | restart swww                                            |
 
 ## 🪟 Window & Workspace Management
@@ -128,6 +128,7 @@ sudo ./setup_installer.sh
 
 ## 📦 Optional Packages
 - [Optional Packages link](extra_notes/optional_packages.md)
+
 
 
 
