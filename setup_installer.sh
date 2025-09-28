@@ -93,7 +93,6 @@ echo -e "${COLOR_YELLOW}
 - ~/.config/SpeedCrunch
 - ~/.config/fastfetch
 - ~/.config/wlogout
-- ~/.config/waytrogen
 - ~/.config/qt5ct
 - ~/.config/qt6ct
 - ~/.config/xdg-desktop-portal
@@ -196,7 +195,7 @@ done
 
 # Copy all configuration files
 echo -e "${COLOR_BLUE}Copying configuration files...${COLOR_RESET}"
-config_dirs=("hypr" "waybar" "alacritty" "wlogout" "waytrogen" "mako" "wofi"
+config_dirs=("hypr" "waybar" "alacritty" "wlogout" "mako" "wofi"
     "gtk-3.0" "Kvantum" "SpeedCrunch" "fastfetch" "pcmanfm-qt" "yazi" "xdg-desktop-portal" "qt5ct" "qt6ct" "lsfg-vk" "YouTube Music")
 
 for dir in "${config_dirs[@]}"; do
