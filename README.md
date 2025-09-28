@@ -50,9 +50,9 @@ sudo ./setup_installer.sh
 | `SUPER + a`             | Toggle Hyprland animations                              |
 | `SUPER + r`             | Rotate navigation keys (toggle SUPER/ALT)               |
 | `SUPER + t`             | Run theme switcher script                               |
-| `SUPER + w`             | Launch or kill Waypaper (wallpaper GUI)                 |
+| `SUPER + w`             | Launch or kill Waytrogen (wallpaper GUI)                |
 | `SUPER + q`             | Scan QR code                                            |
-| `SUPER + b`             | Launch or kill Waypaper (waybar)                        |
+| `SUPER + b`             | Launch or kill Waybar (bar)                             |
 | `SUPER + SHIFT + s`     | Take cropped screenshot and edit                        |
 | `SUPER + SHIFT + a`     | Take fullscreen screenshot and edit                     |
 | `SUPER + SHIFT + f`     | Take fullscreen screenshot without edit                 |
@@ -128,6 +128,7 @@ sudo ./setup_installer.sh
 
 ## 📦 Optional Packages
 - [Optional Packages link](extra_notes/optional_packages.md)
+
 
 
 
