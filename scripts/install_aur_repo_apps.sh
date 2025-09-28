@@ -103,7 +103,7 @@ if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
             qimgv-git
             otpclient
             wlogout
-            waypaper
+            waytrogen-bin
             sunshine-bin
             gpu-screen-recorder
         )

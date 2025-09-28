@@ -1,0 +1,31 @@
+{
+  "executable_script": "",
+  "language": "en",
+  "folder": "~/Pictures/wallpapers",
+  "monitors": "All",
+  "wallpaper": "~/Pictures/wallpapers/arch_geology.png",
+  "show_path_in_tooltip": true,
+  "backend": "swww",
+  "fill": "fill",
+  "sort": "name",
+  "color": "#ffffff",
+  "subfolders": false,
+  "all_subfolders": false,
+  "show_hidden": false,
+  "show_gifs_only": false,
+  "zen_mode": false,
+  "post_command": "",
+  "number_of_columns": 3,
+  "swww": {
+    "transition_type": "fade",
+    "transition_step": 90,
+    "transition_angle": 0,
+    "transition_duration": 5,
+    "transition_fps": 60
+  },
+  "mpvpaper": {
+    "sound": false,
+    "options": ""
+  },
+  "use_xdg_state": false
+}
