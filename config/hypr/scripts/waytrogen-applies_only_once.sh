@@ -26,7 +26,7 @@ dconf write /org/Waytrogen/Waytrogen/changer 'uint32 1'   # 1 = Swww on your bui
 dconf write /org/Waytrogen/Waytrogen/monitor 'uint32 0'   # 0 = All
 
 RAW_JSON=$(cat <<EOF
-[{"monitor":"All","path":"$IMG","changer":{"Swww":["Crop",{"red":0.0,"green":0.0,"blue":0.0},"Nearest","Any",90,1,60,45,{"position":"center"},false,{"p0":0.99,"p1":0.99,"p2":0.99,"p3":0.99},{"width":200,"height":200}]}}]
+[{"monitor":"All","path":"$IMG","changer":{"Swww":["Crop",{"red":0.0,"green":0.0,"blue":0.0},"Nearest","Any",90,1,90,45,{"position":"center"},false,{"p0":0.99,"p1":0.99,"p2":0.99,"p3":0.99},{"width":200,"height":200}]}}]
 EOF
 )
 dconf write /org/Waytrogen/Waytrogen/saved-wallpapers "'$RAW_JSON'"
@@ -36,7 +36,7 @@ dconf write /org/Waytrogen/Waytrogen/swww-scaling-filter       'uint32 0' || tru
 dconf write /org/Waytrogen/Waytrogen/swww-transition-type      'uint32 11' || true
 dconf write /org/Waytrogen/Waytrogen/swww-transition-step      '90.0'      || true
 dconf write /org/Waytrogen/Waytrogen/swww-transition-duration  '1.0'       || true
-dconf write /org/Waytrogen/Waytrogen/swww-transition-fps       'uint32 60' || true
+dconf write /org/Waytrogen/Waytrogen/swww-transition-fps       'uint32 90' || true
 dconf write /org/Waytrogen/Waytrogen/swww-transition-angle     '45.0'      || true
 dconf write /org/Waytrogen/Waytrogen/swww-transition-position  "'center'"  || true
 dconf write /org/Waytrogen/Waytrogen/swww-transition-wave-width  '200.0'   || true
