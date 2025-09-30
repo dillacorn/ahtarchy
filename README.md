@@ -68,7 +68,6 @@ sudo ./setup_installer.sh
 | `SUPER + m`             | Toggle audio mute (wpctl)                               |
 | `SUPER + l`             | Lock screen (hyprlock)                                  |
 | `ALT/SUPER + v`         | Launch or kill pavucontrol/pulsemixer (audio control)   |
-| `SUPER + CTRL + w`      | restart swww                                            |
 
 ## 🪟 Window & Workspace Management
 | Keybind                         | Action                                        |
