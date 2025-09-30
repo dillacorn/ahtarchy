@@ -1,42 +1,89 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# ~/.config/hypr/scripts/swww-wallpaper.sh
+# Start swww-daemon if needed, then set the wallpaper.
+# First boot: apply DEFAULT_WALLPAPER once and record it.
+# Later boots: restore from last cache; else from Waytrogen; else from current swww; else fallback to DEFAULT.
+
+set -euo pipefail
 
 # --- Config ---
 CACHE_DIR="$HOME/.cache"
+LAST_CACHE="$CACHE_DIR/last_wallpaper"
 FIRST_RUN_FLAG="$CACHE_DIR/swww_first_run"
 DEFAULT_WALLPAPER="$HOME/Pictures/wallpapers/arch_geology.png"
-WAYPAPER_CONFIG="$HOME/.config/waypaper/config.ini"
 
-# --- Ensure cache directory exists ---
 mkdir -p "$CACHE_DIR"
 
-# --- Start swww-daemon if not running ---
-if ! pgrep -x swww-daemon > /dev/null; then
-    swww-daemon &
-    sleep 0.5
+# --- Ensure swww-daemon is running (do not touch Wayland sockets) ---
+if ! pgrep -x swww-daemon >/dev/null; then
+  swww-daemon >/dev/null 2>&1 &
+  sleep 0.3
 fi
 
-# --- Function to set wallpaper if it exists ---
+# --- Helpers ---
 set_wallpaper() {
-    [[ -f "$1" ]] || return 1
-    swww img "$1" --transition-type simple >/dev/null 2>&1 && \
-        echo "$1" > "$CACHE_DIR/last_wallpaper"
+  local img="$1"
+  [[ -f "$img" ]] || return 1
+  # Do not override transitions here; let swww/Waytrogen prefs handle that.
+  swww img "$img" >/dev/null 2>&1 || return 1
+  printf '%s\n' "$img" >"$LAST_CACHE"
+  return 0
 }
 
-# --- First run: use default wallpaper (if it exists) ---
+pick_from_waytrogen() {
+  # Use Waytrogen’s saved-wallpapers (first .path) if present
+  command -v dconf >/dev/null || return 1
+  local raw path
+  raw="$(dconf read /org/Waytrogen/Waytrogen/saved-wallpapers 2>/dev/null || true)"
+  [[ -n "$raw" ]] || return 1
+  raw="${raw#\'}"; raw="${raw%\'}"                      # trim surrounding single quotes
+  path="$(printf '%s' "$raw" | grep -oE '"path":"[^"]+"' | head -n1 | cut -d'"' -f4 || true)"
+  [[ -n "${path:-}" ]] || return 1
+  path="${path/#\~/$HOME}"                              # expand ~
+  [[ -f "$path" ]] || return 1
+  printf '%s\n' "$path"
+}
+
+pick_from_swww_current() {
+  # Whatever swww says it is currently showing
+  local cur
+  cur="$(swww query 2>/dev/null | sed -n 's/.*currently displaying: image: \(.*\)$/\1/p' | head -n1 || true)"
+  [[ -n "${cur:-}" && -f "$cur" ]] || return 1
+  printf '%s\n' "$cur"
+}
+
+# --- First run logic ---
 if [[ ! -f "$FIRST_RUN_FLAG" ]]; then
+  if [[ -f "$DEFAULT_WALLPAPER" ]]; then
     set_wallpaper "$DEFAULT_WALLPAPER" || true
-    touch "$FIRST_RUN_FLAG"
-else
-    # Subsequent runs: pull last selected wallpaper from waypaper config
-    if [[ -f "$WAYPAPER_CONFIG" ]]; then
-        WALLPAPER_PATH=$(grep -E '^wallpaper *= *' "$WAYPAPER_CONFIG" | head -1 | cut -d'=' -f2- | xargs)
-        WALLPAPER_PATH="${WALLPAPER_PATH/#\~/$HOME}"  # Expand tilde to $HOME
-        if [[ -f "$WALLPAPER_PATH" ]]; then
-            set_wallpaper "$WALLPAPER_PATH"
-        else
-            echo "Wallpaper file not found: $WALLPAPER_PATH" >&2
-        fi
-    else
-        echo "Waypaper config not found at $WAYPAPER_CONFIG" >&2
-    fi
+  fi
+  : >"$FIRST_RUN_FLAG"
+  exit 0
 fi
+
+# --- Subsequent runs: priority chain ---
+# 1) last_wallpaper cache
+if [[ -s "$LAST_CACHE" ]]; then
+  last="$(<"$LAST_CACHE")"
+  if set_wallpaper "$last"; then
+    exit 0
+  fi
+fi
+
+# 2) Waytrogen saved-wallpapers (dconf)
+if img="$(pick_from_waytrogen)"; then
+  if set_wallpaper "$img"; then
+    exit 0
+  fi
+fi
+
+# 3) Whatever swww is currently showing
+if img="$(pick_from_swww_current)"; then
+  if set_wallpaper "$img"; then
+    exit 0
+  fi
+fi
+
+# 4) Fallback to default (only if it exists)
+[[ -f "$DEFAULT_WALLPAPER" ]] && set_wallpaper "$DEFAULT_WALLPAPER" || true
+exit 0
