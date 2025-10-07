@@ -121,6 +121,14 @@ flatpak install flathub com.heroicgameslauncher.hgl
 
 ---
 
+### 🗨️ VoIP & Messaging
+#### vencord (Discord client)
+```bash
+yay -S vesktop-bin
+```
+
+---
+
 ### 📦 Torrenting
 #### Torrent Client
 ```bash
