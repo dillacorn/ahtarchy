@@ -49,7 +49,7 @@ check_and_update_repo "$REPO_URL2" "$TEMP_DIR2"
 mkdir -p "$DEST_DIR"
 
 # Copy themes from repositories
-cp -r "$TEMP_DIR1/src/." "$DEST_DIR" || {
+cp -r "$TEMP_DIR1/themes/." "$DEST_DIR" || {
     echo "❌ Failed to copy files from $REPO_URL1"
     exit 1
 }
