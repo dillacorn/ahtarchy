@@ -240,6 +240,7 @@ command -v flatpak &>/dev/null && flatpak override --user --env=GTK_CURSOR_THEME
 
 # Wallpaper setup
 create_directory "$HOME_DIR/Pictures/wallpapers"
+create_directory "$HOME_DIR/Pictures/Screenshots"
 retry_command cp "$REPO_DIR/arch_geology.png" "$HOME_DIR/Pictures/wallpapers/"
 
 # Final permissions
@@ -248,6 +249,17 @@ find "$HOME_DIR/.config" -type f -exec chmod 644 {} +
 find "$HOME_DIR/.config/hypr/scripts" -type f -exec chmod +x {} +
 find "$HOME_DIR/.config/hypr/themes" -type f -exec chmod +x {} +
 find "$HOME_DIR/.config/waybar/scripts" -type f -exec chmod +x {} +
+
+# Ownership & permission repair (fix user unable to write in $HOME)
+echo -e "${COLOR_BLUE}Repairing ownership under ${COLOR_CYAN}$HOME_DIR${COLOR_BLUE}...${COLOR_RESET}"
+retry_command chown "$SUDO_USER:$SUDO_USER" "$HOME_DIR"
+find "$HOME_DIR" -mindepth 1 ! -user "$SUDO_USER" -exec chown -h "$SUDO_USER:$SUDO_USER" {} + 2>/dev/null
+if [ -d "$HOME_DIR/.ssh" ]; then
+    retry_command chown -R "$SUDO_USER:$SUDO_USER" "$HOME_DIR/.ssh"
+    chmod 700 "$HOME_DIR/.ssh"
+    find "$HOME_DIR/.ssh" -type f -exec chmod 600 {} +
+fi
+echo -e "${COLOR_GREEN}Ownership repair complete.${COLOR_RESET}"
 
 # Reboot prompt
 echo -e "${COLOR_GREEN}Setup complete! Reboot recommended.${COLOR_RESET}"
