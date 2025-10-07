@@ -1,186 +1,36 @@
-[
-  {
-    "height": 28,
-    "spacing": 4,
-    "reload_style_on_change": true,
+width=800
+height=600
+location=center
+columns=1
 
-    "modules-left": [
-      "custom/apps",
-      "custom/resize",
-      "hyprland/workspaces",
-      "wlr/taskbar",
-      "hyprland/scratchpad",
-      "hyprland/submap"
-    ],
+show=drun
+prompt=Search...
+filter_rate=100
 
-    "modules-center": [
-      "hyprland/window"
-    ],
+allow_markup=true
+dmenu-parse_actions=true
+no_actions=false
 
-    "modules-right": [
-      "idle_inhibitor",
-      "cpu",
-      "custom/cputemp",
-      "memory",
-      "backlight",
-      "battery",
-      "wireplumber",
-      "clock#time",
-      "clock#date",
-      "tray",
-      "custom/power"
-    ],
+halign=fill
+orientation=vertical
+insensitive=true
 
-    "custom/resize": {
-      "format": "",
-      "tooltip": true,
-      "tooltip-format": "Toggle resize submap",
-      "on-click": "exec ~/.config/hypr/scripts/toggle_resize_waybar.sh",
-      "on-click-right": "exec ~/.config/hypr/scripts/toggle_resize_waybar.sh"
-    },
+allow_images=true
+image_size=24  # Smaller to match your icon scaling needs
+gtk_dark=true
 
-    "hyprland/workspaces": {
-      "all-outputs": false,
-      "warp-on-scroll": false,
-      "enable-bar-scroll": true,
-      "disable-scroll-wraparound": true,
-      "format": "{icon}",
-      "format-icons": {
-        "1": "1  ",
-        "2": "2  ",
-        "3": "3  ",
-        "4": "4  ",
-        "5": "5  ",
-        "6": "6  ",
-        "7": "7  ",
-        "8": "8  ",
-        "9": "9  ",
-        "10": "10  "
-      }
-    },
+layer=top
+normal_window=true
+term=alacritty
 
-    "hyprland/window": {
-      "format": "{title}",
-      "max-length": 40,
-      "all-outputs": true
-    },
+line_wrap=word
+dynamic_lines=true  # Typo in your config: "dymanic_lines" → corrected
 
-    "wlr/taskbar": {
-      "format": "{icon}",
-      "tooltip-format": "{title}",
-      "icon-size": 14,
-      "all-outputs": false,
-      "on-click": "activate",
-      "on-click-middle": "close",
-      "on-click-right": "minimize-raise",
-      "ignore-list": [
-        "wofi",
-        "fuzzel",
-        "tofi",
-        "rofi",
-        "mako",
-        "wlogout",
-        "hyprlock",
-        "swaylock",
-        "swww",
-        "mpvpaper"
-      ]
-    },
+hide_scroll=false
 
-    "idle_inhibitor": {
-      "format": "{icon}",
-      "format-icons": { "activated": "", "deactivated": "" }
-    },
-
-    "hyprland/mode": { "format": "{}" },
-
-    "hyprland/scratchpad": {
-      "format": "{icon} {count}",
-      "show-empty": false,
-      "format-icons": ["", ""],
-      "tooltip": true,
-      "tooltip-format": "{app}: {title}"
-    },
-
-    "hyprland/submap": {
-      "format": "   {}",
-      "tooltip": false,
-      "on-click": "~/.config/hypr/scripts/toggle_resize_if_ok.sh reset",
-      "on-click-middle": "~/.config/hypr/scripts/toggle_resize_if_ok.sh reset",
-      "on-click-right": "~/.config/hypr/scripts/toggle_resize_if_ok.sh reset"
-    },
-
-    "tray": { "icon-size": 14, "spacing": 10 },
-
-    "custom/apps": {
-      "on-click": "pkill wofi || wofi --show drun",
-      "on-click-right": "pkill wofi || wofi --show drun",
-      "format": "",
-      "tooltip": true,
-      "tooltip-format": "launch wofi"
-    },
-
-    "clock#date": {
-      "format": " {0:%m-%d}",
-      "tooltip": true,
-      "tooltip-format": "<big>{0:%A, %d, %Y}</big>\n<tt><small>{calendar}</small></tt>"
-    },
-
-    "clock#time": {
-      "format": " {0:%H:%M}",
-      "tooltip": true,
-      "tooltip-format": "<tt>24h: {0:%H:%M}</tt>\n<tt>12h: {0:%I:%M %p}</tt>"
-    },
-
-    "custom/power": {
-      "on-click": "wlogout &",
-      "on-click-right": "wlogout &",
-      "format": " ",
-      "tooltip": true,
-      "tooltip-format": "launch wlogout"
-    },
-
-    "cpu": { "format": "{usage}%  ", "tooltip": true },
-    "memory": { "format": "{}%  " },
-
-    "custom/cputemp": {
-      "exec": "~/.config/hypr/scripts/cpu_temp_waybar.sh",
-      "interval": 2,
-      "format": "{}",
-      "tooltip": false
-    },
-
-    "backlight": {
-      "format": "{icon} {percent}%",
-      "format-icons": ["","","","","","","","",""]
-    },
-
-    "battery": {
-      "states": { "warning": 30, "critical": 15 },
-      "format": "{icon} {capacity}%",
-      "format-full": "{icon} {capacity}%",
-      "format-charging": " {capacity}%",
-      "format-plugged": " {capacity}%",
-      "format-alt": "{icon} {time}",
-      "format-icons": ["","","","",""]
-    },
-
-    "wireplumber": {
-      "scroll-step": 5,
-      "format": "{icon}   {volume}%",
-      "format-bluetooth": "{icon} {volume}% ",
-      "format-bluetooth-muted": " {icon}",
-      "format-muted": "",
-      "format-icons": {
-        "headphone": "",
-        "hands-free": "",
-        "headset": "",
-        "phone": "",
-        "portable": "",
-        "car": "",
-        "default": ["","",""]
-      },
-      "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-    }
-  }
-]
+# Key bindings
+key_down=Ctrl-j
+key_up=Ctrl-k
+key_left=Ctrl-h
+key_right=Ctrl-l
+key_expand=Right,Left
