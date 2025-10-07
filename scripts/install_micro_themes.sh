@@ -81,4 +81,4 @@ EOL
 # Fix ownership of entire .config/micro directory
 chown -R "$SUDO_USER:$SUDO_USER" "$USER_HOME/.config/micro"
 
-echo "🎨 Themes installed successfully and micro configured with 'gruvbox'."
+echo "🎨 Themes installed successfully and micro configured!"
