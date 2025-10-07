@@ -25,11 +25,6 @@ flatpak_origin='flathub'
 
 # List of desktop apps to be installed (specified by app ID)
 flatpak_apps=(
-  'com.brave.Browser'
-  'com.heroicgameslauncher.hgl'
-  'com.rustdesk.RustDesk'
-  'org.localsend.localsend_app'
-  'net.davidotek.pupgui2'
   'com.github.tchx84.Flatseal'
 )
 
