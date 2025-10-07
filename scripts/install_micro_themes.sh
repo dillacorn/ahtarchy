@@ -74,7 +74,7 @@ echo "✅ micro was launched and terminated to initialize config."
 # Overwrite settings.json
 sudo -u "$SUDO_USER" tee "$USER_HOME/.config/micro/settings.json" >/dev/null <<EOL
 {
-   "colorscheme": "gruvbox"
+   "colorscheme": "material-tc"
 }
 EOL
 
