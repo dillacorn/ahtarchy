@@ -3,21 +3,21 @@ Notes From Repo: https://github.com/dillacorn/arch-hypr-dots
 # choose a browser
 
 # install librewolf
-## flathub
+## flathub (not preferred)
 ```sh
 flatpak install flathub io.gitlab.librewolf-community
 ```
-## AUR
+## AUR (preferred)
 ```sh
 yay -S librewolf-bin
 ```
 
 # install mullvad-browser
-## flathub
+## flathub (preferred)
 ```sh
 flatpak install --user flathub net.mullvad.MullvadBrowser
 ```
-## AUR
+## AUR (not preferred)
 ```sh
 yay -S mullvad-browser-bin
 ```
@@ -47,9 +47,9 @@ Plugins I personally can't live without:
 [`Ctrl+Number to switch tabs`](https://addons.mozilla.org/firefox/downloads/file/4192880/ctrl_number_to_switch_tabs-1.0.2.xpi)
 [`Disable YouTube Seek by Number`](https://addons.mozilla.org/firefox/downloads/file/4308468/youtube_disable_number_seek-1.4.xpi)
 [`Return YouTube Dislike`](https://addons.mozilla.org/firefox/downloads/file/4308076/return_youtube_dislikes-3.0.0.16.xpi)
-[`Tab Numbers`](https://addons.mozilla.org/firefox/downloads/file/3368371/tab_numbers-1.0.0.xpi)
 
 Some Additional Plugins:
+[`Tab Numbers`](https://addons.mozilla.org/firefox/downloads/file/3368371/tab_numbers-1.0.0.xpi)
 [`Undo Close Tab`](https://addons.mozilla.org/firefox/downloads/file/4212173/undoclosetabbutton-8.0.0.xpi)
 [`Move Tabs`](https://addons.mozilla.org/firefox/downloads/file/4272424/move_tabs_around-0.0.3resigned1.xpi)
 [`FastForward`](https://addons.mozilla.org/firefox/downloads/file/4258067/fastforwardteam-0.2383.xpi)
@@ -111,3 +111,7 @@ https://browserleaks.com/webrtc
 enable `Show home button` and add your preferred URL.. in my case "flame" and/or "hoarder" self hosted instance
 
 disable `Show bookmarks bar`
+
+vertical tabs
+![firefox_virtical_tabs_&_bar](https://raw.githubusercontent.com/dillacorn/arch-hypr-dots/main/browser_notes/firefox_virtical_tabs_&_bar.png)
+
