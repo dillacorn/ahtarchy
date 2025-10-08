@@ -112,6 +112,8 @@ enable `Show home button` and add your preferred URL.. in my case "flame" and/or
 
 disable `Show bookmarks bar`
 
-vertical tabs
+vertical tabs:
+
 ![firefox_virtical_tabs_&_bar](https://raw.githubusercontent.com/dillacorn/arch-hypr-dots/main/browser_notes/firefox_virtical_tabs_&_bar.png)
+
 
