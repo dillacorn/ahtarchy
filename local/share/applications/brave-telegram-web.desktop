@@ -1,8 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Type=Application
-Name=Telegram Web (brave)
-Exec=/usr/bin/brave --profile-directory=Default --app=https://web.telegram.org/a/
-Icon=brave
-Terminal=false
-Categories=Network;WebBrowser;

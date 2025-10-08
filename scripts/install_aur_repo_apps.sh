@@ -100,7 +100,7 @@ if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
 
         # List of AUR packages to install with cleanup
         packages=(
-            brave-bin
+            librewolf-bin
             wlogout
             waytrogen-bin
             qimgv-git

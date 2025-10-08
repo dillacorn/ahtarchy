@@ -1,9 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Type=Application
-Name=AUR (brave)
-Exec=/usr/bin/brave --profile-directory=Default --app=https://aur.archlinux.org/packages
-Icon=brave
-Terminal=false
-Categories=Network;WebBrowser;
-

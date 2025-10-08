@@ -1,0 +1,13 @@
+# FILE: ~/.local/share/applications/telegram-librewolf.desktop
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Telegram Web (LibreWolf)
+Comment=Telegram Web in a dedicated LibreWolf profile, auto-created if missing
+Exec=sh -lc 'PROFILE="$HOME/.librewolf/telegram-profile"; [ -d "$PROFILE" ] || /usr/bin/librewolf -CreateProfile "telegram $PROFILE"; exec env MOZ_ENABLE_WAYLAND=1 MOZ_USE_XINPUT2=1 /usr/bin/librewolf --class=telegram --name=Telegram --profile="$PROFILE" --new-window https://web.telegram.org/a/'
+Icon=librewolf
+Terminal=false
+Categories=Network;InstantMessaging;
+StartupWMClass=telegram
+StartupNotify=true
+SingleMainWindow=true

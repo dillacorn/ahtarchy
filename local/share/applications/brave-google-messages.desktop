@@ -1,9 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Type=Application
-Name=Messages (brave)
-Exec=/usr/bin/brave --profile-directory=Default --app=https://messages.google.com/
-Icon=brave
-Terminal=false
-Categories=Network;WebBrowser;
-

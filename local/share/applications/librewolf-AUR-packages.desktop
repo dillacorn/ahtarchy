@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=AUR (Librewolf)
+Exec=/usr/bin/librewolf https://aur.archlinux.org/packages
+Icon=librewolf
+Terminal=false
+Categories=Network;WebBrowser;

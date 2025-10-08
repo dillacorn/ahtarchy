@@ -1,8 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Type=Application
-Name=Arch Repo (Brave)
-Exec=/usr/bin/brave --profile-directory=Default --app=https://archlinux.org/packages/
-Icon=brave
-Terminal=false
-Categories=Network;WebBrowser;

@@ -1,0 +1,13 @@
+# FILE: ~/.local/share/applications/messages-librewolf.desktop
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Messages (LibreWolf)
+Comment=Google Messages in a dedicated LibreWolf profile, auto-created if missing
+Exec=sh -lc 'PROFILE="$HOME/.librewolf/messages-profile"; [ -d "$PROFILE" ] || /usr/bin/librewolf -CreateProfile "messages $PROFILE"; exec env MOZ_ENABLE_WAYLAND=1 MOZ_USE_XINPUT2=1 /usr/bin/librewolf --class=messages --name=Messages --profile="$PROFILE" --new-window https://messages.google.com/web'
+Icon=librewolf
+Terminal=false
+Categories=Network;InstantMessaging;
+StartupWMClass=messages
+StartupNotify=true
+SingleMainWindow=true

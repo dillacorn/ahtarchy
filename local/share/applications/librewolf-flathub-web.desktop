@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Flathub (Librewolf)
+Exec=/usr/bin/librewolf https://flathub.org/
+Icon=librewolf
+Terminal=false
+Categories=Network;WebBrowser;

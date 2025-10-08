@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Arch Repo (LibreWolf)
+Exec=/usr/bin/librewolf https://archlinux.org/packages/
+Icon=librewolf
+Terminal=false
+Categories=Network;WebBrowser;

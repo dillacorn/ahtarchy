@@ -1,9 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Type=Application
-Name=Flathub (brave)
-Exec=/usr/bin/brave --profile-directory=Default --app=https://flathub.org/
-Icon=brave
-Terminal=false
-Categories=Network;WebBrowser;
-
