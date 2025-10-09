@@ -29,7 +29,7 @@ window#waybar.empty #window { background-color: transparent; }
 
 /* === Layout === */
 .modules-left   { margin: 5px 0 0 10px; }
-.modules-center { margin: 5px 0 0 0; }
+.modules-center { margin: 5px 5px 0 0; }
 .modules-right  { margin: 5px 10px 0 0; }
 
 /* === Workspaces === */
@@ -83,7 +83,7 @@ label:focus { background: @bg-focus; }
 
 /* Do not change hub visuals */
 #custom-ws-hub {
-  padding: 0 11px 0 5px;
+  padding: 0 5px 0 5px;
   background: @bg-default;
   color: @color-default;
   border-radius: 5px;
