@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
+# ~/.config/hypr/scripts/wofi-keybinds.sh
 set -euo pipefail
 
-# mode:
+# Mode:
 #   --auto  -> show once (guarded by persistent marker)
 #   default -> always show (for manual hotkey)
 MODE="${1:-manual}"
 
-# persistent per-user marker (XDG_STATE_HOME preferred)
+# Persistent per-user marker (XDG_STATE_HOME preferred)
 STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/hypr"
 mkdir -p "$STATE_DIR"
 MARKER="$STATE_DIR/wofi_keybinds_shown"
@@ -18,42 +19,105 @@ fi
 
 CONF="$HOME/.config/hypr/hyprland.conf"
 
-# --- dynamic width from focused monitor (hyprctl monitors -j) ---
-MARGIN=120
-MIN_WIDTH=700
-MAX_WIDTH=1800
+# -----------------------------
+# Width calculation (fixes scale)
+# -----------------------------
+# Uses Hyprland monitor width and scale to compute a LOGICAL pixel width for GTK.
+# Defaults:
+# - WIDTH is 100% of the focused monitor’s logical width (width / scale)
+# - Clamped to [MIN_WIDTH, logical_width - RIGHT_MARGIN]
+# Overrides:
+# - export WOFI_WIDTH=<int> to force an exact width
+# - export WOFI_WIDTH_RATIO=<0.30..0.95> to change the percentage
+RIGHT_MARGIN="${WOFI_RIGHT_MARGIN:-120}"    # logical pixels
+MIN_WIDTH="${WOFI_MIN_WIDTH:-700}"          # logical pixels
+WIDTH_RATIO_DEFAULT="1.00"
 
-get_width() {
-  local w
-  w=$(hyprctl -j monitors 2>/dev/null | jq -r '.[] | select(.focused==true) | .width' || true)
-  [ -z "${w:-}" ] && w=$(hyprctl -j monitors 2>/dev/null | jq -r '.[0].width' || true)
-  [[ "$w" =~ ^[0-9]+$ ]] || w=1000
-  w=$(( w - MARGIN ))
-  (( w < MIN_WIDTH )) && w=$MIN_WIDTH
-  (( w > MAX_WIDTH )) && w=$MAX_WIDTH
-  printf '%d\n' "$w"
+get_logical_monowidth() {
+  # Output: "<logical_width> <scale>"
+  # logical_width = round(width / scale)
+  local w s logical
+  read -r w s < <(
+    hyprctl -j monitors 2>/dev/null | jq -r '
+      (map(select(.focused==true)) | .[0]) // .[0] as $m
+      | "\($m.width) \($m.scale)"
+    '
+  )
+  # Fallbacks if hyprctl or jq fails
+  [[ -z "${w:-}" || -z "${s:-}" ]] && { echo "1000 1.0"; return; }
+  # Compute logical width with rounding
+  logical="$(awk -v W="$w" -v S="$s" 'BEGIN { printf "%d", (W / S) + 0.5 }')"
+  echo "$logical $s"
 }
-WIDTH="$(get_width)"
 
-# --- minimal CSS to avoid GTK theme parser warnings; no theming changes ---
+compute_width() {
+  # 1) hard override
+  if [[ -n "${WOFI_WIDTH:-}" ]]; then
+    # sanitize and clamp minimal
+    [[ "$WOFI_WIDTH" =~ ^[0-9]+$ ]] || { echo "$MIN_WIDTH"; return; }
+    echo "$WOFI_WIDTH"
+    return
+  fi
+
+  local logical scale ratio candidate maxw
+  read -r logical scale < <(get_logical_monowidth)
+
+  # ratio override with sane bounds
+  ratio="${WOFI_WIDTH_RATIO:-$WIDTH_RATIO_DEFAULT}"
+  # validate float in [0.30, 0.95]
+  if ! awk -v r="$ratio" 'BEGIN{exit !(r+0>=0.30 && r+0<=0.95)}'; then
+    ratio="$WIDTH_RATIO_DEFAULT"
+  fi
+
+  # candidate width from ratio
+  candidate="$(awk -v L="$logical" -v R="$ratio" 'BEGIN { printf "%d", L*R }')"
+
+  # dynamic max is monitor logical width minus a right margin
+  maxw="$(awk -v L="$logical" -v M="$RIGHT_MARGIN" '
+    BEGIN { m = L - M; if (m < 1) m = 1; printf "%d", m }
+  ')"
+
+  # clamp
+  if (( candidate < MIN_WIDTH )); then
+    candidate="$MIN_WIDTH"
+  fi
+  if (( candidate > maxw )); then
+    candidate="$maxw"
+  fi
+
+  echo "$candidate"
+}
+
+WIDTH="$(compute_width)"
+
+# -----------------------------
+# Minimal CSS to silence GTK warnings
+# -----------------------------
 STYLE_FILE="$(mktemp --suffix=.css)"
+trap 'rm -f "$STYLE_FILE"' EXIT
 cat > "$STYLE_FILE" <<'EOF'
 window {}
 EOF
 
-# --- read modifiers ---
+# -----------------------------
+# Read modifiers from hyprland.conf
+# -----------------------------
 mod=$(awk -F= '/^\$mod[[:space:]]*=/{gsub(/^[ \t]+|[ \t]+$/,"",$2); print $2; exit}' "$CONF" || true)
 super=$(awk -F= '/^\$super[[:space:]]*=/{gsub(/^[ \t]+|[ \t]+$/,"",$2); print $2; exit}' "$CONF" || true)
 rotate=$(awk -F= '/^\$rotate[[:space:]]*=/{gsub(/^[ \t]+|[ \t]+$/,"",$2); print $2; exit}' "$CONF" || true)
 
-# --- escape for Pango markup ---
+# -----------------------------
+# Pango escaping
+# -----------------------------
 escape_pango() {
   sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g'
 }
 
-# --- expand hypr vars ---
+# -----------------------------
+# Expand hypr vars
+# -----------------------------
 expand_vars() {
-  local smod=${mod//\\/\\\\};   smod=${smod//&/\\&}
+  local smod=${mod//\\/\\\\};    smod=${smod//&/\\&}
   local ssuper=${super//\\/\\\\}; ssuper=${ssuper//&/\\&}
   local srotate=${rotate//\\/\\\\}; srotate=${srotate//&/\\&}
   sed -e "s/\\\$mod\\b/${smod}/g" \
@@ -61,7 +125,9 @@ expand_vars() {
       -e "s/\\\$rotate\\b/${srotate}/g"
 }
 
-# --- split by commas while respecting quotes ---
+# -----------------------------
+# Split by commas respecting quotes
+# -----------------------------
 split_commas() {
   awk '
   function trim(s){sub(/^[ \t\r\n]+/,"",s); sub(/[ \t\r\n]+$/,"",s); return s}
@@ -83,6 +149,9 @@ pretty_cmd() {  # keep dispatcher unless exec
   if [ "$disp" = "exec" ]; then printf "%s" "$*"; else printf "%s %s" "$disp" "$*"; fi
 }
 
+# -----------------------------
+# Generate menu content
+# -----------------------------
 generate() {
   local current_category="" printed=0
 
@@ -133,10 +202,11 @@ generate() {
 
 out=$(generate || true)
 
+# -----------------------------
+# Render
+# -----------------------------
 if [[ -z "${out//[$'\n' ]/}" ]]; then
   wofi --dmenu --prompt "No keybinds found" --width "$WIDTH" --style "$STYLE_FILE"
 else
   printf '%s\n' "$out" | wofi --dmenu --allow-markup --prompt "Hyprland Keybinds" --width "$WIDTH" --style "$STYLE_FILE"
 fi
-
-rm -f "$STYLE_FILE"
