@@ -48,7 +48,7 @@ window#waybar.empty #window { background-color: transparent; }
 }
 
 #custom-power {
-  padding: 0 4px 0 5px;
+  padding: 0 2px 0 5px;
   background: @bg-default;
   color: @color-default;
 }
