@@ -1,7 +1,7 @@
 # ~/.config/waybar/scripts/cpu_temp.sh
 #!/usr/bin/env bash
 # CPU temp for Waybar custom module with icon on the right side
-# Prints: "<temp> <icon>"
+# Prints: "<temp>°<icon>"
 
 set -euo pipefail
 export LC_ALL=C
@@ -84,15 +84,15 @@ main() {
 
   local icon
   if (( temp < 40 )); then
-    icon=""
+    icon=""
   elif (( temp < 70 )); then
     icon=""
   else
-    icon=""
+    icon=""
   fi
 
   # icon on the right
-  echo "$temp $icon"
+  echo "$temp°$icon"
 }
 
 main
