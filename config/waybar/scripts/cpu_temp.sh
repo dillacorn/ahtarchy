@@ -92,7 +92,7 @@ main() {
   fi
 
   # icon on the right
-  echo "$temp° $icon"
+  echo "$temp $icon"
 }
 
 main
