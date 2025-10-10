@@ -48,7 +48,7 @@ sudo ./setup_installer.sh
 |-------------------------|---------------------------------------------------------|
 | `SUPER + h`             | Shows keybinds in hyprland.conf in wofi                 |
 | `SUPER + a`             | Toggle Hyprland animations                              |
-| `SUPER + r`             | Rotate navigation keys (toggle SUPER/ALT)               |
+| `SUPER + r`             | Rotate navigation keys (toggle ALT/SUPER)               |
 | `SUPER + t`             | Run theme switcher script                               |
 | `SUPER + w`             | Launch or kill Waytrogen (wallpaper GUI)                |
 | `SUPER + q`             | Scan QR code                                            |
@@ -61,7 +61,8 @@ sudo ./setup_installer.sh
 | `ALT + SHIFT + Enter`   | Launch terminal (Alacritty)                             |
 | `ALT + SHIFT + b`       | Launch btop in terminal                                 |
 | `ALT + SHIFT + h`       | Launch htop in terminal                                 |
-| `ALT + p`               | Launch Wofi (app launcher)                              |
+| `ALT/SUPER + p`         | Launch Wofi (app launcher)                              |
+| `SUPER + d`             | Launch Wofi (app launcher)                              |
 | `ALT + SPACE`           | Dismiss notifications (makoctl)                         |
 | `SUPER + p`             | Launch or kill wlogout                                  |
 | `SUPER + i`             | Launch hyprpicker (color picker)                        |
@@ -73,8 +74,8 @@ sudo ./setup_installer.sh
 | Keybind                         | Action                                        |
 |---------------------------------|-----------------------------------------------|
 | `ALT/SUPER + SHIFT + q`         | Close focused window                          |
-| `ALT + f`                       | Toggle floating window                        |
-| `ALT + y`                       | Pin focused window                            |
+| `ALT/SUPER + f`                 | Toggle floating window                        |
+| `ALT/SUPER + SHIFT + y`         | Pin focused window                            |
 | `ALT/SUPER + CTRL + f`          | Toggle fullscreen                             |
 | `ALT/SUPER + ←/→/↑/↓`           | Move focus between windows                    |
 | `ALT/SUPER + SHIFT + ←/→/↑/↓`   | Move active window within workspace           |
@@ -127,9 +128,3 @@ sudo ./setup_installer.sh
 
 ## 📦 Optional Packages
 - [Optional Packages link](extra_notes/optional_packages.md)
-
-
-
-
-
-
