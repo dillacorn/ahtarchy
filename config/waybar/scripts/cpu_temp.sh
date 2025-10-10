@@ -1,7 +1,7 @@
 # ~/.config/waybar/scripts/cpu_temp.sh
 #!/usr/bin/env bash
 # CPU temp for Waybar custom module with icon on the right side
-# Prints: "<temp>° <icon>"
+# Prints: "<temp> <icon>"
 
 set -euo pipefail
 export LC_ALL=C
