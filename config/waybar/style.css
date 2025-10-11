@@ -83,7 +83,7 @@ label:focus { background: @bg-focus; }
 
 /* Do not change hub visuals */
 #custom-ws-hub {
-  padding: 0 0.7em 0 0.3em;
+  padding: 0 0.75em 0 0.3em;
   background: @bg-default;
   color: @color-default;
   border-radius: 0.357em;
