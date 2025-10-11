@@ -33,8 +33,15 @@ window#waybar.empty #window { background-color: transparent; }
 .modules-right  { margin: 0.357em 0.714em 0 0; }
 
 /* === Workspaces === */
-#workspaces { background: @bg-default; border-radius: 0.357em; }
-#workspaces button { padding: 0 0.357em; background: @bg-default; color: @color-default; }
+#workspaces {
+  background: @bg-default;
+  border-radius: 0.357em;
+}
+#workspaces button {
+  padding: 0 0.4em 0 0.2em;
+  background: @bg-default;
+  color: @color-default;
+}
 #workspaces button:hover  { color: @color-hover; }
 #workspaces button.active { background: @bg-active; color: @color-default; }
 #workspaces button.urgent { background: @bg-urgent; color: @color-dark; }
@@ -47,156 +54,12 @@ window#waybar.empty #window { background-color: transparent; }
   color: @color-default;
 }
 
+/* CPU: avoid clipping of trailing icon */
+#cpu { padding-right: 0.85em; }
+
+/* Power: avoid clipping of power glyph on the right */
 #custom-power {
-  padding: 0 0.25em 0 0.4em;
-  background: @bg-default;
-  color: @color-default;
-}
-
-/* === Window title in the center group === */
-#window { padding: 0 0.429em; }
-
-/* === Mode chip === */
-#mode { padding: 0 0.429em; }
-
-/* === Hover pills === */
-#custom-apps:hover, #custom-power:hover { background: @bg-hover; color: @color-default; }
-
-/* === Battery === */
-#battery.charging, #battery.plugged { background: @bg-charging; color: @bg-default; }
-#battery.critical:not(.charging) {
-  background: @bg-critical; color: @color-default;
-  animation: blink 0.5s steps(12) infinite alternate;
-}
-@keyframes blink { to { background: @bg-default; color: @color-default; } }
-
-/* === Misc === */
-label:focus { background: @bg-focus; }
-#wireplumber.muted { background: @bg-hover; }
-#tray > .passive { -gtk-icon-effect: dim; }
-#tray > .needs-attention { -gtk-icon-effect: highlight; }
-#tray menu { font-family: Iosevka; }
-#scratchpad.empty { background: transparent; }
-
-/* === Workspace arrows group (hub + drawer) === */
-#group-ws-arrows { background: @bg-default; margin-left: 0.429em; }
-
-/* Do not change hub visuals */
-#custom-ws-hub {
-  padding: 0 0.75em 0 0.3em;
-  background: @bg-default;
-  color: @color-default;
-  border-radius: 0.357em;
-}
-#custom-ws-hub:hover { 
-  background: @bg-hover; 
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
-/* === Arrow pills (individual modules) === */
-#custom-ws-up,
-#custom-ws-down,
-#custom-ws-left {
-  padding: 0 0.286em;
-  margin: 0 0;
-  background: @bg-default;
-  color: @color-default;
-  border-radius: 0;
-}
-#custom-ws-up:hover,
-#custom-ws-down:hover,
-#custom-ws-left:hover,
-#custom-ws-right:hover {
-  background: @bg-hover;
-}
-
-#custom-ws-right {
-  padding: 0 0.286em;
-  margin: 0 0;
-  background: @bg-default;
-  color: @color-default;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0.357em;
-  border-bottom-right-radius: 0.357em;
-  border-bottom-left-radius: 0;
-}
-
-/* === Taskbar === */
-#taskbar { padding: 0 0.143em; background: transparent; color: @color-default; }
-#taskbar.empty { padding: 0; background: transparent; min-width: 0; margin: 0; box-shadow: none; }
-
-#taskbar button {
-  padding: 0 0.214em;
-  margin: 0 0.071em;
-  background: @bg-default;
-  color: @color-default;
-  border-radius: 0.357em;
-}
-#taskbar button:first-child { margin-left: 0; }
-#taskbar button:last-child  { margin-right: 0; }
-
-#taskbar button:hover   { background: @bg-hover; }
-#taskbar button.active  { background: @bg-active; color: @color-default; }
-#taskbar button.urgent  { background: @bg-urgent; color: @color-dark; }
-#taskbar button.minimized { opacity: 0.85; }
-
-#taskbar .taskbar-title { font-size: 0; color: transparent; margin: 0; padding: 0; min-width: 0; min-height: 0; }
-#taskbar image          { margin: 0; padding: 0.071em; min-width: 0; min-height: 0; }
-
-/* === Right-side clocks === */
-#clock.date, #clock.time { padding: 0 0.357em; margin-top: 0; }
-/* === Variables === */
-@define-color bg-default #353535;
-@define-color bg-hover #404040;
-@define-color bg-focus #4a4a4a;
-@define-color bg-active #2b2b2b;
-@define-color bg-urgent #ff5555;
-@define-color bg-charging #6a9955;
-@define-color bg-critical #ff5555;
-@define-color color-default #d0d0d0;
-@define-color color-dark #1a1a1a;
-@define-color color-hover #4a4a4a;
-
-/* === Global === */
-* {
-  font-size: 14px;            /* 1em baseline */
-  border-radius: 0.357em;
-  min-height: 0;
-}
-
-window#waybar {
-  font-family: Iosevka, FontAwesome, Noto Sans CJK;
-  background-color: transparent;
-  color: @color-default;
-  transition: background-color 0.5s;
-}
-
-window#waybar.hidden { opacity: 0.2; }
-window#waybar.empty #window { background-color: transparent; }
-
-/* === Layout === */
-.modules-left   { margin: 0.357em 0 0 0.714em; }
-.modules-center { margin: 0.357em 0.357em 0 0; }
-.modules-right  { margin: 0.357em 0.714em 0 0; }
-
-/* === Workspaces === */
-#workspaces { background: @bg-default; border-radius: 0.357em; }
-#workspaces button { padding: 0 0.357em; background: @bg-default; color: @color-default; }
-#workspaces button:hover  { color: @color-hover; }
-#workspaces button.active { background: @bg-active; color: @color-default; }
-#workspaces button.urgent { background: @bg-urgent; color: @color-dark; }
-
-/* === Common module pill styling === */
-#idle_inhibitor,#scratchpad,#submap,#window,#clock,#battery,#backlight,#wireplumber,
-#tray,#load,#cpu,#memory,#custom-apps,#custom-cputemp {
-  padding: 0 0.429em;
-  background: @bg-default;
-  color: @color-default;
-}
-
-#custom-power {
-  padding: 0 0.25em 0 0.4em;
+  padding: 0 0.85em 0 0.4em;
   background: @bg-default;
   color: @color-default;
 }
