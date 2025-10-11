@@ -1,116 +1,105 @@
 #!/usr/bin/env bash
 # ~/.config/hypr/scripts/pavucontrol-toggle.sh
-# Workspace-aware toggle for pavucontrol:
-# - If pavucontrol is visible on the current workspace, close it.
-# - If pavucontrol is running on another workspace, close it and relaunch here.
-# - If pavucontrol is not running, launch it here.
-# All hyprctl/jq noise is silenced; failures still exit nonzero.
+# Toggle pavucontrol with workspace awareness while NEVER killing tiled windows.
+# Requirements: hyprctl, jq, pgrep, pkill, nohup
+#
+# Semantics:
+# 1) If any FLOATING pavucontrol exists on CURRENT workspace -> kill ONLY those (toggle off) and exit.
+# 2) Else if any FLOATING pavucontrol exists on OTHER workspaces -> kill them, then launch here (toggle here).
+# 3) Else (no floating anywhere) -> launch here, even if there is a TILED one on this workspace.
+#
+# Multiple instances:
+# - pavucontrol is usually single-instance via D-Bus. To guarantee a new window even when one exists,
+#   this script runs it in its own temporary D-Bus session: `dbus-run-session -- pavucontrol`.
+# - Disable that behavior by exporting FORCE_NEW_INSTANCE=0 before calling the script.
 
 set -euo pipefail
 
-# -----------------------------------
-# Dependencies and constants
-# -----------------------------------
-quiet() { "$@" 2>/dev/null; }     # silence only stderr of wrapped command
+quiet() { "$@" 2>/dev/null; }
 
 need() { command -v "$1" >/dev/null 2>&1; }
 for bin in hyprctl jq pgrep pkill nohup; do
   need "$bin" || { echo "Missing dependency: $bin" >&2; exit 1; }
 done
 
-PROC_NAME="pavucontrol"                    # actual process name
-WM_CLASS="org.pulseaudio.pavucontrol"      # Hyprland class
+PROC_NAME="pavucontrol"
+WM_CLASS="org.pulseaudio.pavucontrol"
+FORCE_NEW_INSTANCE="${FORCE_NEW_INSTANCE:-1}"  # 1 -> launch via dbus-run-session to force a new window
 
-STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/hypr"
-STATE_FILE="$STATE_DIR/pavucontrol-toggle.state"
-mkdir -p "$STATE_DIR"
+is_running() { pgrep -x "$PROC_NAME" >/dev/null; }
 
-# -----------------------------------
-# Helpers
-# -----------------------------------
-is_running() {
-  # Match exact binary name; tolerate multiple instances.
-  pgrep -x "$PROC_NAME" >/dev/null
+cur_ws_id() { quiet hyprctl activeworkspace -j | quiet jq -r 'try .id // empty'; }
+
+# PIDs of FLOATING pavucontrol windows on a given workspace
+pids_floating_on_ws() {
+  local ws="$1"
+  [ -n "$ws" ] || return 0
+  quiet hyprctl clients -j | quiet jq -r --arg cls "$WM_CLASS" --argjson ws "$ws" '
+    .[]?
+    | select(.class == $cls and (.floating // false) == true and (.workspace.id // -1) == $ws)
+    | .pid
+  '
 }
 
-cur_ws_id() {
-  quiet hyprctl activeworkspace -j | quiet jq -r 'try .id // empty'
+# PIDs of FLOATING pavucontrol windows NOT on the given workspace
+pids_floating_elsewhere() {
+  local ws="$1"
+  quiet hyprctl clients -j | quiet jq -r --arg cls "$WM_CLASS" --argjson ws "$ws" '
+    .[]?
+    | select(.class == $cls and (.floating // false) == true and (.workspace.id // -1) != $ws)
+    | .pid
+  '
 }
 
-pavucontrol_visible_here() {
-  local cur
-  cur="$(cur_ws_id || true)"
-  [ -n "${cur:-}" ] || return 1
-
-  # Scan clients on the compositor; look for our class on the current workspace and not hidden.
-  quiet hyprctl clients -j | quiet jq -e --arg cls "$WM_CLASS" --argjson ws "$cur" '
-    [ (.[]? // empty)
-      | select(.class == $cls and (.workspace.id // -1) == $ws and (.hidden // false) == false)
-    ] | length > 0
-  ' >/dev/null
+kill_pids() {
+  local p
+  for p in "$@"; do
+    [ -n "${p:-}" ] || continue
+    kill -TERM "$p" 2>/dev/null || true
+  done
+  for _ in $(seq 1 50); do
+    local any=0
+    for p in "$@"; do
+      if kill -0 "$p" 2>/dev/null; then any=1; fi
+    done
+    [ $any -eq 0 ] && break
+    sleep 0.02
+  done
+  for p in "$@"; do
+    kill -KILL "$p" 2>/dev/null || true
+  done
 }
 
-save_state() {
-  local ws_id ws_name mon now
-  ws_id="$(cur_ws_id || true)"
-  ws_name="$(quiet hyprctl activeworkspace -j | quiet jq -r 'try .name // empty' || true)"
-  mon="$(quiet hyprctl monitors -j | quiet jq -r '.[]? | select(.focused==true) | .name' || true)"
-  now="$(date +%s)"
-
-  quiet jq -n \
-    --arg ws_id "${ws_id:-}" \
-    --arg ws_name "${ws_name:-}" \
-    --arg monitor "${mon:-}" \
-    --arg ts "$now" '
-    {
-      ws_id:   (if ($ws_id|length)>0 and ($ws_id|tonumber? != null) then ($ws_id|tonumber) else null end),
-      ws_name: (if ($ws_name|length)>0 then $ws_name else null end),
-      monitor: (if ($monitor|length)>0 then $monitor else null end),
-      ts:      ($ts|tonumber)
-    }' >"$STATE_FILE" || true
-}
-
-state_ws_id() {
-  [ -f "$STATE_FILE" ] || { printf "%s" ""; return 0; }
-  quiet jq -r 'try .ws_id // empty' <"$STATE_FILE" || true
-}
-
-kill_pavucontrol() {
-  pkill -x "$PROC_NAME" 2>/dev/null || true
-  for _ in $(seq 1 50); do is_running || return 0; sleep 0.02; done
-  pkill -9 -x "$PROC_NAME" 2>/dev/null || true
-}
-
-launch_pavucontrol() {
-  nohup "$PROC_NAME" >/dev/null 2>&1 &
-  save_state
-}
-
-# -----------------------------------
-# Main
-# -----------------------------------
-main() {
-  if is_running; then
-    if pavucontrol_visible_here; then
-      kill_pavucontrol
-      exit 0
-    fi
-
-    # Not visible here. If last-known ws matches current, treat as stale -> kill only.
-    local cur_id saved_id
-    cur_id="$(cur_ws_id || true)"
-    saved_id="$(state_ws_id || true)"
-
-    if [[ -n "${saved_id:-}" && -n "${cur_id:-}" && "$saved_id" == "$cur_id" ]]; then
-      kill_pavucontrol
-      exit 0
-    fi
-
-    kill_pavucontrol
-    launch_pavucontrol
+launch_here() {
+  # Force a genuinely new window even if pavucontrol is single-instance.
+  if [ "${FORCE_NEW_INSTANCE}" = "1" ]; then
+    nohup dbus-run-session -- "$PROC_NAME" >/dev/null 2>&1 &
   else
-    launch_pavucontrol
+    nohup "$PROC_NAME" >/dev/null 2>&1 &
   fi
+}
+
+main() {
+  local ws
+  ws="$(cur_ws_id || true)"
+
+  # 1) Toggle off: kill ONLY floating instances on the current workspace
+  mapfile -t here < <(pids_floating_on_ws "${ws:-}" || true)
+  if [ "${#here[@]}" -gt 0 ]; then
+    kill_pids "${here[@]}"
+    exit 0
+  fi
+
+  # 2) If there are floating instances elsewhere, replace them with one here
+  mapfile -t elsewhere < <(pids_floating_elsewhere "${ws:-}" || true)
+  if [ "${#elsewhere[@]}" -gt 0 ]; then
+    kill_pids "${elsewhere[@]}"
+    launch_here
+    exit 0
+  fi
+
+  # 3) No floating anywhere. Launch here regardless of any tiled windows.
+  launch_here
 }
 
 main
