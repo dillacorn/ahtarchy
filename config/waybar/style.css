@@ -48,7 +48,7 @@ window#waybar.empty #window { background-color: transparent; }
 }
 
 #custom-power {
-  padding: 0 2px 0 5px;
+  padding: 0 4px 0 5px;
   background: @bg-default;
   color: @color-default;
 }
@@ -83,7 +83,7 @@ label:focus { background: @bg-focus; }
 
 /* Do not change hub visuals */
 #custom-ws-hub {
-  padding: 0 5px 0 5px;
+  padding: 0 11px 0 5px;
   background: @bg-default;
   color: @color-default;
   border-radius: 5px;
