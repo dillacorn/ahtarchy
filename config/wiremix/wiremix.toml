@@ -1,0 +1,99 @@
+# ~/.config/wiremix/wiremix.toml
+
+# ---------- Basics ----------
+# remote: PipeWire remote name. Example: "pipewire-0". Optional. CLI: -r/--remote. [string]
+# remote = "pipewire-0"
+
+# fps: Target UI refresh rate. 0 = unlimited. CLI: -f/--fps. [float >= 0]
+fps = 60.0
+
+# mouse: Enable or disable mouse. CLI: --mouse / --no-mouse. [true|false]
+mouse = true
+
+# peaks: Audio peak meters mode. CLI: -p/--peaks. [off|mono|auto]
+peaks = "auto"
+
+# char_set: Built-in UI character set. CLI: -s/--char-set. [default|compat|extracompat]
+# You can also define custom sets in this file (not required for basic use).
+char_set = "default"
+
+# theme: Built-in color theme. CLI: -t/--theme. [default|nocolor|plain]
+# You can also define custom themes in this file (not required for basic use).
+theme = "default"
+
+# tab: Initial tab. CLI: -v/--tab. [playback|recording|output|input|configuration]
+tab = "playback"
+
+# max_volume_percent: Maximum slider cap in percent (applies to UI increments). CLI: -m/--max-volume-percent. [integer > 0]
+# Example: 150 caps sliders at 150% while still allowing overrides below.
+# max_volume_percent = 100
+
+# enforce_max_volume: If true, prevents increasing above max_volume_percent. CLI: --enforce-max-volume / --no-enforce-max-volume. [true|false]
+enforce_max_volume = true
+
+# ---------- Keybindings ----------
+keybindings = [
+  # F-keys to jump directly to tabs
+  { key = { F = 1 }, action = { SelectTab = 0 } }, # Playback
+  { key = { F = 2 }, action = { SelectTab = 1 } }, # Recording
+  { key = { F = 3 }, action = { SelectTab = 2 } }, # Output Devices
+  { key = { F = 4 }, action = { SelectTab = 3 } }, # Input Devices
+  { key = { F = 5 }, action = { SelectTab = 4 } }, # Configuration
+
+  # Pulsemixer-style absolute volume jumps on number row: 1..9 = 10%..90%, 0 = 100%
+  { key = { Char = "1" }, action = { SetAbsoluteVolume = 0.10 } },
+  { key = { Char = "2" }, action = { SetAbsoluteVolume = 0.20 } },
+  { key = { Char = "3" }, action = { SetAbsoluteVolume = 0.30 } },
+  { key = { Char = "4" }, action = { SetAbsoluteVolume = 0.40 } },
+  { key = { Char = "5" }, action = { SetAbsoluteVolume = 0.50 } },
+  { key = { Char = "6" }, action = { SetAbsoluteVolume = 0.60 } },
+  { key = { Char = "7" }, action = { SetAbsoluteVolume = 0.70 } },
+  { key = { Char = "8" }, action = { SetAbsoluteVolume = 0.80 } },
+  { key = { Char = "9" }, action = { SetAbsoluteVolume = 0.90 } },
+  { key = { Char = "0" }, action = { SetAbsoluteVolume = 1.00 } },
+
+  # Help overlay
+  { key = { Char = "?" }, action = "Help" }
+]
+
+
+# ---------- Naming to disambiguate Chromium-based apps ----------
+# names: Template-based display names for UI. You can list multiple templates; the first that resolves is used.
+# Placeholders reference PipeWire properties. Common fields:
+#   node:*    (e.g., node.name, node.description, media.name)
+#   device:*  (e.g., device.nick, device.description, device.name)
+#   client:*  (e.g., application.name)
+# See PipeWire key docs for available properties.
+
+[names]
+# stream: templates for playback/recording streams
+stream = [
+  "{node:node.name}: {node:media.name}",
+  "{client:application.name}: {node:media.name}",
+  "{node:node.description}"
+]
+
+# endpoint: templates for node endpoints (sinks/sources shown on Output/Input tabs)
+endpoint = [
+  "{device:device.nick}",
+  "{node:node.description}"
+]
+
+# device: templates for physical/logical devices on Configuration tab
+device = [
+  "{device:device.nick}",
+  "{device:device.description}"
+]
+
+# overrides: optional per-match renames for tricky apps/devices.
+# Fields:
+#   types     = ["stream"|"endpoint"|"device", ...]
+#   property  = "<scope:key>"  e.g., "node:node.name" or "device:device.name"
+#   value     = "<exact match string>"
+#   templates = [ ...templates to use when matched... ]
+# Example (disabled):
+# [[names.overrides]]
+# types     = [ "stream" ]
+# property  = "node:node.name"
+# value     = "Chromium"
+# templates = [ "{node:media.name} — {client:application.name}", "{node:node.name}: {node:media.name}" ]

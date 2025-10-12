@@ -126,7 +126,8 @@
         "mpvpaper",
         "Pulsemixer",
         "org.Waytrogen.Waytrogen",
-        "org.pulseaudio.pavucontrol"
+        "org.pulseaudio.pavucontrol",
+        "Wiremix"
       ]
     },
 
