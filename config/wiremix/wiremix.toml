@@ -33,6 +33,9 @@ enforce_max_volume = true
 
 # ---------- Keybindings ----------
 keybindings = [
+  # Exit on Esc (overrides default “CloseDropdown” behavior)
+  { key = "Esc", action = "Exit" },
+  
   # F-keys to jump directly to tabs
   { key = { F = 1 }, action = { SelectTab = 0 } }, # Playback
   { key = { F = 2 }, action = { SelectTab = 1 } }, # Recording
