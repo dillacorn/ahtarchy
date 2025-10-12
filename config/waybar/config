@@ -224,7 +224,7 @@
         "default": ["","",""]
       },
       "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
-      "on-click-right": "exec ~/.config/waybar/scripts/toggle_pulsemixer.sh"
+      "on-click-right": "exec ~/.config/waybar/scripts/wiremix-toggle.sh"
     }
   }
 ]
