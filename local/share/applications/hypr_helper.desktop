@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Help (hyprland keybind lister)
+Exec=bash -c "$HOME/.config/hypr/scripts/hypr-help.sh"
+Icon=utilities-terminal
+Terminal=false
+Categories=Utility;
