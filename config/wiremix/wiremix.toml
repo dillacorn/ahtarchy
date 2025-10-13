@@ -26,7 +26,7 @@ tab = "playback"
 
 # max_volume_percent: Maximum slider cap in percent (applies to UI increments). CLI: -m/--max-volume-percent. [integer > 0]
 # Example: 150 caps sliders at 150% while still allowing overrides below.
-# max_volume_percent = 100
+max_volume_percent = 100
 
 # enforce_max_volume: If true, prevents increasing above max_volume_percent. CLI: --enforce-max-volume / --no-enforce-max-volume. [true|false]
 enforce_max_volume = true
