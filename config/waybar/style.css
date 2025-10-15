@@ -57,6 +57,13 @@ window#waybar.empty #window { background-color: transparent; }
 /* CPU: avoid clipping of trailing icon */
 #cpu { padding-right: 0.85em; }
 
+/* Clipboard: avoid clipping of clipboard glyph on the right */
+#custom-clipboard {
+  padding: 0 0.4em 0 0.4em;
+  background: @bg-default;
+  color: @color-default;
+}
+
 /* Power: avoid clipping of power glyph on the right */
 #custom-power {
   padding: 0 0.85em 0 0.4em;

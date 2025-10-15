@@ -28,6 +28,7 @@
       "clock#time",
       "clock#date",
       "tray",
+      "custom/clipboard",
       "custom/power"
     ],
 
@@ -174,6 +175,14 @@
       "format": " {0:%H:%M}",
       "tooltip": true,
       "tooltip-format": "<tt>24h: {0:%H:%M}</tt>\n<tt>12h: {0:%I:%M %p}</tt>"
+    },
+
+    "custom/clipboard": {
+      "format": "",
+      "tooltip": false,
+      "on-click": "~/.config/hypr/scripts/cliphist-wofi.sh &",
+      "on-click-right": "~/.config/hypr/scripts/cliphist-wofi.sh &",
+      "interval": 0
     },
 
     "custom/power": {
