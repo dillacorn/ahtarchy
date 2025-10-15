@@ -177,8 +177,8 @@
     },
 
     "custom/power": {
-      "on-click": "wlogout &",
-      "on-click-right": "wlogout &",
+      "on-click": "~/.config/hypr/scripts/wlogout-toggle.sh &",
+      "on-click-right": "~/.config/hypr/scripts/wlogout-toggle.sh &",
       "format": "",
       "tooltip": true,
       "tooltip-format": "wlogout"
