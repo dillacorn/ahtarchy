@@ -1,15 +1,19 @@
 #!/usr/bin/env bash
+# ~/.local/bin/wlogout-toggle.sh
+# Toggle wlogout and warn if Caps Lock is active.
 
-if pgrep -x wlogout > /dev/null; then
+set -euo pipefail
+
+# If wlogout is running, close it.
+if pgrep -x wlogout >/dev/null; then
     pkill -x wlogout
     exit 0
 fi
 
-# Notify user to turn off caps lock if it's on
-CAPS_STATE=$(hyprctl devices -j | jq -r '.keyboards[] | select(.main == true) | .capsLock')
-
-if [[ "$CAPS_STATE" == "true" ]]; then
-    hyprctl notify -1 3000 "rgb(ff0000)" "Caps Lock is ON - disable it or use lowercase"
+# Check Caps Lock state.
+if [[ "$(hyprctl devices -j | jq -r '.keyboards[] | select(.main == true) | .capsLock')" == "true" ]]; then
+    hyprctl notify -1 3000 "rgb(ff0000)" "Caps Lock is ON — disable it or use lowercase"
 fi
 
+# Launch wlogout.
 wlogout
