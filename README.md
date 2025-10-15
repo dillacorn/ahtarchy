@@ -69,6 +69,7 @@ sudo ./setup_installer.sh
 | `SUPER + m`             | Toggle audio mute (wpctl)                               |
 | `SUPER + l`             | Lock screen (hyprlock)                                  |
 | `ALT/SUPER + v`         | Launch or kill wiremixer (audio control)                |
+| `SUPER + c`             | Launch or kill clipboard history (cliphist + wofi)      |
 
 ## 🪟 Window & Workspace Management
 | Keybind                         | Action                                        |
@@ -82,6 +83,10 @@ sudo ./setup_installer.sh
 | `ALT/SUPER + CTRL + SHIFT + ←/→/↑/↓` | Move active workspace to another monitor |
 | `ALT/SUPER + 1-0`               | Switch to workspace 1–10                      |
 | `ALT/SUPER + SHIFT + 1-0`       | Move window to workspace 1–10                 |
+| `SUPER + equal`                 | Zoom in                                       |
+| `SUPER + minus`                 | Zoom out                                      |
+| `SUPER + backspace`             | Zoom reset                                    |
+| `SUPER + backslash`             | Zoom rigid (toggle)                           |
 | `SUPER + x`                     | Toggle scratchpad workspace (`magic`)         |
 | `SUPER + SHIFT + x`             | Move window to scratchpad (`magic`)           |
 
