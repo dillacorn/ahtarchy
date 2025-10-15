@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# ~/.local/bin/wlogout-toggle.sh
 # Toggle wlogout and warn if Caps Lock is active.
 
 set -euo pipefail
