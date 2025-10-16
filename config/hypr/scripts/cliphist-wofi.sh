@@ -18,9 +18,9 @@ DECODE_TIMEOUT="${DECODE_TIMEOUT:-0.35s}"
 # Layout
 WOFI_COLUMNS="${WOFI_COLUMNS:-1}"
 WOFI_LINE_WRAP="${WOFI_LINE_WRAP:-off}"     # off|word|char|word_char
-WOFI_DYNAMIC_LINES="${WOFI_DYNAMIC_LINES:-true}"
-WOFI_HALIGN="${WOFI_HALIGN:-fill}"           # fill|start|end|center
-WOFI_CONTENT_HALIGN="${WOFI_CONTENT_HALIGN:-fill}"
+WOFI_DYNAMIC_LINES="${WOFI_DYNAMIC_LINES:-false}"
+WOFI_HALIGN="${WOFI_HALIGN:-start}"           # fill|start|end|center
+WOFI_CONTENT_HALIGN="${WOFI_CONTENT_HALIGN:-start}"
 
 # --- Runtime/cache ---
 RUNTIME_BASE="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
