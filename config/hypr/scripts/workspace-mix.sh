@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 # FILE: ~/.config/hypr/scripts/workspace-mix.sh
 # PURPOSE:
-#   - Instantly mix windows from selected Hyprland workspaces into a temporary workspace named "mix"
+#   - Mix windows from selected Hyprland workspaces into a temporary workspace named by MIX_NAME
 #   - Toggle adds/removes live
-#   - Restore returns windows, reattaches workspaces to their original monitors if present,
-#     otherwise skips reattach (no error) and just returns windows. Focus returns to your last WS.
+#   - Restore: return windows to their original workspaces, then refocus last workspace
 # DEPS: bash, hyprctl, jq
 
 set -euo pipefail
@@ -12,7 +11,7 @@ set -euo pipefail
 # ---------- Config ----------
 CACHE_ROOT="${XDG_CACHE_HOME:-$HOME/.cache}/hypr/workspace-mix"
 STATE_FILE="$CACHE_ROOT/state.json"
-MIX_NAME="mix"
+MIX_NAME=" "   # leading space + Nerd Font glyph
 mkdir -p "$CACHE_ROOT"
 
 # ---------- Helpers ----------
@@ -20,7 +19,7 @@ err() { printf 'workspace-mix: %s\n' "$*" >&2; }
 have() { command -v "$1" >/dev/null 2>&1; }
 
 require_deps() {
-  missing=()
+  local missing=()
   have hyprctl || missing+=("hyprctl")
   have jq      || missing+=("jq")
   if ((${#missing[@]})); then
@@ -40,16 +39,10 @@ focused_ws_label() {
   monitors_json | jq -r '(map(select(.focused==true))[0].activeWorkspace.name) // (.[0].activeWorkspace.name) // empty'
 }
 
-monitor_exists() {
-  # usage: monitor_exists "DP-1"
-  local name="$1"
-  monitors_json | jq -e --arg n "$name" 'any(.[]; .name == $n)' >/dev/null 2>&1
-}
-
 is_numeric() { [[ "${1:-}" =~ ^[0-9]+$ ]]; }
 now_epoch()  { date +%s; }
 
-# Arg -> canonical workspace label (string). If numeric id, resolve to name; fallback to id string.
+# Normalize to a workspace label (string). If numeric id, resolve to name if possible.
 ws_label_from_arg() {
   local arg="$1"
   if is_numeric "$arg"; then
@@ -61,34 +54,10 @@ ws_label_from_arg() {
   fi
 }
 
-# Label -> hyprctl token
-ws_token_from_label() {
+# For "workspace" and "movetoworkspacesilent": accept "name:<label>" or numeric id.
+ws_token_for_client_move() {
   local label="$1"
-  if is_numeric "$label"; then
-    printf '%s' "$label"
-  else
-    printf 'name:%s' "$label"
-  fi
-}
-
-# Determine the monitor NAME a given workspace LABEL currently belongs to.
-ws_monitor_name_from_label() {
-  local label="$1"
-  local mons wss out
-  mons="$(monitors_json)"
-  wss="$(workspaces_json)"
-  out="$(jq -r -n --arg l "$label" --argjson mons "$mons" --argjson wss "$wss" '
-    ( [ $wss[] | select(.name == $l) ][0] ) as $ws
-    | if ($ws|type) == "null" then "" else
-        ( $ws.monitor // "" ) as $mname
-        | if $mname != "" then
-            $mname
-          else
-            ( ( $mons[] | select(.id == ($ws.monitorID // -1)) ).name // "" )
-          end
-      end
-  ')"
-  printf '%s' "$out"
+  if is_numeric "$label"; then printf '%s' "$label"; else printf 'name:%s' "$label"; fi
 }
 
 empty_state_json() {
@@ -121,7 +90,7 @@ save_state() {
 # Move by address to a workspace LABEL
 move_addr_to_ws() {
   local addr="$1" label="$2"
-  hyprctl dispatch movetoworkspacesilent "$(ws_token_from_label "$label"),address:$addr" >/dev/null
+  hyprctl dispatch movetoworkspacesilent "$(ws_token_for_client_move "$label"),address:$addr" >/dev/null
 }
 
 # Current client addresses (newline-separated)
@@ -168,7 +137,7 @@ apply_toggle_immediate() {
       | .windows = ( .windows | map(select(.orig_ws != $l)) )
     ' <<<"$state")"
   else
-    # Add label:
+    # Add label
     first_add="$(jq -r '((.selection | length) == 0)' <<<"$state")"
     if [[ "$first_add" == "true" ]]; then
       prev_ws="$(focused_ws_label)"
@@ -177,18 +146,11 @@ apply_toggle_immediate() {
       ' <<<"$state")"
     fi
 
-    # Determine the original monitor for this workspace label once
-    local orig_mon
-    orig_mon="$(ws_monitor_name_from_label "$label")"
-
-    # Move current windows from that label into mix and record, including orig_mon
+    # Move current windows from that label into mix and record
     local moves_to_add
     moves_to_add="$(clients_from_label_as_moves "$label")"
-    if [[ -n "$orig_mon" ]]; then
-      moves_to_add="$(jq -c --arg m "$orig_mon" 'map(. + {orig_mon:$m})' <<<"$moves_to_add")"
-    fi
 
-    hyprctl dispatch workspace "$(ws_token_from_label "$mix_ws")" >/dev/null
+    hyprctl dispatch workspace "$(ws_token_for_client_move "$mix_ws")" >/dev/null
     jq -r '.[].address' <<<"$moves_to_add" | while IFS= read -r addr; do
       [[ -n "$addr" ]] || continue
       move_addr_to_ws "$addr" "$mix_ws"
@@ -219,24 +181,7 @@ case "$cmd" in
     mix_ws="$(jq -r '.mix_ws' <<<"$state")"
     prev_ws="$(jq -r '.prev_ws // ""' <<<"$state")"
 
-    # 1) Reattach each original workspace to its original monitor only if that monitor still exists
-    pairs_tsv="$(jq -r '
-      .windows
-      | map({ws: .orig_ws, mon: (.orig_mon // "")})
-      | unique
-      | map([.ws, .mon] | @tsv)
-      | .[]
-    ' <<<"$state" 2>/dev/null || true)"
-    if [[ -n "${pairs_tsv:-}" ]]; then
-      while IFS=$'\t' read -r ws mon; do
-        [[ -n "$ws" ]] || continue
-        if [[ -n "$mon" ]] && monitor_exists "$mon"; then
-          hyprctl dispatch moveworkspacetomonitor "$(ws_token_from_label "$ws")" "$mon" >/dev/null 2>&1 || true
-        fi
-      done <<< "$pairs_tsv"
-    fi
-
-    # 2) Return each window to its original workspace
+    # Return each window to its original workspace
     if [[ -n "$mix_ws" ]]; then
       live="$(live_addr_set)"
       jq -c '.windows[]' <<<"$state" | while IFS= read -r w; do
@@ -248,10 +193,10 @@ case "$cmd" in
       done
     fi
 
-    # 3) Clear state and refocus the previous workspace
+    # Clear state and refocus the previous workspace
     save_state <<<"$(empty_state_json)"
     if [[ -n "$prev_ws" ]]; then
-      hyprctl dispatch workspace "$(ws_token_from_label "$prev_ws")" >/dev/null
+      hyprctl dispatch workspace "$(ws_token_for_client_move "$prev_ws")" >/dev/null
     fi
     ;;
 
@@ -266,7 +211,7 @@ case "$cmd" in
       save_state <<<"$state"
       mix_ws="$MIX_NAME"
     fi
-    hyprctl dispatch workspace "$(ws_token_from_label "$mix_ws")" >/dev/null
+    hyprctl dispatch workspace "$(ws_token_for_client_move "$mix_ws")" >/dev/null
     ;;
 
   build) # backward-compat: just focus mixed view
