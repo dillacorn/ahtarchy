@@ -27,15 +27,17 @@ Comment[th]=โปรแกรมสำหรับจัดการและ�
 Comment[tr]=Steam üzerinden oyun oynama ve düzenleme uygulaması
 Comment[uk]=Програма для керування іграми та запуску ігор у Steam
 Comment[vi]=Ứng dụng để quản lý và chơi trò chơi trên Steam
-Exec=/bin/sh -c '~/.config/hypr/scripts/splitratio_steam.sh & exec /usr/bin/steam --disable-gpu %U'
+Exec=sh -lc 'pgrep -x steam >/dev/null && exit 0; /usr/bin/steam --disable-gpu "$@" & ALLOW_WAIT=1 "$HOME/.config/hypr/scripts/splitratio_steam.sh" &' _ %U
 Icon=steam
 Terminal=false
 Type=Application
-Categories=Network;FileTransfer;Game;
+Categories=Game;FileTransfer;Game;
 MimeType=x-scheme-handler/steam;x-scheme-handler/steamlink;
 Actions=Store;Community;Library;Servers;Screenshots;News;Settings;BigPicture;Friends;
 # PrefersNonDefaultGPU=true
 # X-KDE-RunOnDiscreteGpu=true
+StartupWMClass=Steam
+X-KDE-Protocols=steam
 
 [Desktop Action Store]
 Name=Store
