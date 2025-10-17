@@ -3,7 +3,9 @@
 # PURPOSE:
 #   - Mix windows from selected Hyprland workspaces into a temporary workspace named by MIX_NAME
 #   - Toggle adds/removes live
-#   - Restore: return windows to their original workspaces, then refocus last workspace
+#   - Restore: return windows to their original workspaces in a stable, recorded order
+#     (tiled first, left-to-right using prior X then Y), then refocus last workspace
+#   - Note: exact tiled geometry cannot be restored; this preserves relative insertion order only
 # DEPS: bash, hyprctl, jq
 
 set -euo pipefail
@@ -96,12 +98,20 @@ move_addr_to_ws() {
 # Current client addresses (newline-separated)
 live_addr_set() { clients_json | jq -r '.[].address' | sort -u; }
 
-# Clients on a given LABEL as [{address, orig_ws}]
+# Clients on a given LABEL as [{address, orig_ws, floating, x, y, w, h}]
 clients_from_label_as_moves() {
   local label="$1"
   clients_json | jq -c --arg l "$label" '
     map(select(.workspace.name == $l and .mapped==true))
-    | map({address, orig_ws: .workspace.name})
+    | map({
+        address,
+        orig_ws: .workspace.name,
+        floating: (.floating // false),
+        x: (.at[0] // 0),
+        y: (.at[1] // 0),
+        w: (.size[0] // 0),
+        h: (.size[1] // 0)
+      })
   '
 }
 
@@ -146,16 +156,18 @@ apply_toggle_immediate() {
       ' <<<"$state")"
     fi
 
-    # Move current windows from that label into mix and record
+    # Record windows with geometry hints to preserve order later
     local moves_to_add
     moves_to_add="$(clients_from_label_as_moves "$label")"
 
+    # Move them into mix
     hyprctl dispatch workspace "$(ws_token_for_client_move "$mix_ws")" >/dev/null
     jq -r '.[].address' <<<"$moves_to_add" | while IFS= read -r addr; do
       [[ -n "$addr" ]] || continue
       move_addr_to_ws "$addr" "$mix_ws"
     done
 
+    # Merge into state
     state="$(jq -c --arg l "$label" --argjson add "$moves_to_add" '
       .selection += [$l]
       | .windows = (.windows + $add | unique_by(.address))
@@ -163,6 +175,37 @@ apply_toggle_immediate() {
   fi
 
   save_state <<<"$state"
+}
+
+# Restore windows for a single workspace in a deterministic order
+restore_ws_ordered() {
+  local ws="$1"
+  local state_json="$2"
+
+  # Focus target workspace to influence tiling insertion points
+  hyprctl dispatch workspace "$(ws_token_for_client_move "$ws")" >/dev/null 2>&1 || true
+
+  local live last=""
+  live="$(live_addr_set || true)"
+
+  # Tiled first (floating=false), then floating=true; sort tiled by old X then Y
+  jq -r --arg ws "$ws" '
+    .windows
+    | map(select(.orig_ws == $ws))
+    | sort_by(.floating, .x, .y)
+    | .[].address
+  ' <<<"$state_json" | while IFS= read -r addr; do
+      [[ -n "$addr" ]] || continue
+      if grep -qx "$addr" <<<"$live"; then
+        # Focus the previously placed one to bias the next split beside it
+        if [[ -n "$last" ]]; then
+          hyprctl dispatch focuswindow "address:$last" >/dev/null 2>&1 || true
+        fi
+        move_addr_to_ws "$addr" "$ws"
+        hyprctl dispatch focuswindow "address:$addr" >/dev/null 2>&1 || true
+        last="$addr"
+      fi
+  done
 }
 
 # ---------- Main ----------
@@ -181,16 +224,12 @@ case "$cmd" in
     mix_ws="$(jq -r '.mix_ws' <<<"$state")"
     prev_ws="$(jq -r '.prev_ws // ""' <<<"$state")"
 
-    # Return each window to its original workspace
     if [[ -n "$mix_ws" ]]; then
-      live="$(live_addr_set)"
-      jq -c '.windows[]' <<<"$state" | while IFS= read -r w; do
-        addr="$(jq -r '.address' <<<"$w")"
-        orig_ws="$(jq -r '.orig_ws' <<<"$w")"
-        if grep -qx "$addr" <<<"$live"; then
-          move_addr_to_ws "$addr" "$orig_ws" || true
-        fi
-      done
+      # Restore per workspace in a stable order
+      while IFS= read -r ws; do
+        [[ -n "$ws" ]] || continue
+        restore_ws_ordered "$ws" "$state"
+      done < <(jq -r '.windows | map(.orig_ws) | unique[]' <<<"$state")
     fi
 
     # Clear state and refocus the previous workspace
@@ -211,7 +250,7 @@ case "$cmd" in
       save_state <<<"$state"
       mix_ws="$MIX_NAME"
     fi
-    hyprctl dispatch workspace "$(ws_token_for_client_move "$mix_ws")" >/dev/null
+    hyprctl dispatch workspace "$(ws_token_for_client_move "$mix_ws")" >/devnull 2>&1 || hyprctl dispatch workspace "$(ws_token_for_client_move "$mix_ws")" >/dev/null
     ;;
 
   build) # backward-compat: just focus mixed view
