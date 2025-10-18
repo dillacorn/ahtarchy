@@ -99,6 +99,7 @@ echo -e "${COLOR_YELLOW}
 - ~/.config/lsfg-vk
 - ~/.config/YouTube Music
 - ~/.config/wiremix
+- ~/.config/cava
 - ~/.Xresources
 - ~/.local/share/nwg-look/gsettings${COLOR_RESET}"
 echo -e "${COLOR_RED}Are you sure you want to continue? This action CANNOT be undone.${COLOR_RESET}"
@@ -197,7 +198,7 @@ done
 # Copy all configuration files
 echo -e "${COLOR_BLUE}Copying configuration files...${COLOR_RESET}"
 config_dirs=("hypr" "waybar" "alacritty" "wlogout" "mako" "wofi"
-    "gtk-3.0" "Kvantum" "SpeedCrunch" "fastfetch" "pcmanfm-qt" "yazi" "xdg-desktop-portal" "qt5ct" "qt6ct" "lsfg-vk" "wiremix" "YouTube Music")
+    "gtk-3.0" "Kvantum" "SpeedCrunch" "fastfetch" "pcmanfm-qt" "yazi" "xdg-desktop-portal" "qt5ct" "qt6ct" "lsfg-vk" "wiremix" "cava" "YouTube Music")
 
 for dir in "${config_dirs[@]}"; do
     retry_command cp -r "$REPO_DIR/config/$dir" "$HOME_DIR/.config/" || exit 1
