@@ -21,7 +21,7 @@ CONF="$HOME/.config/hypr/hyprland.conf"
 # -------- Width (scale-aware, simple tunables) --------
 RIGHT_MARGIN="${WOFI_RIGHT_MARGIN:-120}"
 MIN_WIDTH="${WOFI_MIN_WIDTH:-700}"
-WIDTH_RATIO_DEFAULT="1.00"  # default = use full logical width minus margin
+WIDTH_RATIO_DEFAULT="0.60"  # default = use full logical width minus margin
 
 get_logical_width() {
   local w s L
