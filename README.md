@@ -1,6 +1,6 @@
 # `autarchy-shell`
 
-**Autarchy-Shell** is a self-governed Arch-based environment for users who work directly from the terminal.  
+**autarchy** is a self-governed Arch-based environment for users who work directly from the terminal.
 It **expects TTY login and shell interaction** as the primary workflow and assumes familiarity with the command line and manual configuration.
 
 ---
@@ -138,6 +138,7 @@ sudo ./setup_installer.sh
 
 ## 📦 Optional Packages
 - [Optional Packages link](extra_notes/optional_packages.md)
+
 
 
 
