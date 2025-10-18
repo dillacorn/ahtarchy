@@ -14,8 +14,8 @@
 # Navigate to the autarchy directory:
 #   cd autarchy
 # Make the installer executable and run it:
-#   chmod +x setup_installer.sh
-#   sudo ./setup_installer.sh
+#   chmod +x install.sh
+#   sudo ./install.sh
 # Follow the on-screen instructions.
 
 #################################################
