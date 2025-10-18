@@ -7,12 +7,12 @@
 # --------------------------------
 # Open a terminal and run:
 #   sudo pacman -S git
-#   git clone https://github.com/dillacorn/arch-hypr-dots
+#   git clone https://github.com/dillacorn/autarchy
 
 # Step 2: Run the installer
 # -------------------------
-# Navigate to the arch-hypr-dots directory:
-#   cd arch-hypr-dots
+# Navigate to the autarchy directory:
+#   cd autarchy
 # Make the installer executable and run it:
 #   chmod +x setup_installer.sh
 #   sudo ./setup_installer.sh
@@ -33,7 +33,7 @@ COLOR_RESET="\033[0m"
 
 # Global Variables
 HOME_DIR="/home/$SUDO_USER"
-REPO_DIR="$HOME_DIR/arch-hypr-dots"
+REPO_DIR="$HOME_DIR/autarchy"
 REQUIRED_SPACE_MB=1024
 INSTALL_SCRIPTS=(
     "install_arch_repo_apps.sh"
@@ -146,8 +146,8 @@ retry_command pacman -S --needed --noconfirm git ipcalc dos2unix reflector xcurs
 
 # Clone repository if not exists
 if [ ! -d "$REPO_DIR" ]; then
-    echo -e "${COLOR_BLUE}Cloning arch-hypr-dots repository to ${COLOR_CYAN}${REPO_DIR}${COLOR_RESET}...${COLOR_RESET}"
-    retry_command git clone https://github.com/dillacorn/arch-hypr-dots "$REPO_DIR" || exit 1
+    echo -e "${COLOR_BLUE}Cloning autarchy repository to ${COLOR_CYAN}${REPO_DIR}${COLOR_RESET}...${COLOR_RESET}"
+    retry_command git clone https://github.com/autarchy/autarchy "$REPO_DIR" || exit 1
 fi
 retry_command chown -R "$SUDO_USER:$SUDO_USER" "$REPO_DIR"
 
