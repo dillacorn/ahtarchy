@@ -7,7 +7,7 @@ set -euo pipefail
 
 # --- Config ---
 FIRST_RUN_FLAG="$HOME/.cache/swww_first_run"
-DEFAULT_WALLPAPER="$HOME/Pictures/wallpapers/arch_geology.png"
+DEFAULT_WALLPAPER="$HOME/Pictures/wallpapers/autarchy_geology.png"
 
 mkdir -p "$(dirname "$FIRST_RUN_FLAG")"
 

@@ -242,7 +242,7 @@ command -v flatpak &>/dev/null && flatpak override --user --env=GTK_CURSOR_THEME
 # Wallpaper setup
 create_directory "$HOME_DIR/Pictures/wallpapers"
 create_directory "$HOME_DIR/Pictures/Screenshots"
-retry_command cp "$REPO_DIR/arch_geology.png" "$HOME_DIR/Pictures/wallpapers/"
+retry_command cp "$REPO_DIR/autarchy_geology.png" "$HOME_DIR/Pictures/wallpapers/"
 
 # Final permissions
 find "$HOME_DIR/.config" -type d -exec chmod 755 {} +
