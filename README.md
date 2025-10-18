@@ -20,8 +20,8 @@ pacman -Syyu
 ```bash
 git clone https://github.com/dillacorn/autarchy
 cd autarchy
-chmod +x setup_installer.sh
-sudo ./setup_installer.sh
+chmod +x install.sh
+sudo ./install.sh
 ```
 > ⚠️ Caution: Always review scripts from the internet before running them.
 
