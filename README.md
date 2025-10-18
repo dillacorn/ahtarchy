@@ -17,8 +17,8 @@ pacman -Syyu
 
 ### Installation (after `archinstall`):
 ```bash
-git clone https://github.com/dillacorn/arch-hypr-dots
-cd arch-hypr-dots
+git clone https://github.com/dillacorn/autarchy
+cd autarchy
 chmod +x setup_installer.sh
 sudo ./setup_installer.sh
 ```
@@ -138,4 +138,5 @@ sudo ./setup_installer.sh
 
 ## 📦 Optional Packages
 - [Optional Packages link](extra_notes/optional_packages.md)
+
 
