@@ -7,12 +7,12 @@
 # --------------------------------
 # Open a terminal and run:
 #   sudo pacman -S git
-#   git clone https://github.com/dillacorn/awtarchy
+#   git clone https://github.com/dillacorn/ahtarchy
 
 # Step 2: Run the installer
 # -------------------------
-# Navigate to the awtarchy directory:
-#   cd awtarchy
+# Navigate to the ahtarchy directory:
+#   cd ahtarchy
 # Make the installer executable and run it:
 #   chmod +x install.sh
 #   sudo ./install.sh
@@ -33,7 +33,7 @@ COLOR_RESET="\033[0m"
 
 # Global Variables
 HOME_DIR="/home/$SUDO_USER"
-REPO_DIR="$HOME_DIR/awtarchy"
+REPO_DIR="$HOME_DIR/ahtarchy"
 REQUIRED_SPACE_MB=1024
 INSTALL_SCRIPTS=(
     "install_arch_repo_apps.sh"
