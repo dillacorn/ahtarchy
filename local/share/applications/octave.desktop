@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
 Terminal=false
-Exec=alacritty -e octave
+Exec=sh -c 'command -v octave >/dev/null 2>&1 && alacritty -e octave || hyprctl notify 3 5000 "rgb(ff5555)" "octave is not installed."'
 Name=octave calculator
 Icon=utilities-terminal
