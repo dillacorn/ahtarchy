@@ -1,4 +1,4 @@
-Notes From Repo: https://github.com/dillacorn/ahtarchy
+Notes From Repo: https://github.com/dillacorn/awtarchy
 
 # Enable Parallel Downloads on Arch Linux
 

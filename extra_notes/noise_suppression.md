@@ -1,4 +1,3 @@
-## directions from werman
 ## Directions from Werman
 #### [Werman's README - PipeWire Instructions](https://github.com/werman/noise-suppression-for-voice?tab=readme-ov-file#pipewire)
 
