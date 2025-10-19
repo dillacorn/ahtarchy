@@ -36,7 +36,7 @@ sudo ./install.sh
 | **Terminal**       | [Alacritty](https://github.com/alacritty/alacritty) |
 | **Bootloader**     | [systemd-boot](https://man.archlinux.org/man/systemd-boot.7) |
 | **Window Manager** | [Hyprland](https://github.com/hyprwm/Hyprland) ([config](https://github.com/dillacorn/autarchy/tree/main/config/hypr)) |
-| **Kernel**         | [linux-tkg](https://github.com/Frogging-Family/linux-tkg) with BORE scheduler |
+| **Kernel**         | [linux-tkg](https://github.com/Frogging-Family/linux-tkg) |
 
 ## 🎨 Wallpaper Collections
 - [dharmx/walls](https://github.com/dharmx/walls)
