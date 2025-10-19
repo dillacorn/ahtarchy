@@ -1,5 +1,7 @@
 # `ahtarchy-shell`
 
+pronounced: **ah-tar-chee**
+
 **ahtarchy** is a self-governed Arch-based environment for users who work directly from the terminal.
 
 It **expects TTY login and shell interaction** as the primary workflow and assumes familiarity with the command line and manual configuration.
@@ -139,6 +141,7 @@ sudo ./install.sh
 
 ## 📦 Optional Packages
 - [Optional Packages link](extra_notes/optional_packages.md)
+
 
 
 
