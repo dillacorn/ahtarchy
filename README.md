@@ -1,6 +1,6 @@
-# `awtarchy-shell`
+# `ahtarchy-shell`
 
-**awtarchy** is a self-governed Arch-based environment for users who work directly from the terminal.
+**ahtarchy** is a self-governed Arch-based environment for users who work directly from the terminal.
 
 It **expects TTY login and shell interaction** as the primary workflow and assumes familiarity with the command line and manual configuration.
 
@@ -8,7 +8,7 @@ It **expects TTY login and shell interaction** as the primary workflow and assum
 
 **Click the image below to see more previews!**
 
-[![overview](https://github.com/dillacorn/awtarchy/raw/main/previews/overview.png)](https://github.com/dillacorn/awtarchy/tree/main/previews.md)
+[![overview](https://github.com/dillacorn/ahtarchy/raw/main/previews/overview.png)](https://github.com/dillacorn/ahtarchy/tree/main/previews.md)
 
 ## 🚀 Quick Start
 ℹ️ Note: Before running `archinstall`, update the package database to ensure you're using the latest version:
@@ -18,7 +18,7 @@ pacman -Syyu
 
 ### Installation (after `archinstall`):
 ```bash
-git clone https://github.com/dillacorn/awtarchy
+git clone https://github.com/dillacorn/ahtarchy
 cd awtarchy
 chmod +x install.sh
 sudo ./install.sh
@@ -139,6 +139,7 @@ sudo ./install.sh
 
 ## 📦 Optional Packages
 - [Optional Packages link](extra_notes/optional_packages.md)
+
 
 
 
