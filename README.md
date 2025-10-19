@@ -19,7 +19,7 @@ pacman -Syyu
 ### Installation (after `archinstall`):
 ```bash
 git clone https://github.com/dillacorn/ahtarchy
-cd awtarchy
+cd ahtarchy
 chmod +x install.sh
 sudo ./install.sh
 ```

@@ -1,4 +1,4 @@
-Notes From Repo: https://github.com/dillacorn/arch-hypr-dots
+Notes From Repo: https://github.com/dillacorn/ahtarchy
 
 # Enable Parallel Downloads on Arch Linux
 

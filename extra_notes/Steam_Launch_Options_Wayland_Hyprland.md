@@ -1,4 +1,4 @@
-Notes From Repo: https://github.com/dillacorn/arch-hypr-dots
+Notes From Repo: https://github.com/dillacorn/ahtarchy
 
 ### Tip: Use Glorious Egg Roll if you're having trouble with proton experimental (bleeding edge)
 

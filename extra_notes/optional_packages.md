@@ -1,3 +1,5 @@
+Notes From Repo: https://github.com/dillacorn/ahtarchy
+
 # manual_install.md
 
 ## 🧰 Optional Utilities Collection

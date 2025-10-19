@@ -1,1 +1,1 @@
-![steam_crashing_fix](https://raw.githubusercontent.com/dillacorn/arch-hypr-dots/refs/heads/main/extra_notes/screenshots_for_guides/steam/steam_crashing_fix.png)
+![steam_crashing_fix](https://raw.githubusercontent.com/dillacorn/ahtarchy/refs/heads/main/extra_notes/screenshots_for_guides/steam/steam_crashing_fix.png)

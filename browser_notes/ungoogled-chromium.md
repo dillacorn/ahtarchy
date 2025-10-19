@@ -1,4 +1,4 @@
-notes from repo: https://github.com/dillacorn/arch-hypr-dots
+notes from repo: https://github.com/dillacorn/ahtarchy
 
 # install ungoogled-chromium (pick your poison) 
 ## flathub
