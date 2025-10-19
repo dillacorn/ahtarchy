@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
 Terminal=false
-Exec=alacritty -e cava
+Exec=sh -c 'command -v cava >/dev/null 2>&1 && alacritty -e cava || hyprctl notify 3 5000 "rgb(ff5555)" "Cava is not installed."'
 Name=cava
 Icon=utilities-terminal
