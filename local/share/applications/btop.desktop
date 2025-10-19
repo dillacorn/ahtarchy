@@ -5,7 +5,7 @@ Name=Btop++
 GenericName=System Monitor
 Comment=Resource monitor that shows usage and stats for processor, memory, disks, network and processes
 Icon=utilities-terminal
-Exec=alacritty -e btop
+Exec=Exec=sh -c 'command -v btop >/dev/null 2>&1 && alacritty -e btop || hyprctl notify 3 5000 "rgb(ff5555)" "btop is not installed."'
 Terminal=false
 Categories=System;Monitor;ConsoleOnly;
 Keywords=system;process;task
