@@ -67,9 +67,9 @@ sudo ./install.sh
 | `ALT + SHIFT + Enter`   | Launch terminal (Alacritty)                             |
 | `ALT + SHIFT + b`       | Launch btop in terminal                                 |
 | `ALT + SHIFT + h`       | Launch htop in terminal                                 |
-| `ALT/SUPER + p`         | Launch Wofi (app launcher)                              |
+| `ALT + p`         | Launch Wofi (app launcher)                                    |
 | `SUPER + d`             | Launch Wofi (app launcher)                              |
-| `ALT + SPACE`           | Dismiss notifications (makoctl)                         |
+| `ALT/SUPER + SPACE`           | Dismiss notifications (makoctl)                   |
 | `SUPER + p`             | Launch or kill wlogout                                  |
 | `SUPER + i`             | Launch hyprpicker (color picker)                        |
 | `SUPER + m`             | Toggle audio mute (wpctl)                               |
