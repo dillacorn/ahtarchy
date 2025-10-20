@@ -13,18 +13,31 @@ It **expects TTY login and shell interaction** as the primary workflow and assum
 [![overview](https://github.com/dillacorn/awtarchy/raw/main/previews/overview.png)](https://github.com/dillacorn/awtarchy/tree/main/previews.md)
 
 ## 🚀 Quick Start
-ℹ️ Note: Before running `archinstall`, update the package database to ensure you're using the latest version:
+ℹ️ **Note:** Before running `archinstall`, update the package database to ensure you're using the latest version:
 ```bash
 pacman -Syyu
 ```
 
-### Installation (after `archinstall`):
+Then run:
+```bash
+archinstall
+```
+
+Go through the installer and choose 'minimal' for the desktop environment.
+
+## 📦 Install Git
+```bash
+sudo pacman -S git
+```
+
+## 📦 Installation
 ```bash
 git clone https://github.com/dillacorn/awtarchy
 cd awtarchy
 chmod +x install.sh
 sudo ./install.sh
 ```
+
 > ⚠️ Caution: Always review scripts from the internet before running them.
 
 ## 🖥️ System Overview
@@ -141,6 +154,7 @@ sudo ./install.sh
 
 ## 📦 Optional Packages
 - [Optional Packages link](extra_notes/optional_packages.md)
+
 
 
 
