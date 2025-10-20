@@ -2,16 +2,22 @@
 
 pronounced: **aw-tar-chee**
 
-**awtarchy** is **not a Linux distribution** — it’s an **overlay environment for base Arch Linux**.  
-It builds on a minimal Arch install created with **`archinstall`** (choose *Minimal* profile), then layers the awtarchy environment over it.
+**awtarchy** is not a Linux distribution. It is an overlay environment for base Arch Linux.
 
-This approach keeps installation **flexible, lightweight, and low-maintenance**, relying on Arch’s existing installer and repositories.  
-You can apply awtarchy on top of any clean Arch setup at any stage — fresh or existing — without replacing the base system.
+## Install model
+1. Install Arch with `archinstall` and select the Minimal profile.
+2. Apply the awtarchy overlay on top of that base system.
 
-awtarchy is designed for users who prefer **TTY login and direct shell interaction** as their primary workflow, emphasizing manual configuration and system control.
+## Why this approach
+- Flexible: works over any clean Arch install.
+- Lightweight: no separate ISO or custom repositories required.
+- Low maintenance: relies on Arch’s installer and official repositories.
 
-> **Note:** awtarchy is **not an Omarchy clone**.  
-> All code, scripts, and configurations are **entirely original**, featuring unique functionality and design choices not present in Omarchy or other similar environments.
+## Workflow expectations
+awtarchy targets users who prefer TTY login and direct shell interaction. It assumes comfort with the command line and manual configuration.
+
+> Note on originality  
+> awtarchy is not an Omarchy clone. All code, scripts, and configurations are original and include features not present in Omarchy or similar projects.
 
 ---
 
