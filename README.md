@@ -2,9 +2,16 @@
 
 pronounced: **aw-tar-chee**
 
-**awtarchy** is a self-governed Arch-based environment for users who work directly from the terminal.
+**awtarchy** is **not a Linux distribution** — it’s an **overlay environment for base Arch Linux**.  
+It builds on a minimal Arch install created with **`archinstall`** (choose *Minimal* profile), then layers the awtarchy environment over it.
 
-It **expects TTY login and shell interaction** as the primary workflow and assumes familiarity with the command line and manual configuration.
+This approach keeps installation **flexible, lightweight, and low-maintenance**, relying on Arch’s existing installer and repositories.  
+You can apply awtarchy on top of any clean Arch setup at any stage — fresh or existing — without replacing the base system.
+
+awtarchy is designed for users who prefer **TTY login and direct shell interaction** as their primary workflow, emphasizing manual configuration and system control.
+
+> **Note:** awtarchy is **not an Omarchy clone**.  
+> All code, scripts, and configurations are **entirely original**, featuring unique functionality and design choices not present in Omarchy or other similar environments.
 
 ---
 
