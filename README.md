@@ -32,9 +32,9 @@ Download the latest ISO: [archlinux.org/download](https://archlinux.org/download
 
 I recommend **[Ventoy](https://www.ventoy.net/en/index.html)** for USB booting — it supports multiple ISOs and never needs re-flashing.
 
-ℹ️ **Note:** Before running `archinstall`, update the package database to ensure you're using the latest version:
+ℹ️ **Note:** Update the package database & `archinstall` to ensure you're using the latest version:
 ```bash
-pacman -Syyu
+pacman -Sy && pacman -S archinstall --noconfirm
 ```
 
 Then run:
