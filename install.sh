@@ -147,8 +147,8 @@ retry_command pacman -S --needed --noconfirm git ipcalc dos2unix reflector xcurs
 
 # Clone repository if not exists
 if [ ! -d "$REPO_DIR" ]; then
-    echo -e "${COLOR_BLUE}Cloning autarchy repository to ${COLOR_CYAN}${REPO_DIR}${COLOR_RESET}...${COLOR_RESET}"
-    retry_command git clone https://github.com/autarchy/autarchy "$REPO_DIR" || exit 1
+    echo -e "${COLOR_BLUE}Cloning awtarchy repository to ${COLOR_CYAN}${REPO_DIR}${COLOR_RESET}...${COLOR_RESET}"
+    retry_command git clone https://github.com/awtarchy/awtarchy "$REPO_DIR" || exit 1
 fi
 retry_command chown -R "$SUDO_USER:$SUDO_USER" "$REPO_DIR"
 
@@ -243,7 +243,7 @@ command -v flatpak &>/dev/null && flatpak override --user --env=GTK_CURSOR_THEME
 # Wallpaper setup
 create_directory "$HOME_DIR/Pictures/wallpapers"
 create_directory "$HOME_DIR/Pictures/Screenshots"
-retry_command cp "$REPO_DIR/autarchy_geology.png" "$HOME_DIR/Pictures/wallpapers/"
+retry_command cp "$REPO_DIR/awtarchy_geology.png" "$HOME_DIR/Pictures/wallpapers/"
 
 # Final permissions
 find "$HOME_DIR/.config" -type d -exec chmod 755 {} +
