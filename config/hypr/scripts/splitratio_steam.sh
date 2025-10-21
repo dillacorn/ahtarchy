@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
+# github.com/dillacorn/awtarchy/tree/main/config/hypr/scripts
 # ~/.config/hypr/scripts/splitratio_steam.sh
+
 # Single-run: wait for Steam main + Friends once, ensure Friends is RIGHT, set split, exit.
 # Deps: hyprctl, jq
 set -euo pipefail

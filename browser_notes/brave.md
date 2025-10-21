@@ -1,4 +1,4 @@
-notes from repo: https://github.com/dillacorn/ahtarchy
+notes from repo: https://github.com/dillacorn/awtarchy
 
 # install brave (pick your poison)
 ## flathub

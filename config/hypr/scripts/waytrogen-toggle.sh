@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
+# github.com/dillacorn/awtarchy/tree/main/config/hypr/scripts
 # ~/.config/hypr/scripts/waytrogen-toggle.sh
+
 # Toggle only the FLOATING Waytrogen window. Never kills tiled windows.
 # Logic:
 #   - If a FLOATING Waytrogen is on the current workspace: close just that window.

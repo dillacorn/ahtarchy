@@ -1,14 +1,14 @@
-[Desktop Entry]
+# github.com/dillacorn/awtarchy/tree/main/local/share/applications
+# ~/.local/share/applications/micro.desktop
 
+[Desktop Entry]
 Name=Micro
 GenericName=Text Editor
 Comment=Edit text files in a terminal
-
 Icon=micro
 Type=Application
 Categories=Utility;TextEditor;Development;
 Keywords=text;editor;syntax;terminal;
-
 Exec=alacritty -e micro %F
 StartupNotify=false
 Terminal=false

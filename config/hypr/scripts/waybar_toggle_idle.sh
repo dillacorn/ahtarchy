@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# github.com/dillacorn/awtarchy/tree/main/config/hypr/scripts
+# ~/.config/hypr/scripts/waybar_toggle_idle.sh
+
 set -euo pipefail
 
 STATE_FILE="/tmp/waybar.state"

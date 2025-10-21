@@ -1,4 +1,5 @@
 #!/bin/bash
+# github.com/dillacorn/awtarchy/tree/main/scripts
 # install_alacritty_themes.sh
 
 # Determine if the script is run with sudo

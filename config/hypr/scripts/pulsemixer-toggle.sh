@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
+# github.com/dillacorn/awtarchy/tree/main/config/hypr/scripts
 # ~/.config/hypr/scripts/pulsemixer-toggle.sh
+
 # Toggle Pulsemixer (inside Alacritty) without killing tiled windows.
 
 set -euo pipefail

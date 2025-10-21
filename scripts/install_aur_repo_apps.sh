@@ -1,4 +1,7 @@
 #!/bin/bash
+# github.com/dillacorn/awtarchy/tree/main/scripts
+# install_aur_repo_apps.sh
+
 set -euo pipefail
 
 # Initialize variables for cleanup targets

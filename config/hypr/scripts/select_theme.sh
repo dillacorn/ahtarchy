@@ -1,4 +1,7 @@
 #!/bin/bash
+# github.com/dillacorn/awtarchy/tree/main/config/hypr/scripts
+# ~/.config/hypr/scripts/select_theme.sh
+
 THEME_DIR="$HOME/.config/hypr/themes"
 
 # Find executable files (not directories), get their names only, send list to wofi menu

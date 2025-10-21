@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
+# github.com/dillacorn/awtarchy/tree/main/config/hypr/scripts
 # ~/.config/hypr/scripts/wofi-toggle.sh
+
 # Workspace-aware toggle for wofi:
 # - If wofi is visible on the current workspace, close it.
 # - If wofi is running on another workspace, close it and relaunch here.

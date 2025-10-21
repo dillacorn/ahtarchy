@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# github.com/dillacorn/awtarchy/tree/main/scripts
+# install_flatpak_apps.sh
 
 # Ensure the script is run as root
 if [ "$EUID" -ne 0 ]; then

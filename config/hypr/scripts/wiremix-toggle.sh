@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
+# github.com/dillacorn/awtarchy/tree/main/config/hypr/scripts
 # ~/.config/hypr/scripts/wiremix-toggle.sh
+
 # Toggle Wiremix (inside Alacritty) without killing tiled windows.
 
 set -euo pipefail

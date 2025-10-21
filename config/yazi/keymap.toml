@@ -1,4 +1,6 @@
+# github.com/dillacorn/awtarchy/tree/main/config/yazi
 # ~/.config/yazi/keymap.toml
+
 # Minimal navigation and dragon-drop support.
 
 [mgr]

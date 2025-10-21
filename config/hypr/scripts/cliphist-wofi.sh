@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
+# github.com/dillacorn/awtarchy/tree/main/config/hypr/scripts
 # ~/.config/hypr/scripts/cliphist-wofi.sh
+
 # Wofi + cliphist with image previews, toggle, percent geometry.
 # Line numbers from `cliphist list` are hidden in the visible list, but selection stays intact.
 

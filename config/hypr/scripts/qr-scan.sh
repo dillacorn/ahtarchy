@@ -1,4 +1,6 @@
 #!/bin/bash
+# github.com/dillacorn/awtarchy/tree/main/config/hypr/scripts
+# ~/.config/hypr/scripts/qr-scan.sh
 
 tempfile=$(mktemp --suffix=.png)
 grim -g "$(slurp)" "$tempfile"

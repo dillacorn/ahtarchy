@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
+# github.com/dillacorn/awtarchy/tree/main/config/hypr/scripts
 # ~/.config/hypr/scripts/pavucontrol-toggle.sh
+
 # Toggle pavucontrol without killing tiled windows. Fast, single snapshot.
 
 set -euo pipefail

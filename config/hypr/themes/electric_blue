@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-#
+# github.com/dillacorn/awtarchy/tree/main/config/hypr/themes
+# ~/.config/hypr/themes/electric_blue.sh
+
 # electric blue
 
 set -euo pipefail

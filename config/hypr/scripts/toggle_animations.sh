@@ -1,5 +1,7 @@
-# ~/.config/hypr/scripts/toggle_animations.sh
 #!/usr/bin/env bash
+# github.com/dillacorn/awtarchy/tree/main/config/hypr/scripts
+# ~/.config/hypr/scripts/toggle_animations.sh
+
 set -euo pipefail
 
 # Toggle Hyprland global animations on/off at runtime and send a desktop notification.

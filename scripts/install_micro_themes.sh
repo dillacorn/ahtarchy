@@ -1,4 +1,6 @@
 #!/bin/bash
+# github.com/dillacorn/awtarchy/tree/main/scripts
+# install_micro_themes.sh
 
 # Ensure the script is run with sudo
 if [ -z "$SUDO_USER" ]; then

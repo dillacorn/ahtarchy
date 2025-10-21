@@ -1,4 +1,6 @@
 #!/bin/bash
+# github.com/dillacorn/awtarchy/tree/main/config/hypr/scripts
+# ~/.config/hypr/scripts/rotate_mod.sh
 
 CONFIG="$HOME/.config/hypr/hyprland.conf"
 

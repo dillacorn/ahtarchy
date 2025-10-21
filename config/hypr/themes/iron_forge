@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-#
+# github.com/dillacorn/awtarchy/tree/main/config/hypr/themes
+# ~/.config/hypr/themes/iron_forge.sh
+
 # iron forge
 
 set -euo pipefail

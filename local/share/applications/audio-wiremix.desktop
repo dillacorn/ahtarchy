@@ -1,4 +1,6 @@
+# github.com/dillacorn/awtarchy/tree/main/local/share/applications
 # ~/.local/share/applications/audio-wiremix.desktop
+
 [Desktop Entry]
 Name=Audio Mixer (Wiremix)
 Comment=Launch Wiremix in Alacritty

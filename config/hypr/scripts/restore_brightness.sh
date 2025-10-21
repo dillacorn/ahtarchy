@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# github.com/dillacorn/awtarchy/tree/main/config/hypr/scripts
+# ~/.config/hypr/scripts/restore_brightness.sh
+
 set -euo pipefail
 
 # Optional: pin a display. Use exactly one token, e.g. "--bus=5"

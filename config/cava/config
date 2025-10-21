@@ -1,4 +1,6 @@
+# github.com/dillacorn/awtarchy/tree/main/config/cava
 # ~/.config/cava/config
+
 ## Centered, mirrored “solid” look using bars from the middle (no color changes).
 
 [general]

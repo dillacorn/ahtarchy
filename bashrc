@@ -1,6 +1,5 @@
-#
+# github.com/dillacorn/awtarchy
 # ~/.bashrc - User-specific Bash configuration
-#
 
 # Only run if shell is interactive
 [[ $- != *i* ]] && return

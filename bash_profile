@@ -1,6 +1,5 @@
-#
+# github.com/dillacorn/awtarchy
 # ~/.bash_profile - User login configuration
-#
 
 # Source ~/.bashrc if it exists (common practice to keep shell settings centralized)
 if [[ -f ~/.bashrc ]]; then

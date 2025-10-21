@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# github.com/dillacorn/awtarchy/tree/main/config/hypr/scripts
+# ~/.config/hypr/scripts/screenshot_output.sh
+
 set -euo pipefail
 
 # deps

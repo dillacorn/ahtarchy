@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
+# github.com/dillacorn/awtarchy/tree/main/config/hypr/scripts
 # ~/.config/hypr/scripts/swww-wallpaper.sh
+
 # Start swww-daemon if needed, then restore the LAST wallpaper chosen via Waytrogen.
 # No cache files. No "last_wallpaper". First run uses DEFAULT_WALLPAPER once.
 

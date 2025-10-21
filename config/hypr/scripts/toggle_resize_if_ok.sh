@@ -1,5 +1,7 @@
-# ~/.config/hypr/scripts/toggle_resize_if_ok.sh
 #!/usr/bin/env bash
+# github.com/dillacorn/awtarchy/tree/main/config/hypr/scripts
+# ~/.config/hypr/scripts/toggle_resize_if_ok.sh
+
 set -euo pipefail
 
 SELF="$(readlink -f "$0")"

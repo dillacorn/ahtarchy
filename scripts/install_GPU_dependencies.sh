@@ -1,4 +1,6 @@
 #!/bin/bash
+# github.com/dillacorn/awtarchy/tree/main/scripts
+# install_GPU_dependencies.sh
 
 # Define colors for output
 RED='\033[1;31m'

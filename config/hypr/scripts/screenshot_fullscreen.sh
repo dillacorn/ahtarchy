@@ -1,4 +1,6 @@
 #!/bin/bash
+# github.com/dillacorn/awtarchy/tree/main/config/hypr/scripts
+# ~/.config/hypr/scripts/screenshot_fullscreen.sh
 
 GEOM=$(slurp -o -r -c '#00000000')
 [ -z "$GEOM" ] && exit 1
