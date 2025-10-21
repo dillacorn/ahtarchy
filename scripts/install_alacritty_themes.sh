@@ -1,4 +1,5 @@
 #!/bin/bash
+# install_alacritty_themes.sh
 
 # Determine if the script is run with sudo
 if [ -z "$SUDO_USER" ]; then
@@ -9,12 +10,15 @@ else
     TARGET_DIR="/home/$SUDO_USER/.config/alacritty"
 fi
 
+# Ensure parent directory exists (prevents clone failure if ~/.config/alacritty is missing)
+mkdir -p "$TARGET_DIR"
+
 # Attempt to clone the repo, but prompt the user if the directory already exists
 if [ -d "$TARGET_DIR/themes" ]; then
     echo "The 'themes' directory already exists in $TARGET_DIR. Checking for updates..."
 
     # Navigate to the themes directory
-    cd "$TARGET_DIR/themes" || exit
+    cd "$TARGET_DIR/themes" || exit 1
 
     # Fetch the latest changes from the remote repository
     git fetch origin
@@ -34,7 +38,6 @@ if [ -d "$TARGET_DIR/themes" ]; then
     fi
 else
     # Clone the alacritty-theme repository if it does not exist
-    git clone https://github.com/alacritty/alacritty-theme "$TARGET_DIR/themes"
     if ! git clone https://github.com/alacritty/alacritty-theme "$TARGET_DIR/themes"; then
         echo "Error: Failed to clone the repository. Exiting."
         exit 1
@@ -43,4 +46,4 @@ fi
 
 # Confirm completion
 echo "Finished running install_alacritty_themes.sh. 'themes' directory placed in $TARGET_DIR"
-exit 0  # Explicitly return control
+exit 0
