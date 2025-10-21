@@ -44,7 +44,8 @@ archinstall
 
 Go through the installer and choose 'minimal' for the desktop environment.
 
-## 📦 Install Git (--noconfirm skips install questions)
+## 📦 Install Git
+`--noconfirm` skips install questions
 ```bash
 sudo pacman -S git --noconfirm
 ```
@@ -173,6 +174,7 @@ sudo ./install.sh
 
 ## 📦 Optional Packages
 - [Optional Packages link](extra_notes/optional_packages.md)
+
 
 
 
