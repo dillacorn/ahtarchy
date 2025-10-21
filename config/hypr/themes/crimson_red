@@ -42,7 +42,7 @@ WO_BORDER="2px none #f38ba8"
 WO_BG="#1e1e2e"
 WO_INPUT_COLOR="#f38ba8"
 WO_OUTER_BORDER="0px solid #f38ba8"
-WO_OUTER_BG="#1e1e2e"
+WO_OUTER_BG="#3d1e12"
 WO_TEXT_UNSEL="#f38ba8"
 
 # Mako
