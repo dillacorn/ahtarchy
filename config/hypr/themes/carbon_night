@@ -95,12 +95,12 @@ sed -i \
 
 # 4) Wofi
 sed -i \
-  -e "3s|.*|    border: ${WO_BORDER};|" \
-  -e "5s|.*|    background-color: ${WO_BG};|" \
-  -e "14s|.*|    color: ${WO_INPUT_COLOR};|" \
-  -e "39s|.*|    border: ${WO_OUTER_BORDER};|" \
-  -e "41s|.*|    background-color: ${WO_OUTER_BG};|" \
-  -e "68s|.*|    color: ${WO_TEXT_UNSEL};|" \
+  -e "6s|.*|    border: ${WO_BORDER};|" \
+  -e "8s|.*|    background-color: ${WO_BG};|" \
+  -e "17s|.*|    color: ${WO_INPUT_COLOR};|" \
+  -e "42s|.*|    border: ${WO_OUTER_BORDER};|" \
+  -e "44s|.*|    background-color: ${WO_OUTER_BG};|" \
+  -e "71s|.*|    color: ${WO_TEXT_UNSEL};|" \
   "$WOFI_CSS"
 
 # 5) Mako
