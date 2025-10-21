@@ -1,5 +1,9 @@
 # `awtarchy-shell`
 
+####  See [Release Page](https://github.com/dillacorn/awtarchy/releases/tag/awtarchy-install/latest) for install directions!
+
+---
+
 pronounced: **aw-tar-chee**
 
 **awtarchy** is not a Linux distribution. It is an overlay environment for base Arch Linux.
@@ -24,41 +28,6 @@ awtarchy targets users who prefer TTY login and direct shell interaction. It ass
 **Click the image below to see more previews!**
 
 [![overview](https://github.com/dillacorn/awtarchy/raw/main/previews/overview.png)](https://github.com/dillacorn/awtarchy/tree/main/previews.md)
-
-## 🚀 Quick Start
-
-## **Boot Arch Linux ISO**  
-Download the latest ISO: [archlinux.org/download](https://archlinux.org/download/)
-
-I recommend **[Ventoy](https://www.ventoy.net/en/index.html)** for USB booting — it supports multiple ISOs and never needs re-flashing.
-
-ℹ️ **Note:** Update the package database & `archinstall` to ensure you're using the latest version:
-```bash
-pacman -Sy && pacman -S archinstall --noconfirm
-```
-
-Then run:
-```bash
-archinstall
-```
-
-Go through the installer and choose 'minimal' for the desktop environment.
-
-## 📦 Install Git
-`--noconfirm` skips install questions
-```bash
-sudo pacman -S git --noconfirm
-```
-
-## 📦 Installation
-```bash
-git clone https://github.com/dillacorn/awtarchy
-cd awtarchy
-chmod +x install.sh
-sudo ./install.sh
-```
-
-> ⚠️ Caution: Always review scripts from the internet before running them.
 
 ## 🖥️ System Overview
 
@@ -174,6 +143,7 @@ sudo ./install.sh
 
 ## 📦 Optional Packages
 - [Optional Packages link](extra_notes/optional_packages.md)
+
 
 
 
