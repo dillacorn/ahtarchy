@@ -1,5 +1,8 @@
-# ~/.config/waybar/scripts/cpu_temp.sh
 #!/usr/bin/env bash
+
+# github.com/dillacorn/awtarchy/tree/main/config/waybar/scripts
+# ~/.config/waybar/scripts/cpu_temp.sh
+
 # CPU temp for Waybar custom module with icon on the right side
 # Prints: "<temp>°<icon>"
 

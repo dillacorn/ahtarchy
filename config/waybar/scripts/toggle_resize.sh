@@ -1,5 +1,8 @@
-# ~/.config/waybar/scripts/toggle_resize.sh
 #!/usr/bin/env bash
+
+# github.com/dillacorn/awtarchy/tree/main/config/waybar/scripts
+# ~/.config/waybar/scripts/toggle_resize.sh
+
 set -euo pipefail
 
 SELF="$(readlink -f "$0")"

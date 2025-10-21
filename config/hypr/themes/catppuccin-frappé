@@ -65,22 +65,24 @@ SPEEDCRUNCH_INI="$HOME/.config/SpeedCrunch/SpeedCrunch.ini"
 echo "🔄 Applying theme..."
 
 # 1) Hyprland
-sed -i -e "s/^ *col\.active_border *= *.*/col.active_border = rgba(${NEW_ACTIVE_BORDER})/" \
-       -e "s/^ *col\.inactive_border *= *.*/col.inactive_border = rgba(${NEW_INACTIVE_BORDER})/" "$HYPR_CONF"
+sed -i \
+    -e "s/^ *col\.active_border *= *.*/col.active_border = rgba(${NEW_ACTIVE_BORDER})/"  \
+    -e "s/^ *col\.inactive_border *= *.*/col.inactive_border = rgba(${NEW_INACTIVE_BORDER})/" \
+    "$HYPR_CONF"
 
 # 2) Waybar
 sed -i \
-  -e "2s|.*|@define-color bg-default ${W_BG};|" \
-  -e "3s|.*|@define-color bg-hover ${W_CUSTOM_HOVER_BG};|" \
-  -e "4s|.*|@define-color bg-focus ${W_FOCUS_BG};|" \
-  -e "5s|.*|@define-color bg-active ${W_ACTIVE_BG};|" \
-  -e "6s|.*|@define-color bg-urgent ${W_URGENT_BG};|" \
-  -e "7s|.*|@define-color bg-charging ${W_BATT_CHARGING_BG};|" \
-  -e "8s|.*|@define-color bg-critical ${W_BATT_CRITICAL_BG};|" \
-  -e "9s|.*|@define-color color-default ${W_COLOR};|" \
-  -e "10s|.*|@define-color color-dark ${W_URGENT_COLOR};|" \
-  -e "11s|.*|@define-color color-hover ${W_HOVER};|" \
-  "$WAYBAR_CSS"
+    -e "2s|.*|@define-color bg-default ${W_BG};|" \
+    -e "3s|.*|@define-color bg-hover ${W_CUSTOM_HOVER_BG};|" \
+    -e "4s|.*|@define-color bg-focus ${W_FOCUS_BG};|" \
+    -e "5s|.*|@define-color bg-active ${W_ACTIVE_BG};|" \
+    -e "6s|.*|@define-color bg-urgent ${W_URGENT_BG};|" \
+    -e "7s|.*|@define-color bg-charging ${W_BATT_CHARGING_BG};|" \
+    -e "8s|.*|@define-color bg-critical ${W_BATT_CRITICAL_BG};|" \
+    -e "9s|.*|@define-color color-default ${W_COLOR};|" \
+    -e "10s|.*|@define-color color-dark ${W_URGENT_COLOR};|" \
+    -e "11s|.*|@define-color color-hover ${W_HOVER};|" \
+    "$WAYBAR_CSS"
 
 # 3) Wlogout
 sed -i \
