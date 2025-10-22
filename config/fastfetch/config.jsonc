@@ -7,7 +7,7 @@
 {
     "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
     "logo": {
-        "source": "$HOME/.config/fastfetch/ascii/tty_compatible/$(ls ~/.config/fastfetch/ascii/tty_compatible | shuf -n 1)",
+        "source": "$HOME/.config/fastfetch/ascii/$(ls ~/.config/fastfetch/ascii | shuf -n 1)",
         "padding": {
             "top": 2,
             "right": 6
@@ -25,7 +25,7 @@
         },
         {
             "type": "custom",
-            "format": "\u001b[90m┌─────────────────────Software────────────────────────┐"
+            "format": "\u001b[90m┌──────────────────────Software───────────────────────┐"
         },
         {
             "type": "os",
@@ -55,7 +55,7 @@
         },
         {
             "type": "custom",
-            "format": "\u001b[90m├─────────────────────Hardware────────────────────────┤"
+            "format": "\u001b[90m├──────────────────────Hardware───────────────────────┤"
         },
         {
             "type": "host",
@@ -77,7 +77,7 @@
         },
         {
           "type": "custom",
-          "format": "\u001b[90m├───────────────────Uptime / Age──────────────────────┤"
+          "format": "\u001b[90m├────────────────────Uptime / Age─────────────────────┤"
         },
         {
             "type": "uptime",

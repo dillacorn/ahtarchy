@@ -1,8 +1,8 @@
 //  fastfetch config by dillacorn
-//  www.github.com/dillacorn/ahtarchy
+//  github.com/dillacorn/awtarchy
 
 
-// execute with: fastfetch --colors-block-range-start 9 --colors-block-width 3
+//  execute with: fastfetch --colors-block-range-start 9 --colors-block-width 3
 
 {
     "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
@@ -23,7 +23,10 @@
             "type": "title",
             "keyWidth": 10
         },
-        "break",
+        {
+            "type": "custom",
+            "format": "\u001b[90m┌──────────────────────Software───────────────────────┐"
+        },
         {
             "type": "os",
             "key": " ",
@@ -35,19 +38,10 @@
             "keyColor": "33",
         },
         {
-            "type": "packages",
-            "managers": [
-            	"pacman",
-            	"yay",
-            	"flatpak"
-            ],
-            "key": " ",
+            "type": "command",
+            "key": "󰏖 ",
             "keyColor": "33",
-        },
-        {
-            "type": "shell",
-            "key": " ",
-            "keyColor": "33", 
+            "text": "echo \"$(pacman -Q | wc -l) (pacman), $(echo $(($(flatpak list --system --app 2>/dev/null | wc -l) + $(flatpak list --user --app 2>/dev/null | wc -l)))) (flatpak)\""
         },
         {
             "type": "terminal",
@@ -60,14 +54,43 @@
             "keyColor": "33", 
         },
         {
-            "type": "uptime",
-            "key": " ",
-            "keyColor": "33", 
+            "type": "custom",
+            "format": "\u001b[90m├──────────────────────Hardware───────────────────────┤"
         },
         {
-            "type": "media",
-            "key": " ",
-            "keyColor": "33", 
+            "type": "host",
+            "key": " \u001b[0m PC\u001b[0m",
+        },
+        {
+            "type": "cpu",
+            "key": " ",
+            "showPeCoreCount": true,
+        },
+        {
+            "type": "gpu",
+            "key": " ",
+            "detectionMethod": "pci",
+        },
+        {
+            "type": "display",
+            "key": "󱄄 ",
+        },
+        {
+          "type": "custom",
+          "format": "\u001b[90m├────────────────────Uptime / Age─────────────────────┤"
+        },
+        {
+            "type": "uptime",
+            "key": " ",
+        },
+        {
+            "type": "command",
+            "key": "󱦟 \u001b[0m OS Age:\u001b[0m",
+            "text": "birth_install=$(stat -c %W /); current=$(date +%s); time_progression=$((current - birth_install)); days_difference=$((time_progression / 86400)); echo $days_difference days"
+        },
+        {
+          "type": "custom",
+          "format": "\u001b[90m└─────────────────────────────────────────────────────┘"
         },
         "break",
         "colors",
