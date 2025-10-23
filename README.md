@@ -82,23 +82,25 @@ awtarchy targets users who prefer TTY login and direct shell interaction. It ass
 | `SUPER + c`             | Launch or kill clipboard history (cliphist + wofi)      |
 
 ## 🪟 Window & Workspace Management
-| Keybind                         | Action                                        |
-|---------------------------------|-----------------------------------------------|
-| `ALT/SUPER + SHIFT + q`         | Close focused window                          |
-| `ALT/SUPER + f`                 | Toggle floating window                        |
-| `ALT/SUPER + SHIFT + y`         | Pin focused window                            |
-| `ALT/SUPER + CTRL + f`          | Toggle fullscreen                             |
-| `ALT/SUPER + ←/→/↑/↓`           | Move focus between windows                    |
-| `ALT/SUPER + SHIFT + ←/→/↑/↓`   | Move active window within workspace           |
-| `ALT/SUPER + CTRL + SHIFT + ←/→/↑/↓` | Move active workspace to another monitor |
-| `ALT/SUPER + 1-0`               | Switch to workspace 1–10                      |
-| `ALT/SUPER + SHIFT + 1-0`       | Move window to workspace 1–10                 |
-| `SUPER + equal`                 | Zoom in                                       |
-| `SUPER + minus`                 | Zoom out                                      |
-| `SUPER + backspace`             | Zoom reset                                    |
-| `SUPER + backslash`             | Zoom rigid (toggle)                           |
-| `SUPER + x`                     | Toggle scratchpad workspace (`magic`)         |
-| `SUPER + SHIFT + x`             | Move window to scratchpad (`magic`)           |
+| Keybind                         | Action                                           |
+|---------------------------------|--------------------------------------------------|
+| `ALT/SUPER + SHIFT + q`         | Close focused window                             |
+| `ALT/SUPER + f`                 | Toggle floating window                           |
+| `ALT/SUPER + SHIFT + y`         | Pin focused window                               |
+| `ALT/SUPER + CTRL + f`          | Toggle fullscreen                                |
+| `ALT/SUPER + ←/→/↑/↓`           | Move focus between windows                       |
+| `ALT/SUPER + SHIFT + ←/→/↑/↓`   | Move active window within workspace              |
+| `ALT/SUPER + CTRL + SHIFT + ←/→/↑/↓` | Move active workspace to another monitor    |
+| `ALT/SUPER + 1-0`               | Switch to workspace 1–10                         |
+| `ALT/SUPER + SHIFT + 1-0`       | Move window to workspace 1–10                    |
+| `SUPER + equal`                 | Zoom in                                          |
+| `SUPER + minus`                 | Zoom out                                         |
+| `SUPER + backspace`             | Zoom reset                                       |
+| `SUPER + backslash`             | Zoom rigid (toggle)                              |
+| `ALT/SUPER + SHIFT + V`         | Toggle split orientation (vertical ↔ horizontal) |
+| `ALT/SUPER + CTRL + V`          | Swap positions of split windows                  |
+| `SUPER + x`                     | Toggle scratchpad workspace (`magic`)            |
+| `SUPER + SHIFT + x`             | Move window to scratchpad (`magic`)              |
 
 ## 🎛️ Resize & Move Windows
 | Keybind                      | Action                        |
