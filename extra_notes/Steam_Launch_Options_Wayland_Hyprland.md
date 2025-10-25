@@ -9,7 +9,10 @@ hyprctl keyword monitor "DP-2,1352x1080@240,0x0,1"; gamemoderun %command% -novid
 ```hyprctl keyword monitor "<name>,<resolution>@<refresh_rate>,<position>,<scale>"```
 
 ## The Finals ~ stretched 1352x1080 240hz
-hyprctl keyword monitor "DP-2,1352x1080@240,0x0,1"; gamemoderun %command% -novid +fps_max 0 -high -dx12; hyprctl keyword monitor "DP-2,1920x1080@240,0x0,1"
+```hyprctl keyword monitor "DP-2,1352x1080@240,0x0,1"; gamemoderun %command% -novid +fps_max 0 -high -dx12; hyprctl keyword monitor "DP-2,1920x1080@240,0x0,1"```
+
+### new personal settings example (Zowie 400hz) + added OBS_VKCAPTURE=1 for better video capture performance OBS plugin.
+```hyprctl keyword monitor "DP-1,1352x1080@400,0x0,1"; OBS_VKCAPTURE=1 gamemoderun %command% -novid +fps_max 0 -high -dx12; hyprctl keyword monitor "DP-1,1920x1080@400,0x0,1"```
 
 # [Lossless Scaling](https://store.steampowered.com/app/993090/Lossless_Scaling/)
 # [lsfg-vk for Linux](https://github.com/PancakeTAS/lsfg-vk)
