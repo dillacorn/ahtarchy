@@ -5,7 +5,7 @@
 set -euo pipefail
 
 # deps
-for cmd in grim hyprctl jq notify-send wl-copy; do
+for cmd in grim hyprctl jq notify-send wl-copy makoctl; do
   command -v "$cmd" >/dev/null 2>&1 || { echo "$cmd missing" >&2; exit 1; }
 done
 
@@ -13,6 +13,21 @@ out_dir="$HOME/Pictures/Screenshots"
 file="$out_dir/$(date +%m%d%Y-%I%p-%S).png"
 
 mkdir -p "$out_dir"
+
+# only clear our own prior notification (from this script) if it exists
+cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/awtarchy"
+mkdir -p "$cache_dir"
+nid_file="$cache_dir/screenshot_output.nid"
+: "${MAKO_CLEAR_DELAY:=0.08}"
+
+if [[ -f "$nid_file" ]]; then
+  if read -r old_id < "$nid_file"; then
+    if [[ -n "${old_id:-}" ]]; then
+      makoctl dismiss -n "$old_id" >/dev/null 2>&1 || true
+      sleep "$MAKO_CLEAR_DELAY"
+    fi
+  fi
+fi
 
 # get monitor name from cursor, fallback to focused
 cursor_json="$(hyprctl -j cursors 2>/dev/null || true)"
@@ -31,4 +46,7 @@ fi
 
 grim -o "$mon" "$file" >/dev/null 2>&1
 wl-copy < "$file"
-notify-send "Screenshot saved & copied" "$file"
+
+# send a new notification with a stable app-name and capture its id
+nid="$(notify-send -p --app-name 'awtarchy-screenshot' 'Screenshot saved & copied' "$file" || true)"
+printf '%s\n' "${nid:-}" > "$nid_file" 2>/dev/null || true

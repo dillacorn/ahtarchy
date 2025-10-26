@@ -63,9 +63,9 @@ awtarchy targets users who prefer TTY login and direct shell interaction. It ass
 | `SUPER + w`             | Launch or kill Waytrogen (wallpaper GUI)                |
 | `SUPER + q`             | Scan QR code                                            |
 | `SUPER + b`             | Launch or kill Waybar (bar)                             |
-| `SUPER + SHIFT + s`     | Take cropped screenshot and edit                        |
-| `SUPER + SHIFT + a`     | Take fullscreen screenshot and edit                     |
-| `SUPER + SHIFT + f`     | Take fullscreen screenshot without edit                 |
+| `SUPER + SHIFT + s`     | Screenshot cropped + edit                               |
+| `SUPER + SHIFT + f`     | Screenshot fullscreen + choose display then edit        |
+| `SUPER + SHIFT + d`     | Screenshot fullscreen display - no edit                 |
 | `SUPER + SHIFT + g`     | Record cropped GIF using ffmpeg                         |
 | `ALT/SUPER + SHIFT + c` | Launch SpeedCrunch (calculator)                         |
 | `ALT + SHIFT + Enter`   | Launch terminal (Alacritty)                             |
