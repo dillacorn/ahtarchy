@@ -10,7 +10,8 @@
       "wlr/taskbar",
       "group/ws-arrows",
       "hyprland/scratchpad",
-      "hyprland/submap"
+      "hyprland/submap",
+      "privacy"
     ],
 
     "modules-center": [

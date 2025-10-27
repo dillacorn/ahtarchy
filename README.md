@@ -47,8 +47,6 @@ awtarchy targets users who prefer TTY login and direct shell interaction. It ass
 - [Gruvbox Wallpapers](https://github.com/AngelJumbo/gruvbox-wallpapers)
 - [Aesthetic Wallpapers](https://github.com/D3Ext/aesthetic-wallpapers)
 
----
-
 ## ⚡ Installation Scripts
 - [Arch Repo Apps](scripts/install_arch_repo_apps.sh)
 - [AUR Apps](scripts/install_aur_repo_apps.sh)  
