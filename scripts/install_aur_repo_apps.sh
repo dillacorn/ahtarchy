@@ -4,151 +4,176 @@
 
 set -euo pipefail
 
-# Initialize variables for cleanup targets
-TMP_SUDOERS=""
-YAY_TMP_DIR=""
+# ──────────────────────────────────────────────────────────────────────────────
+# EDIT HERE: AUR packages to install (top-level, easy to modify)
+# ──────────────────────────────────────────────────────────────────────────────
+PACKAGES_AUR=(
+  # Browsers
+  librewolf-bin
 
-cleanup() {
-    echo -e "${CYAN}Cleaning up temporary files...${NC}"
-    # Remove sudoers file if it exists
-    sudo rm -f "/etc/sudoers.d/temp_sudo_nopasswd" 2>/dev/null || true
-    # Remove yay temp directory if it exists
-    [[ -n "$YAY_TMP_DIR" ]] && sudo rm -rf "$YAY_TMP_DIR" 2>/dev/null || true
-    # Remove sudoers temp file if it exists
-    [[ -n "$TMP_SUDOERS" ]] && sudo rm -f "$TMP_SUDOERS" 2>/dev/null || true
-}
-trap cleanup EXIT
+  # Utilities
+  wlogout
+  waytrogen-bin
+  qimgv-git
+)
 
-# Define color codes
+# ──────────────────────────────────────────────────────────────────────────────
+# Color codes
+# ──────────────────────────────────────────────────────────────────────────────
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 CYAN='\033[1;96m'
 NC='\033[0m' # No Color
 
-# Ensure the script is run with sudo
-if [ -z "$SUDO_USER" ]; then
+# ──────────────────────────────────────────────────────────────────────────────
+# Globals for cleanup
+# ──────────────────────────────────────────────────────────────────────────────
+TMP_SUDOERS=""
+YAY_TMP_DIR=""
+
+cleanup() {
+    # Use default-empty expansions to avoid unbound var issues on early exit
+    echo -e "${CYAN-}Cleaning up temporary files...${NC-}"
+    sudo rm -f "/etc/sudoers.d/temp_sudo_nopasswd" 2>/dev/null || true
+    [[ -n "${YAY_TMP_DIR-}" ]]  && sudo rm -rf "${YAY_TMP_DIR}" 2>/dev/null || true
+    [[ -n "${TMP_SUDOERS-}" ]]  && sudo rm -f "${TMP_SUDOERS}" 2>/dev/null || true
+}
+trap cleanup EXIT
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Preconditions
+# ──────────────────────────────────────────────────────────────────────────────
+if [[ -z "${SUDO_USER:-}" ]]; then
     echo "This script must be run with sudo!"
     exit 1
 fi
 
-if [ ! -d "/home/$SUDO_USER" ]; then
+if [[ ! -d "/home/$SUDO_USER" ]]; then
     echo -e "${RED}Error: Home directory for $SUDO_USER not found!${NC}"
     exit 1
 fi
 
-# Create and validate temporary sudoers file
-echo -e "${CYAN}Creating temporary sudo permissions...${NC}"
-TMP_SUDOERS=$(sudo mktemp /tmp/temp_sudoers.XXXXXX) || exit 1
-echo "${SUDO_USER} ALL=(ALL) NOPASSWD: ALL" | sudo tee "$TMP_SUDOERS" > /dev/null
+# ──────────────────────────────────────────────────────────────────────────────
+# Prompt helpers (no timeouts)
+# ──────────────────────────────────────────────────────────────────────────────
+ask_yn() {
+    # returns 0 for yes, 1 for no
+    local ans
+    while true; do
+        read -r -n1 -s -p "$(echo -e "\n${CYAN}$1 [y/n]${NC} ")" ans
+        echo
+        case "$ans" in
+            y|Y) return 0 ;;
+            n|N) return 1 ;;
+            *)   echo -e "${YELLOW}Invalid input. Press y or n.${NC}" ;;
+        esac
+    done
+}
 
-# Validate syntax before installing
-if ! sudo visudo -c -f "$TMP_SUDOERS"; then
+ask_ld() {
+    # sets global IS_LAPTOP=true/false
+    local ans
+    while true; do
+        read -r -n1 -s -p "$(echo -e "\n${CYAN}Is this system a laptop or a desktop? [l/d]${NC} ")" ans
+        echo
+        case "$ans" in
+            l|L) IS_LAPTOP=true;  echo -e "${CYAN}User specified this system is a laptop.${NC}";  return 0 ;;
+            d|D) IS_LAPTOP=false; echo -e "${CYAN}User specified this system is a desktop.${NC}"; return 0 ;;
+            *)   echo -e "${YELLOW}Invalid input. Press l or d.${NC}" ;;
+        esac
+    done
+}
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Temporary NOPASSWD for the invoking user
+# ──────────────────────────────────────────────────────────────────────────────
+echo -e "${CYAN}Creating temporary sudo permissions...${NC}"
+TMP_SUDOERS=$(mktemp /tmp/temp_sudoers.XXXXXX)
+echo "${SUDO_USER} ALL=(ALL) NOPASSWD: ALL" | sudo tee "$TMP_SUDOERS" >/dev/null
+
+if ! sudo visudo -c -f "$TMP_SUDOERS" >/dev/null 2>&1; then
     echo -e "${RED}Error: Generated sudoers file is invalid!${NC}" >&2
     sudo rm -f "$TMP_SUDOERS"
     exit 1
 fi
 
-# Install with proper permissions
 sudo install -m 0440 "$TMP_SUDOERS" /etc/sudoers.d/temp_sudo_nopasswd
 sudo rm -f "$TMP_SUDOERS"
 echo -e "${GREEN}Temporary sudo permissions created successfully.${NC}"
 
-# Check if yay is installed, if not, install it as the normal user
-if ! command -v yay &> /dev/null; then
+# ──────────────────────────────────────────────────────────────────────────────
+# Ensure yay exists (install as the non-root user if missing)
+# ──────────────────────────────────────────────────────────────────────────────
+if ! command -v yay >/dev/null 2>&1; then
     echo -e "${YELLOW}'yay' not found. Installing...${NC}"
-    YAY_TMP_DIR=$(sudo -u "$SUDO_USER" mktemp -d -t yay-XXXXXX) || exit 1
-    sudo -u "$SUDO_USER" bash <<EOF
-        git clone https://aur.archlinux.org/yay.git "$YAY_TMP_DIR"
-        cd "$YAY_TMP_DIR"
+    YAY_TMP_DIR=$(sudo -u "$SUDO_USER" mktemp -d -t yay-XXXXXX)
+    sudo -u "$SUDO_USER" bash -c "
+        set -euo pipefail
+        git clone https://aur.archlinux.org/yay.git '$YAY_TMP_DIR'
+        cd '$YAY_TMP_DIR'
         makepkg -sirc --noconfirm
-        rm -rf "$YAY_TMP_DIR"
-EOF
+        rm -rf '$YAY_TMP_DIR'
+    "
 fi
 
-# Check if the system is running in a virtual machine
+# ──────────────────────────────────────────────────────────────────────────────
+# Detect VM
+# ──────────────────────────────────────────────────────────────────────────────
 IS_VM=false
 if systemd-detect-virt --quiet; then
     IS_VM=true
     echo -e "${CYAN}Running in a virtual machine. Skipping TLPUI installation.${NC}"
 fi
 
-# Prompt for package installation
-read -r -n1 -t 30 -s -p "$(echo -e "\n${CYAN}Install Dillacorn's AUR apps? [y/n]${NC}") " choice || {
-    echo -e "\n${YELLOW}No input. Skipping installations.${NC}"
-    choice="n"
-}
+# ──────────────────────────────────────────────────────────────────────────────
+# Install selected AUR apps
+# ──────────────────────────────────────────────────────────────────────────────
+if ask_yn "Install Dillacorn's AUR apps?"; then
+    echo -e "\n${GREEN}Proceeding with installation of selected AUR applications...${NC}"
 
-if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
-    echo -e "\n${GREEN}Proceeding with installation of Dillacorn's chosen Arch AUR Linux applications...${NC}"
-    
-    # Temporarily become the non-root user to run yay for package installation
-    sudo -u "$SUDO_USER" bash <<EOF
-        # Update system and AUR packages
-        yay -Syu --noconfirm
+    # Full system + AUR sync
+    sudo -u "$SUDO_USER" yay -Syu --noconfirm
 
-        # Function to install a package and clean up its build directory
-        install_package() {
-            local package="\$1"
-            if yay -Qi "\$package" > /dev/null; then
-                echo -e "${YELLOW}\$package is already installed. Skipping...${NC}"
-            else
-                echo -e "${CYAN}Installing \$package...${NC}"
-                yay -S --needed --noconfirm "\$package"
-                echo -e "${GREEN}\$package installed successfully!${NC}"
-            fi
-            # Clean up the build directory for this package
-            rm -rf "/home/$SUDO_USER/.cache/yay/\$package"
-        }
+    # Install loop runs as the invoking user
+    for pkg in "${PACKAGES_AUR[@]}"; do
+        if sudo -u "$SUDO_USER" yay -Qi "$pkg" >/dev/null 2>&1; then
+            echo -e "${YELLOW}$pkg is already installed. Skipping...${NC}"
+        else
+            echo -e "${CYAN}Installing $pkg...${NC}"
+            sudo -u "$SUDO_USER" yay -S --needed --noconfirm "$pkg"
+            echo -e "${GREEN}$pkg installed successfully!${NC}"
+        fi
+        # Clean build dir for the package
+        sudo -u "$SUDO_USER" rm -rf "/home/$SUDO_USER/.cache/yay/$pkg" || true
+    done
 
-        # List of AUR packages to install with cleanup
-        packages=(
-            librewolf-bin
-            wlogout
-            waytrogen-bin
-            qimgv-git
-        )
-
-        # Install each package and clean up afterward
-        for package in "\${packages[@]}"; do
-            install_package "\$package"
-        done
-
-        # Clean the package cache to free up space
-        yay -Sc --noconfirm
-EOF
+    # Clean the package cache to free up space
+    sudo -u "$SUDO_USER" yay -Sc --noconfirm
 
     echo -e "\n${GREEN}Installation complete and disk space optimized!${NC}"
-
 else
-    echo -e "\n${YELLOW}Skipping installation of Dillacorn's chosen Arch AUR Linux applications.${NC}"
+    echo -e "\n${YELLOW}Skipping installation of selected AUR applications.${NC}"
     exit 0
 fi
 
-# Prompt user to specify if the system is a laptop or a desktop
-echo -e "\n${CYAN}Is this system a laptop or a desktop? [l/d]${NC}"
-read -r -n1 -s system_type
-echo
+# ──────────────────────────────────────────────────────────────────────────────
+# Laptop/desktop prompt and optional tlpui
+# ──────────────────────────────────────────────────────────────────────────────
+ask_ld
 
-if [[ "$system_type" == "l" || "$system_type" == "L" ]]; then
-    IS_LAPTOP=true
-    echo -e "${CYAN}User specified this system is a laptop.${NC}"
-else
-    IS_LAPTOP=false
-    echo -e "${CYAN}User specified this system is a desktop.${NC}"
-fi
-
-# Conditionally install tlpui if on a laptop and not in a VM
-if [ "$IS_LAPTOP" = true ] && [ "$IS_VM" = false ]; then
+if [[ "$IS_LAPTOP" = true && "$IS_VM" = false ]]; then
     echo -e "${CYAN}Installing tlpui for laptop power management...${NC}"
     sudo -u "$SUDO_USER" yay -S --needed --noconfirm tlpui
     echo -e "${GREEN}TLPUI installed successfully.${NC}"
 fi
 
-# Check if Moonlight is installed via yay (from AUR)
-if yay -Qs moonlight-qt-bin > /dev/null; then
+# ──────────────────────────────────────────────────────────────────────────────
+# Optional: Moonlight firewall rules if moonlight-qt-bin is installed
+# ──────────────────────────────────────────────────────────────────────────────
+if sudo -u "$SUDO_USER" yay -Qs moonlight-qt-bin >/dev/null 2>&1; then
     echo -e "${CYAN}Moonlight detected! Configuring firewall rules for Moonlight...${NC}"
-    if command -v ufw &> /dev/null; then
+    if command -v ufw >/dev/null 2>&1; then
         sudo ufw allow 48010/tcp
         sudo ufw allow 48000/udp
         sudo ufw allow 48010/udp
@@ -158,5 +183,4 @@ if yay -Qs moonlight-qt-bin > /dev/null; then
     fi
 fi
 
-# Print success message after installation
-echo -e "\n${GREEN}Successfully installed all of Dillacorn's Arch Linux AUR chosen applications!${NC}"
+echo -e "\n${GREEN}Successfully installed all selected AUR applications!${NC}"
