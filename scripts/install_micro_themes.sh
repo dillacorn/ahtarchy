@@ -1,86 +1,122 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # github.com/dillacorn/awtarchy/tree/main/scripts
 # install_micro_themes.sh
+# Purpose: Install Micro editor themes and force-write a valid settings.json on first run.
 
-# Ensure the script is run with sudo
-if [ -z "$SUDO_USER" ]; then
-    echo "This script must be run with sudo!"
-    exit 1
+set -euo pipefail
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Preconditions
+# ──────────────────────────────────────────────────────────────────────────────
+if [[ -z "${SUDO_USER:-}" ]]; then
+  echo "Run with sudo so files are owned by the target user."
+  exit 1
 fi
 
-# Define variables
+if ! command -v git >/dev/null 2>&1; then
+  echo "git is required."
+  exit 1
+fi
+
+# Optional but used for verification if present
+HAVE_JQ=0
+command -v jq >/dev/null 2>&1 && HAVE_JQ=1
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Constants
+# ──────────────────────────────────────────────────────────────────────────────
 REPO_URL1="https://github.com/catppuccin/micro"
 REPO_URL2="https://github.com/zyedidia/micro"
-TEMP_DIR1=$(mktemp -d)
-TEMP_DIR2=$(mktemp -d)
-USER_HOME="/home/$SUDO_USER"
-DEST_DIR="$USER_HOME/.config/micro/colorschemes"
+TARGET_COLORSCHEME="material-tc"   # must match a *.micro file name (without extension)
 
-# Function to check and update a repository
-check_and_update_repo() {
-    local repo_url=$1
-    local temp_dir=$2
+TARGET_USER="${SUDO_USER}"
+TARGET_HOME="/home/${TARGET_USER}"
 
-    echo "Checking repository $repo_url for updates..."
+# Detect Flatpak Micro; if present, use its sandboxed config path.
+if sudo -u "${TARGET_USER}" bash -lc 'flatpak info io.github.zyedidia.micro >/dev/null 2>&1'; then
+  CONFIG_ROOT="${TARGET_HOME}/.var/app/io.github.zyedidia.micro/config"  # Flatpak location
+else
+  CONFIG_ROOT="${TARGET_HOME}/.config"
+fi
 
-    git clone "$repo_url" "$temp_dir" &>/dev/null || {
-        echo "❌ Failed to clone $repo_url"
-        exit 1
-    }
+MICRO_DIR="${CONFIG_ROOT}/micro"
+COLOR_DIR="${MICRO_DIR}/colorschemes"
+SETTINGS_JSON="${MICRO_DIR}/settings.json"
 
-    cd "$temp_dir" || exit
+# ──────────────────────────────────────────────────────────────────────────────
+# Temp dirs and cleanup
+# ──────────────────────────────────────────────────────────────────────────────
+TMP1="$(mktemp -d)"
+TMP2="$(mktemp -d)"
+cleanup() { rm -rf "${TMP1}" "${TMP2}"; }
+trap cleanup EXIT
 
-    DEFAULT_BRANCH=$(git remote show origin | awk '/HEAD branch/ {print $NF}')
-    git fetch origin "$DEFAULT_BRANCH" &>/dev/null
-    REMOTE_COMMIT=$(git rev-parse "origin/$DEFAULT_BRANCH")
-    LOCAL_COMMIT=$(git rev-parse HEAD)
+umask 022
 
-    if [ "$LOCAL_COMMIT" != "$REMOTE_COMMIT" ]; then
-        echo "📥 New updates found for $repo_url. Pulling latest changes..."
-        git reset --hard "origin/$DEFAULT_BRANCH"
-    else
-        echo "✅ $repo_url is already up-to-date."
-    fi
-}
+# ──────────────────────────────────────────────────────────────────────────────
+# Clone sources fresh every run
+# ──────────────────────────────────────────────────────────────────────────────
+echo "Cloning theme sources…"
+git clone --depth=1 "${REPO_URL1}" "${TMP1}" >/dev/null
+git clone --depth=1 "${REPO_URL2}" "${TMP2}" >/dev/null
 
-# Check and update both repositories
-check_and_update_repo "$REPO_URL1" "$TEMP_DIR1"
-check_and_update_repo "$REPO_URL2" "$TEMP_DIR2"
+# ──────────────────────────────────────────────────────────────────────────────
+# Prepare destination and copy themes
+# ──────────────────────────────────────────────────────────────────────────────
+install -d -m 0755 "${COLOR_DIR}"
 
-# Create destination directory if it doesn't exist
-mkdir -p "$DEST_DIR"
+# Catppuccin themes layout: repo/themes/*.micro
+if compgen -G "${TMP1}/themes/*.micro" >/dev/null; then
+  cp -f "${TMP1}/themes/"*.micro "${COLOR_DIR}/"
+fi
 
-# Copy themes from repositories
-cp -r "$TEMP_DIR1/themes/." "$DEST_DIR" || {
-    echo "❌ Failed to copy files from $REPO_URL1"
-    exit 1
-}
-cp -r "$TEMP_DIR2/runtime/colorschemes/." "$DEST_DIR" || {
-    echo "❌ Failed to copy files from $REPO_URL2"
-    exit 1
-}
+# Micro runtime themes layout: repo/runtime/colorschemes/*.micro
+if compgen -G "${TMP2}/runtime/colorschemes/*.micro" >/dev/null; then
+  cp -f "${TMP2}/runtime/colorschemes/"*.micro "${COLOR_DIR}/"
+fi
 
-# Clean up temporary directories
-rm -rf "$TEMP_DIR1" "$TEMP_DIR2"
+# Ensure ownership
+chown -R "${TARGET_USER}:${TARGET_USER}" "${CONFIG_ROOT}"
 
-# Run micro as the user to initialize config files
-sudo -u "$SUDO_USER" micro &
-
-# Capture PID and wait
-MICRO_PID=$!
-sleep 1
-kill "$MICRO_PID" 2>/dev/null || true
-
-echo "✅ micro was launched and terminated to initialize config."
-
-# Overwrite settings.json
-sudo -u "$SUDO_USER" tee "$USER_HOME/.config/micro/settings.json" >/dev/null <<EOL
+# ──────────────────────────────────────────────────────────────────────────────
+# Force-write settings.json deterministically
+# Micro does not create settings.json by itself unless you change a setting.
+# We write it now so first run is correct.
+# ──────────────────────────────────────────────────────────────────────────────
+install -d -m 0755 "${MICRO_DIR}"
+cat > "${SETTINGS_JSON}.tmp" <<JSON
 {
-   "colorscheme": "material-tc"
+  "colorscheme": "${TARGET_COLORSCHEME}"
 }
-EOL
+JSON
 
-# Fix ownership of entire .config/micro directory
-chown -R "$SUDO_USER:$SUDO_USER" "$USER_HOME/.config/micro"
+# Basic sanity check on JSON if jq exists
+if [[ "${HAVE_JQ}" -eq 1 ]]; then
+  jq -e . "${SETTINGS_JSON}.tmp" >/dev/null
+fi
 
-echo "🎨 Themes installed successfully and micro configured!"
+mv -f "${SETTINGS_JSON}.tmp" "${SETTINGS_JSON}"
+chown "${TARGET_USER}:${TARGET_USER}" "${SETTINGS_JSON}"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Post-verify: settings.json exists and color file present
+# ──────────────────────────────────────────────────────────────────────────────
+if [[ ! -f "${SETTINGS_JSON}" ]]; then
+  echo "Failed to create ${SETTINGS_JSON}"
+  exit 1
+fi
+
+if [[ ! -f "${COLOR_DIR}/${TARGET_COLORSCHEME}.micro" ]]; then
+  echo "Warning: ${TARGET_COLORSCHEME}.micro not found in ${COLOR_DIR}"
+  echo "Available schemes:"
+  # SC2012 fix: use find instead of ls to handle arbitrary filenames
+  avail="$(find "${COLOR_DIR}" -maxdepth 1 -type f -name '*.micro' -printf '  - %f\n' | sed 's/\.micro$//')"
+  if [[ -n "${avail}" ]]; then
+    printf '%s\n' "${avail}"
+  else
+    echo "  - none"
+  fi
+fi
+
+echo "Themes installed into: ${COLOR_DIR}"
+echo "settings.json written: ${SETTINGS_JSON}"
