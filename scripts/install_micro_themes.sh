@@ -31,12 +31,13 @@ TARGET_COLORSCHEME="material-tc"   # must match a *.micro file name (without ext
 
 TARGET_USER="${SUDO_USER}"
 TARGET_HOME="/home/${TARGET_USER}"
+FLATPAK_CONFIG_ROOT="${TARGET_HOME}/.var/app/io.github.zyedidia.micro/config"
 
-# Detect Flatpak Micro; if present, use its sandboxed config path.
-if sudo -u "${TARGET_USER}" bash -lc 'flatpak info io.github.zyedidia.micro >/dev/null 2>&1'; then
-  CONFIG_ROOT="${TARGET_HOME}/.var/app/io.github.zyedidia.micro/config"  # Flatpak location
+# Detect Flatpak Micro without spawning a login shell that triggers dotfiles
+if sudo -u "${TARGET_USER}" flatpak info --user io.github.zyedidia.micro >/dev/null 2>&1 || [[ -d "${FLATPAK_CONFIG_ROOT}" ]]; then
+  CONFIG_ROOT="${FLATPAK_CONFIG_ROOT}"  # Flatpak location
 else
-  CONFIG_ROOT="${TARGET_HOME}/.config"
+  CONFIG_ROOT="${TARGET_HOME}/.config"  # Native location
 fi
 
 MICRO_DIR="${CONFIG_ROOT}/micro"
@@ -109,7 +110,7 @@ fi
 if [[ ! -f "${COLOR_DIR}/${TARGET_COLORSCHEME}.micro" ]]; then
   echo "Warning: ${TARGET_COLORSCHEME}.micro not found in ${COLOR_DIR}"
   echo "Available schemes:"
-  # SC2012 fix: use find instead of ls to handle arbitrary filenames
+  # Use find instead of ls to handle arbitrary filenames (SC2012)
   avail="$(find "${COLOR_DIR}" -maxdepth 1 -type f -name '*.micro' -printf '  - %f\n' | sed 's/\.micro$//')"
   if [[ -n "${avail}" ]]; then
     printf '%s\n' "${avail}"
