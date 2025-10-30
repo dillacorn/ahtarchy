@@ -1,0 +1,11 @@
+# github.com/dillacorn/awtarchy/tree/main/local/share/applications
+# ~/.local/share/applications/vm_submap.desktop
+
+[Desktop Entry]
+Type=Application
+Name=vm mode submap (no binds)
+TryExec=/bin/sh
+Exec=sh -c 'notify-send -a Hyprland -t 1000 "vm submap: ON"; hyprctl dispatch submap vm'
+Icon=utilities-terminal
+Terminal=false
+Categories=Utility;

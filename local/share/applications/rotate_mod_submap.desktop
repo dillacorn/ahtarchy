@@ -1,10 +1,11 @@
 # github.com/dillacorn/awtarchy/tree/main/local/share/applications
-# ~/.local/share/applications/rotate_mod.desktop
+# ~/.local/share/applications/rotate_mod_submap.desktop
 
 [Desktop Entry]
 Type=Application
 Name=rotate (alt super mod)
-Exec=bash -c "$HOME/.config/hypr/scripts/rotate_mod.sh"
+TryExec=/bin/sh
+Exec=sh -c 'notify-send -a Hyprland -t 1000 "vm submap: ON"; hyprctl dispatch submap  '
 Icon=utilities-terminal
 Terminal=false
 Categories=Utility;
