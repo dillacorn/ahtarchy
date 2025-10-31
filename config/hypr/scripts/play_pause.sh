@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # github.com/dillacorn/awtarchy/tree/main/config/hypr/scripts
 # ~/.config/hypr/scripts/play_pause.sh
-
+# 
 # Priority: Spotify → YouTube Music (Electron via PID→chromium.instance<PID> or metadata) → anything else.
 # Deps: playerctl, timeout. Optional: hyprctl, jq.
 

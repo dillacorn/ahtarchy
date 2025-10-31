@@ -27,6 +27,8 @@ awtarchy targets users who prefer TTY login and direct shell interaction. It ass
 
 **Click the image below to see more previews!**
 
+- Note to viewer: previews are out of date.. waybar and fastfetch have changed/improved.
+
 [![overview](https://github.com/dillacorn/awtarchy/raw/main/previews/overview.png)](https://github.com/dillacorn/awtarchy/tree/main/previews.md)
 
 ## 🖥️ System Overview
@@ -47,7 +49,7 @@ awtarchy targets users who prefer TTY login and direct shell interaction. It ass
 - [Gruvbox Wallpapers](https://github.com/AngelJumbo/gruvbox-wallpapers)
 - [Aesthetic Wallpapers](https://github.com/D3Ext/aesthetic-wallpapers)
 
-## ⚡ Installation Scripts
+## ⚡ Application Install Scripts
 - [Arch Repo Apps](scripts/install_arch_repo_apps.sh)
 - [AUR Apps](scripts/install_aur_repo_apps.sh)  
 - [Flatpak Apps](scripts/install_flatpak_apps.sh)
@@ -55,9 +57,9 @@ awtarchy targets users who prefer TTY login and direct shell interaction. It ass
 > ℹ️ Modify scripts to suit your preferences
 
 ## 🌐 Browser Notes
+- [Firefox Privacy Forks](browser_notes/firefox_privacy_focused_forks.md)
 - [Brave](browser_notes/brave.md)
 - [Ungoogled-Chromium](browser_notes/ungoogled-chromium.md)
-- [Firefox Privacy Forks](browser_notes/firefox_privacy_focused_forks.md)
 - [Cromite](browser_notes/cromite.md)
 
 ## 📦 Optional Packages

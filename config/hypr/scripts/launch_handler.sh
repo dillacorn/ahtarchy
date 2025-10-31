@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
+# github.com/dillacorn/awtarchy/tree/main/config/hypr/scripts
 # ~/.config/hypr/scripts/launch_handler.sh
+#
 # Ultra-light Hyprland toggle for FLOATING utility windows (no tiles touched).
 # - If a matching floating client exists on the focused workspace: close one (the most recent).
 # - Else if a matching floating client exists on another workspace: close all remote, then launch here.

@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # github.com/dillacorn/awtarchy/tree/main/config/hypr/scripts
 # ~/.config/hypr/scripts/sunshine-moonlight-fix.sh
-
+# 
 # Moves Steam Big Picture to workspace 1 on Sunshine connect.
 # Works with native Steam or Flatpak Steam. Hyprland + jq required.
-
+# 
 # REQUIREMENT
 # add to your "Do Command" in sunshine web-ui: (without the #)
 # /usr/bin/env bash -lc "$HOME/.config/hypr/scripts/sunshine-moonlight-fix.sh"

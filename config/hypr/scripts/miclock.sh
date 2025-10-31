@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # github.com/dillacorn/awtarchy/tree/main/config/hypr/scripts
 # ~/.config/hypr/scripts/miclock.sh
-
+# 
 # Keep ONLY the default microphone at 100%. Event-driven. No polling.
 
 set -Eeuo pipefail

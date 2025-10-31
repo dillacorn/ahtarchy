@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # github.com/dillacorn/awtarchy/tree/main/config/hypr/scripts
 # ~/.config/hypr/scripts/waytrogen-applies_only_once.sh
-
+# 
 # Write Waytrogen prefs ONCE. Does NOT pick/apply a wallpaper. Never touches swww.
 # Optionally require Waytrogen to be installed.
 

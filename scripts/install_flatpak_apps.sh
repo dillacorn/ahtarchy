@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # github.com/dillacorn/awtarchy/tree/main/scripts
 # install_flatpak_apps.sh
-# Arch-only. Run as root. Installs Flatpak and a curated set of apps with sane defaults.
 
 set -Eeuo pipefail
 
