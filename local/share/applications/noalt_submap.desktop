@@ -1,0 +1,11 @@
+# github.com/dillacorn/awtarchy/tree/main/local/share/applications
+# ~/.local/share/applications/noalt_submap.desktop
+
+[Desktop Entry]
+Type=Application
+Name=noalt submap (disable alt navigation)
+TryExec=/bin/sh
+Exec=sh -c 'notify-send -a Hyprland -t 1000 "noalt mode: on"; hyprctl dispatch submap noalt'
+Icon=utilities-terminal
+Terminal=false
+Categories=Utility;
