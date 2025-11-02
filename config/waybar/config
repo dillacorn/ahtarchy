@@ -52,9 +52,9 @@
     "custom/ws-hub": {
       "format": "",
       "tooltip": true,
-      "tooltip-format": "Toggle resize submap",
-      "on-click": "bash -lc 's=$(hyprctl submap 2>/dev/null | tr -d \"\\r\"); if echo \"$s\" | grep -q resize; then hyprctl dispatch submap reset; else hyprctl dispatch submap resize; fi; pkill -RTMIN+12 waybar 2>/dev/null || true'",
-      "on-click-right": "bash -lc 's=$(hyprctl submap 2>/dev/null | tr -d \"\\r\"); if echo \"$s\" | grep -q resize; then hyprctl dispatch submap reset; else hyprctl dispatch submap resize; fi; pkill -RTMIN+12 waybar 2>/dev/null || true'"
+      "tooltip-format": "Toggle mouse submap",
+      "on-click": "bash -lc 's=$(hyprctl submap 2>/dev/null | tr -d \"\\r\"); if echo \"$s\" | grep -q mouse; then hyprctl dispatch submap reset; else hyprctl dispatch submap mouse; fi; pkill -RTMIN+12 waybar 2>/dev/null || true'",
+      "on-click-right": "bash -lc 's=$(hyprctl submap 2>/dev/null | tr -d \"\\r\"); if echo \"$s\" | grep -q resize; then hyprctl dispatch submap reset; else hyprctl dispatch submap mouse; fi; pkill -RTMIN+12 waybar 2>/dev/null || true'"
     },
     "custom/ws-left": {
       "format": "←",

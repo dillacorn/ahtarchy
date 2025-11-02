@@ -63,6 +63,9 @@ window#waybar.empty #window { background-color: transparent; }
   background: @bg-default;
   color: @color-default;
 }
+#custom-clipboard:hover {
+  background: @bg-hover; 
+}
 
 /* Power: avoid clipping of power glyph on the right */
 #custom-power {
