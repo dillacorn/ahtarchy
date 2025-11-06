@@ -36,3 +36,4 @@ x-scheme-handler/file=pcmanfm-qt.desktop;
 video/x-matroska=mpv.desktop;
 image/heif=org.gnome.gThumb.desktop;qimgv.desktop;
 text/x-csrc=micro.desktop;
+application/x-spss-sav=micro.desktop;
