@@ -8,9 +8,6 @@ set -euo pipefail
 # EDIT HERE: AUR packages to install (top-level, easy to modify)
 # ──────────────────────────────────────────────────────────────────────────────
 PACKAGES_AUR=(
-  # Browsers
-  librewolf-bin
-
   # Utilities
   wlogout
   waytrogen-bin

@@ -1,0 +1,11 @@
+# github.com/dillacorn/awtarchy/tree/main/local/share/applications
+# ~/.local/share/applications/firefox-flathub-web.desktop
+
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Flathub (Firefox)
+Exec=/usr/bin/firefox https://flathub.org/
+Icon=firefox
+Terminal=false
+Categories=Network;WebBrowser;

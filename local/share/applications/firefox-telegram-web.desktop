@@ -1,0 +1,16 @@
+# github.com/dillacorn/awtarchy/tree/main/local/share/applications
+# ~/.local/share/applications/telegram-firefox.desktop
+
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Telegram Web (Firefox)
+Comment=Telegram Web in a dedicated Firefox profile, auto-created if missing
+Exec=sh -lc 'PROFILE="$HOME/.mozilla/firefox/telegram-profile"; [ -d "$PROFILE" ] || /usr/bin/firefox -CreateProfile "telegram $PROFILE"; exec env MOZ_ENABLE_WAYLAND=1 MOZ_USE_XINPUT2=1 /usr/bin/firefox --class=telegram --name=Telegram --profile "$PROFILE" --new-window https://web.telegram.org/a/'
+Icon=firefox
+Terminal=false
+Categories=Network;InstantMessaging;
+StartupWMClass=telegram
+StartupNotify=true
+SingleMainWindow=true
+

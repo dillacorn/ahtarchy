@@ -1,11 +1,11 @@
 # github.com/dillacorn/awtarchy/tree/main/local/share/applications
-# ~/.local/share/applications/librewolf-flathub-web.desktop
+# ~/.local/share/applications/firefox-AUR-packages.desktop
 
 [Desktop Entry]
 Version=1.0
 Type=Application
-Name=Flathub (Librewolf)
-Exec=/usr/bin/librewolf https://flathub.org/
-Icon=librewolf
+Name=AUR (Firefox)
+Exec=/usr/bin/firefox https://aur.archlinux.org/packages
+Icon=firefox
 Terminal=false
 Categories=Network;WebBrowser;

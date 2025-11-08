@@ -1,11 +1,11 @@
 # github.com/dillacorn/awtarchy/tree/main/local/share/applications
-# ~/.local/share/applications/librewolf-AUR-packages.desktop
+# ~/.local/share/applications/firefox-archlinux-packages.desktop
 
 [Desktop Entry]
 Version=1.0
 Type=Application
-Name=AUR (Librewolf)
-Exec=/usr/bin/librewolf https://aur.archlinux.org/packages
-Icon=librewolf
+Name=Arch Repo (Firefox)
+Exec=/usr/bin/firefox https://archlinux.org/packages/
+Icon=firefox
 Terminal=false
 Categories=Network;WebBrowser;
