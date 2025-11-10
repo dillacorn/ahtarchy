@@ -1,14 +1,17 @@
 [
   {
+    "position": "top",
+    // "position": "top",
+
     "height": 28,
-    "spacing": 4,
+    "spacing": 0,
     "reload_style_on_change": true,
 
     "modules-left": [
       "custom/apps",
       "hyprland/workspaces",
-      "wlr/taskbar",
       "group/ws-arrows",
+      "wlr/taskbar",
       "hyprland/scratchpad",
       "hyprland/submap",
       "privacy"
@@ -26,8 +29,7 @@
       "backlight",
       "battery",
       "wireplumber",
-      "clock#time",
-      "clock#date",
+      "custom/clock-toggle",
       "tray",
       "custom/clipboard",
       "custom/power"
@@ -50,12 +52,13 @@
     },
 
     "custom/ws-hub": {
-      "format": "",
+      "format": "",
       "tooltip": true,
       "tooltip-format": "Toggle mouse submap",
       "on-click": "bash -lc 's=$(hyprctl submap 2>/dev/null | tr -d \"\\r\"); if echo \"$s\" | grep -q mouse; then hyprctl dispatch submap reset; else hyprctl dispatch submap mouse; fi; pkill -RTMIN+12 waybar 2>/dev/null || true'",
       "on-click-right": "bash -lc 's=$(hyprctl submap 2>/dev/null | tr -d \"\\r\"); if echo \"$s\" | grep -q resize; then hyprctl dispatch submap reset; else hyprctl dispatch submap mouse; fi; pkill -RTMIN+12 waybar 2>/dev/null || true'"
     },
+
     "custom/ws-left": {
       "format": "←",
       "tooltip": true,
@@ -86,7 +89,7 @@
       "warp-on-scroll": false,
       "enable-bar-scroll": true,
       "disable-scroll-wraparound": true,
-      "format": "{icon}",
+      "format": "{icon} ",
       "format-icons": {
         "1": "1 ",
         "2": "2 ",
@@ -99,6 +102,26 @@
         "9": "9 ",
         "10": "10 "
       }
+    },
+
+    "hyprland/scratchpad": {
+      "format": "{icon} {count}",
+      "show-empty": false,
+      "format-icons": [
+        "",
+        ""
+      ],
+      "tooltip": true,
+      "tooltip-format": "{app}: {title}"
+    },
+
+    "hyprland/submap": {
+      "format": "{}",
+      "tooltip": true,
+      "tooltip-format": "Current submap: {}\n(click to reset)",
+      "on-click": "hyprctl dispatch submap reset",
+      "on-click-right": "hyprctl dispatch submap reset",
+      "on-click-middle": "hyprctl dispatch submap reset"
     },
 
     "hyprland/window": {
@@ -135,47 +158,34 @@
 
     "idle_inhibitor": {
       "format": "{icon}",
-      "format-icons": {"activated": "", "deactivated": ""}
+      "format-icons": {
+        "activated": "",
+        "deactivated": ""
+      }
     },
 
-    "hyprland/mode": { "format": "{}" },
-
-    "hyprland/scratchpad": {
-      "format": "{icon} {count}",
-      "show-empty": false,
-      "format-icons": ["", ""],
-      "tooltip": true,
-      "tooltip-format": "{app}: {title}"
+    "tray": {
+      "icon-size": 14,
+      "spacing": 10
     },
-
-    "hyprland/submap": {
-      "format": "{}",
-      "tooltip": false,
-      "on-click": "hyprctl dispatch submap reset",
-      "on-click-middle": "hyprctl dispatch submap reset",
-      "on-click-right": "hyprctl dispatch submap reset"
-    },
-
-    "tray": { "icon-size": 14, "spacing": 10 },
 
     "custom/apps": {
       "on-click": "pkill wofi || wofi --show drun",
       "on-click-right": "pkill wofi || wofi --show drun",
-      "format": "",
+      "format": " ",
       "tooltip": true,
       "tooltip-format": "wofi"
     },
 
-    "clock#date": {
-      "format": " {0:%m-%d}",
-      "tooltip": true,
-      "tooltip-format": "<big>{0:%A, %d, %Y}</big>\n<tt><small>{calendar}</small></tt>"
-    },
-
-    "clock#time": {
-      "format": " {0:%H:%M}",
-      "tooltip": true,
-      "tooltip-format": "<tt>24h: {0:%H:%M}</tt>\n<tt>12h: {0:%I:%M %p}</tt>"
+    "custom/clock-toggle": {
+      "exec": "~/.config/waybar/scripts/clock_toggle.sh",
+      "interval": 30,
+      "return-type": "json",
+      "signal": 12,
+      "on-click": "~/.config/waybar/scripts/clock_toggle.sh toggle",
+      "on-click-right": "~/.config/waybar/scripts/clock_toggle.sh toggle",
+      "on-scroll-up": "~/.config/waybar/scripts/clock_toggle.sh toggle",
+      "on-scroll-down": "~/.config/waybar/scripts/clock_toggle.sh toggle"
     },
 
     "custom/clipboard": {
@@ -194,8 +204,14 @@
       "tooltip-format": "wlogout"
     },
 
-    "cpu": { "format": "{usage} ", "tooltip": true },
-    "memory": { "format": "{}  " },
+    "cpu": {
+      "format": "{usage} ",
+      "tooltip": true
+    },
+
+    "memory": {
+      "format": "{}  "
+    },
 
     "custom/cputemp": {
       "exec": "~/.config/waybar/scripts/cpu_temp.sh",
@@ -206,17 +222,36 @@
 
     "backlight": {
       "format": "{icon} {percent}",
-      "format-icons": ["","","","","","","","",""]
+      "format-icons": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
     },
 
     "battery": {
-      "states": { "warning": 30, "critical": 15 },
+      "states": {
+        "warning": 30,
+        "critical": 15
+      },
       "format": "{icon} {capacity}",
       "format-full": "{icon} {capacity}",
       "format-charging": " {capacity}",
       "format-plugged": " {capacity}",
       "format-alt": "{icon} {time}",
-      "format-icons": ["","","","",""]
+      "format-icons": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
     },
 
     "wireplumber": {
@@ -232,7 +267,11 @@
         "phone": "",
         "portable": "",
         "car": "",
-        "default": ["","",""]
+        "default": [
+          "",
+          "",
+          ""
+        ]
       },
       "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
       "on-click-right": "exec ~/.config/waybar/scripts/wiremix-toggle.sh"
