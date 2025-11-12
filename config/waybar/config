@@ -12,6 +12,7 @@
       "wlr/taskbar",
       "hyprland/scratchpad",
       "custom/hypr-submap",
+      "custom/spacer-submap",
       "privacy"
     ],
 
@@ -32,6 +33,11 @@
       "custom/clipboard",
       "custom/power"
     ],
+
+    "custom/spacer-submap": {
+      "format": "  ",
+      "tooltip": false
+    },
 
     "group/ws-arrows": {
       "orientation": "horizontal",
