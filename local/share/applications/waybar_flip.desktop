@@ -1,0 +1,10 @@
+# github.com/dillacorn/awtarchy/tree/main/local/share/applications
+# ~/.local/share/applications/waybar_flip.desktop
+
+[Desktop Entry]
+Type=Application
+Name=waybar flip (top/bottom)
+Exec=bash -c "$HOME/.config/hypr/scripts/waybar_flip.sh"
+Icon=utilities-terminal
+Terminal=false
+Categories=Utility;
