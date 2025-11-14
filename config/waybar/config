@@ -1,6 +1,6 @@
 [
   {
-    "position": "bottom",
+    "position": "top",
     "height": 28,
     "spacing": 0,
     "reload_style_on_change": true,
@@ -173,8 +173,8 @@
     },
 
     "custom/apps": {
-      "on-click": "pkill wofi || wofi --show drun",
-      "on-click-right": "pkill wofi || wofi --show drun",
+      "on-click": "~/.config/hypr/scripts/launch_handler.sh wofi 'wofi --drun'",
+      "on-click-right": "~/.config/hypr/scripts/launch_handler.sh wofi 'wofi --drun'",
       "format": " ",
       "tooltip": true,
       "tooltip-format": "wofi"
