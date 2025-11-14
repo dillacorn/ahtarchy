@@ -4,7 +4,7 @@
 [Desktop Entry]
 Type=Application
 Name=Screenshot
-Exec=bash -c "$HOME/.config/hypr/scripts/screenshot_area.sh"
+Exec=/bin/sh -c "$HOME/.config/hypr/scripts/screenshot_area.sh"
 Icon=utilities-terminal
 Terminal=false
 Categories=Utility;

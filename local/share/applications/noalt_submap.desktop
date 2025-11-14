@@ -4,8 +4,7 @@
 [Desktop Entry]
 Type=Application
 Name=noalt submap (disable alt navigation)
-TryExec=/bin/sh
-Exec=sh -c 'notify-send -a Hyprland -t 1000 "noalt mode: on"; hyprctl dispatch submap noalt'
+Exec=/bin/sh -c "echo noalt > /tmp/hypr-submap; notify-send -a Hyprland -t 1000 'noalt submap: ON'; hyprctl dispatch submap noalt"
 Icon=utilities-terminal
 Terminal=false
 Categories=Utility;

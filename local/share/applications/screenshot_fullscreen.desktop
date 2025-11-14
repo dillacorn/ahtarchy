@@ -4,7 +4,7 @@
 [Desktop Entry]
 Type=Application
 Name=Screenshot (Full)
-Exec=bash -c "$HOME/.config/hypr/scripts/screenshot_fullscreen.sh"
+Exec=/bin/sh -c "$HOME/.config/hypr/scripts/screenshot_fullscreen.sh"
 Icon=utilities-terminal
 Terminal=false
 Categories=Utility;

@@ -5,7 +5,7 @@
 Type=Application
 Name=waybar toggle (on/off)
 TryExec=/bin/sh
-Exec=sh -c 'if pgrep -x waybar >/dev/null; then pkill -x waybar && echo waybar_not_running > /tmp/waybar.state; else (waybar & echo waybar_running > /tmp/waybar.state); fi'
+Exec=/bin/sh -c 'if pgrep -x waybar >/dev/null; then pkill -x waybar && echo waybar_not_running > /tmp/waybar.state; else (waybar & echo waybar_running > /tmp/waybar.state); fi'
 Icon=utilities-terminal
 Terminal=false
 Categories=Utility;

@@ -4,7 +4,7 @@
 [Desktop Entry]
 Type=Application
 Name=Color Picker (Hyprpicker)
-Exec=bash -c "$HOME/.config/hypr/scripts/hyprpicker.sh"
+Exec=/bin/sh -c "$HOME/.config/hypr/scripts/hyprpicker.sh"
 Icon=utilities-terminal
 Terminal=false
 Categories=Utility;

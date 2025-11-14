@@ -4,7 +4,7 @@
 [Desktop Entry]
 Type=Application
 Name=Animation Toggle (hyprland)
-Exec=bash -c "$HOME/.config/hypr/scripts/toggle_animations.sh"
+Exec=/bin/sh -c "$HOME/.config/hypr/scripts/toggle_animations.sh"
 Icon=utilities-terminal
 Terminal=false
 Categories=Utility;
