@@ -1,13 +1,10 @@
 //  fastfetch config by dillacorn
-//  github.com/dillacorn/awtarchy
-
-
-//  execute with: fastfetch --colors-block-range-start 9 --colors-block-width 3
+//  github.com/dillacorn/awtarchy/config/fastfetch
 
 {
     "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
     "logo": {
-        "source": "$HOME/.config/fastfetch/ascii/$(ls ~/.config/fastfetch/ascii | shuf -n 1)",
+        "source": "$HOME/.config/fastfetch/ascii/awtarchy.txt",
         "padding": {
             "top": 2,
             "right": 6
@@ -25,37 +22,32 @@
         },
         {
             "type": "custom",
-            "format": "\u001b[90m┌──────────────────────Software───────────────────────┐"
+            "format": "\u001b[90mSoftware"
         },
         {
             "type": "os",
             "key": " ",
-            "keyColor": "33",  // = color3
         },
         {
             "type": "kernel",
             "key": " ",
-            "keyColor": "33",
         },
         {
             "type": "command",
             "key": "󰏖 ",
-            "keyColor": "33",
             "text": "echo \"$(pacman -Q | wc -l) (pacman), $(echo $(($(flatpak list --system --app 2>/dev/null | wc -l) + $(flatpak list --user --app 2>/dev/null | wc -l)))) (flatpak)\""
         },
         {
             "type": "terminal",
             "key": " ",
-            "keyColor": "33", 
         },
         {
             "type": "wm",
             "key": " ",
-            "keyColor": "33", 
         },
         {
             "type": "custom",
-            "format": "\u001b[90m├──────────────────────Hardware───────────────────────┤"
+            "format": "\u001b[90mHardware"
         },
         {
             "type": "host",
@@ -77,7 +69,7 @@
         },
         {
           "type": "custom",
-          "format": "\u001b[90m├────────────────────Uptime / Age─────────────────────┤"
+          "format": "\u001b[90mUptime / Age"
         },
         {
             "type": "uptime",
@@ -87,10 +79,6 @@
             "type": "command",
             "key": "󱦟 \u001b[0m OS Age:\u001b[0m",
             "text": "birth_install=$(stat -c %W /); current=$(date +%s); time_progression=$((current - birth_install)); days_difference=$((time_progression / 86400)); echo $days_difference days"
-        },
-        {
-          "type": "custom",
-          "format": "\u001b[90m└─────────────────────────────────────────────────────┘"
         },
         "break",
         "colors",
