@@ -1,17 +1,13 @@
-### catppuccin-frappé
-![catppuccin-frappé](https://github.com/dillacorn/ahtarchy/raw/main/previews/catppuccin-frappé.png)
+![cava-catppuccin+notify_screengaurd.png](https://github.com/dillacorn/ahtarchy/raw/main/previews/cava-catppuccin+notify_screengaurd.png)
 
-### obsidian_night
-![obsidian_night](https://github.com/dillacorn/ahtarchy/raw/main/previews/obsidian_night.png)
+![espresso-iron_forge](https://github.com/dillacorn/ahtarchy/raw/main/previews/espresso-iron_forge.png)
 
-### gruvbox
-![gruvbox](https://github.com/dillacorn/ahtarchy/raw/main/previews/gruvbox.png)
+![maccel-gruvbox](https://github.com/dillacorn/ahtarchy/raw/main/previews/maccel-gruvbox.png)
 
-### electric_blue
-![electric_blue](https://github.com/dillacorn/ahtarchy/raw/main/previews/electric_blue.png)
+![pcmanfm-awtarchy-gruvbox](https://github.com/dillacorn/ahtarchy/raw/main/previews/pcmanfm-awtarchy-gruvbox.png)
 
-### crimson_red
-![crimson_red](https://github.com/dillacorn/ahtarchy/raw/main/previews/crimson_red.png)
+![screen_gaurd-catppuccin](https://github.com/dillacorn/ahtarchy/raw/main/previews/screen_gaurd-catppuccin.png)
 
-### pink
-![pink](https://github.com/dillacorn/ahtarchy/raw/main/previews/pink.png)
+![wiremix-waybar_bottom](https://github.com/dillacorn/ahtarchy/raw/main/previews/wiremix-waybar_bottom.png)
+
+![wlogout](https://github.com/dillacorn/ahtarchy/raw/main/previews/wlogout.png)

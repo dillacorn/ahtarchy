@@ -27,8 +27,6 @@ awtarchy targets users who prefer TTY login and direct shell interaction. It ass
 
 **Click the image below to see more previews!**
 
-- Note to viewer: previews are out of date.. notably waybar and fastfetch have changed/improved and I've done away with rounded corner design
-
 [![overview](https://github.com/dillacorn/awtarchy/raw/main/previews/overview.png)](https://github.com/dillacorn/awtarchy/tree/main/previews.md)
 
 ## 🖥️ System Overview
