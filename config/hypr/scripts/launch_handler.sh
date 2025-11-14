@@ -1,19 +1,17 @@
 #!/usr/bin/env bash
-# github.com/dillacorn/awtarchy/tree/main/config/hypr/scripts
 # ~/.config/hypr/scripts/launch_handler.sh
-#
 # Ultra-light Hyprland toggle for FLOATING utility windows (no tiles touched).
 # - If a matching floating client exists on the focused workspace: close one (the most recent).
 # - Else if a matching floating client exists on another workspace: close all remote, then launch here.
 # - Else launch here.
-# Matching: class/initialClass/title (case-insensitive). Fallback: process name from launch command.
+# Matching: class/initialClass/title (case-insensitive).
+# Fallback to process name ONLY if no class/title is defined for this app.
 #
 # Usage:
 #   launch_handler.sh <logical-name> "<launch command>"
 # Examples:
 #   launch_handler.sh wiremix  "alacritty --class wiremix -e wiremix"
 #   launch_handler.sh maccel   "alacritty --class maccel -e maccel"
-#   launch_handler.sh waytrogen "waytrogen"
 #
 # Optional overrides:
 #   APP_CLASS_OVERRIDE="ExactClass" APP_TITLE_OVERRIDE="ExactTitle" APP_PROC_OVERRIDE="binaryname" launch_handler.sh name "cmd ..."
@@ -36,8 +34,15 @@ __cmd_first="${__cmd_first:-}"
 APP_PROC_DEFAULT="${__cmd_first##*/}"
 APP_PROC="${APP_PROC_OVERRIDE:-$APP_PROC_DEFAULT}"
 
+HAS_CLASS_OR_TITLE=0
+if [[ -n "$APP_CLASS" || -n "$APP_TITLE" ]]; then
+  HAS_CLASS_OR_TITLE=1
+fi
+
 # -------- deps / IPC --------
-for c in hyprctl jq; do command -v "$c" >/dev/null 2>&1 || { echo "Missing: $c" >&2; exit 1; }; done
+for c in hyprctl jq; do
+  command -v "$c" >/dev/null 2>&1 || { echo "Missing: $c" >&2; exit 1; }
+done
 hyprctl activeworkspace -j >/dev/null 2>&1 || { echo "Hyprland IPC not available" >&2; exit 1; }
 
 # -------- cache hypr state (single pass) --------
@@ -58,12 +63,13 @@ readarray -t CANDIDATES < <(
     (. // [])[]? |
     select(.mapped==true and .hidden==false) |
     select('"$FLOATING_TRUTHY_JQ"') |
-    [( .workspace.id // 0 )
-    ,( .pid           // 0 )
-    ,( .address       // "" )
-    ,( .class         // "" )
-    ,( .initialClass  // "" )
-    ,( .title         // "" )
+    [
+      ( .workspace.id // 0 ),
+      ( .pid           // 0 ),
+      ( .address       // "" ),
+      ( .class         // "" ),
+      ( .initialClass  // "" ),
+      ( .title         // "" )
     ] | @tsv
   ' 2>/dev/null
 )
@@ -73,7 +79,7 @@ to_lc() { awk '{print tolower($0)}'; }
 
 class_or_title_match() {
   # $1 class $2 initialClass $3 title
-  local c lc_c="$APP_CLASS" lc_t="$APP_TITLE"
+  local lc_c="$APP_CLASS" lc_t="$APP_TITLE"
   [[ -n "$1" && "$(printf %s "$1" | to_lc)" == "$(printf %s "$lc_c" | to_lc)" ]] && return 0
   [[ -n "$2" && "$(printf %s "$2" | to_lc)" == "$(printf %s "$lc_c" | to_lc)" ]] && return 0
   [[ -n "$3" && "$(printf %s "$3" | to_lc)" == "$(printf %s "$lc_t" | to_lc)" ]] && return 0
@@ -82,22 +88,29 @@ class_or_title_match() {
 
 proc_match_pid() {
   # $1 pid -> 0 if /proc name matches APP_PROC (case-insensitive)
-  local pid="$1" want="$(printf %s "$APP_PROC" | to_lc)"
+  local pid="$1" want
+  want="$(printf %s "$APP_PROC" | to_lc)"
   [[ -z "$pid" || "$pid" == "0" ]] && return 1
   if [[ -r "/proc/$pid/comm" ]]; then
-    local comm; comm="$(tr -d '\n' </proc/$pid/comm 2>/dev/null || true)"
+    local comm
+    comm="$(tr -d '\n' </proc/$pid/comm 2>/dev/null || true)"
     [[ "$(printf %s "$comm" | to_lc)" == "$want" ]] && return 0
   fi
   if [[ -r "/proc/$pid/cmdline" ]]; then
-    local cmd first; cmd="$(tr '\0' ' ' </proc/$pid/cmdline 2>/dev/null || true)"
-    read -r first _ <<<"$cmd"; first="${first##*/}"
+    local cmd first
+    cmd="$(tr '\0' ' ' </proc/$pid/cmdline 2>/dev/null || true)"
+    read -r first _ <<<"$cmd"
+    first="${first##*/}"
     [[ "$(printf %s "$first" | to_lc)" == "$want" ]] && return 0
     printf ' %s ' "$cmd" | to_lc | grep -q " $want " && return 0
   fi
   return 1
 }
 
-close_addr() { local a="$1"; [[ -n "$a" ]] && hyprctl dispatch closewindow "address:$a" >/dev/null 2>&1 || true; }
+close_addr() {
+  local a="$1"
+  [[ -n "$a" ]] && hyprctl dispatch closewindow "address:$a" >/dev/null 2>&1 || true
+}
 
 # -------- classify matches (single pass over candidates) --------
 HERE_ADDRS=()
@@ -108,13 +121,15 @@ for line in "${CANDIDATES[@]}"; do
   IFS=$'\t' read -r _ws _pid _addr _class _init _title <<<"$line"
   [[ -z "${_addr:-}" ]] && continue
 
+  match=0
   if class_or_title_match "$_class" "$_init" "$_title"; then
-    :
-  elif [[ -n "$APP_PROC" ]] && proc_match_pid "$_pid"; then
-    :
-  else
-    continue
+    match=1
+  elif [[ $HAS_CLASS_OR_TITLE -eq 0 && -n "$APP_PROC" ]] && proc_match_pid "$_pid"; then
+    # Fallback to process name ONLY if no class/title is configured for this app
+    match=1
   fi
+
+  [[ $match -eq 0 ]] && continue
 
   if [[ "${_ws}" == "${WS_ID}" ]]; then
     HERE_ADDRS+=("$_addr")
@@ -132,7 +147,9 @@ fi
 
 # 2) Close all remote floating matches, then launch here
 if [[ ${#OTHER_ADDRS[@]} -gt 0 ]]; then
-  for a in "${OTHER_ADDRS[@]}"; do close_addr "$a"; done
+  for a in "${OTHER_ADDRS[@]}"; do
+    close_addr "$a"
+  done
   # tiny gap to let compositor remove the old surfaces
   usleep() { perl -e "select(undef,undef,undef,$1)"; }
   usleep 0.05
