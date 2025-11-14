@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # github.com/dillacorn/awtarchy/tree/main/config/hypr/themes
-# ~/.config/hypr/themes/pink
+# ~/.config/hypr/themes/pink.sh
 
 # pink
 
@@ -13,10 +13,10 @@ NEW_INACTIVE_BORDER="00000000"
 
 # Waybar
 W_COLOR="#2E2E2E"
-W_BG="#F6D9DF"
-W_HOVER="#E0AEB7"
-W_FOCUS_BG="#D89BA6"
-W_ACTIVE_BG="#C47D8E"
+W_BG="#D297A1"
+W_HOVER="#C0AFC0"
+W_FOCUS_BG="#C0AFC0"
+W_ACTIVE_BG="#C0AFC0"
 W_ACTIVE_COLOR="#FFFFFF"
 W_URGENT_BG="#B04155"
 W_URGENT_COLOR="#FFFFFF"
