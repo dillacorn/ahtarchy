@@ -1,55 +1,55 @@
 #!/usr/bin/env bash
 # github.com/dillacorn/awtarchy/tree/main/config/hypr/themes
-# ~/.config/hypr/themes/pink.sh
+# ~/.config/hypr/themes/pipboy.sh
 
-# pink
+# pip-boy green
 
 set -euo pipefail
 
 ###########   THEME COLORS   ###########
 # Hyprland
-NEW_ACTIVE_BORDER="EACDD2FF"
-NEW_INACTIVE_BORDER="00000000"
+NEW_ACTIVE_BORDER="a4ff47ff"
+NEW_INACTIVE_BORDER="325c32ff"
 
 # Waybar
-W_COLOR="#2E2E2E"
-W_BG="#D297A1"
-W_HOVER="#C0AFC0"
-W_FOCUS_BG="#C0AFC0"
-W_ACTIVE_BG="#C0AFC0"
-W_ACTIVE_COLOR="#FFFFFF"
-W_URGENT_BG="#B04155"
-W_URGENT_COLOR="#FFFFFF"
-W_MODE_BG="#F2B8C6"
-W_MODE_COLOR="#2E2E2E"
-W_CUSTOM_HOVER_BG="#B77F91"
-W_BATT_CHARGING_BG="#D3D3D3"
-W_BATT_CHARGING_COLOR="#2E2E2E"
-W_BATT_CRITICAL_BG="#B04155"
-W_FOCUS="#000000"
-W_MUTED="#7A7A7A"
+W_COLOR="#a4ff47"
+W_BG="#050805"
+W_HOVER="#182618"
+W_FOCUS_BG="#1b281b"
+W_ACTIVE_BG="#101810"
+W_ACTIVE_COLOR="#a4ff47"
+W_URGENT_BG="#263826"
+W_URGENT_COLOR="#050805"
+W_MODE_BG="#101810"
+W_MODE_COLOR="#a4ff47"
+W_CUSTOM_HOVER_BG="#1f301f"
+W_BATT_CHARGING_BG="#a4ff47"
+W_BATT_CHARGING_COLOR="#050805"
+W_BATT_CRITICAL_BG="#3c1b1b"
+W_FOCUS="#1b281b"
+W_MUTED="#2a3d2a"
 
 # Wlogout
-WL_COLOR="#2E2E2E"
-WL_BG="rgba(234, 205, 210, 0.76)"
-WL_BTN_COLOR="#2E2E2E"
-WL_BTN_BG="rgba(234, 205, 210, 0.76)"
-WL_BTN_HOVER_BG="rgba(223, 183, 190, 0.92)"
-WL_BTN_FOCUS_BG="rgba(223, 183, 190, 0.92)"
+WL_COLOR="#a4ff47"
+WL_BG="rgba(5, 8, 5, 0.90)"
+WL_BTN_COLOR="#a4ff47"
+WL_BTN_BG="rgba(10, 16, 10, 0.92)"
+WL_BTN_HOVER_BG="rgba(18, 28, 18, 0.95)"
+WL_BTN_FOCUS_BG="rgba(22, 34, 22, 0.97)"
 
 # Wofi
-WO_BORDER="2px none #DFB7BE"
-WO_BG="#D7B0B8"
-WO_INPUT_COLOR="#2E2E2E"
-WO_OUTER_BORDER="0px solid #DFB7BE"
-WO_OUTER_BG="#D7B0B8"
-WO_TEXT_UNSEL="#2E2E2E"
+WO_BORDER="2px solid #a4ff47"
+WO_BG="#050805"
+WO_INPUT_COLOR="#a4ff47"
+WO_OUTER_BORDER="1px solid #1b281b"
+WO_OUTER_BG="#050805"
+WO_TEXT_UNSEL="#5c8a4a"
 
 # Mako
-MKO_BG="#EACDD2"
-MKO_TEXT="#2E2E2E"
-MKO_BORDER="#DFB7BE"
-MKO_PROG="#DFB7BE"
+MKO_BG="#050805"
+MKO_TEXT="#a4ff47"
+MKO_BORDER="#a4ff47"
+MKO_PROG="#a4ff47"
 
 ###########   FILE PATHS   ###########
 HYPR_CONF="$HOME/.config/hypr/hyprland.conf"
@@ -113,13 +113,13 @@ sed -i \
     "$MAKO_CONF"
 
 # 6) Micro
-sed -i '2s|.*|    "colorscheme": "catppuccin-mocha-transparent"|' "$MICRO_SETTINGS"
+sed -i '2s|.*|    "colorscheme": "cmc-16"|' "$MICRO_SETTINGS"
 
 # 7) Alacritty
-sed -i '331s|.*|  "~\/.config\/alacritty\/themes\/themes\/synthwave_84.toml"|' "$ALACRITTY_CONF"
+sed -i '331s|.*|  "~\/.config\/alacritty\/themes\/themes\/baitong.toml"|' "$ALACRITTY_CONF"
 
 # 8) SpeedCrunch
-sed -i '5s|.*|Display\\ColorSchemeName=pink|' "$SPEEDCRUNCH_INI"
+sed -i '5s|.*|Display\\ColorSchemeName=obsidian_night|' "$SPEEDCRUNCH_INI"
 
 # Reload Mako
 makoctl reload
