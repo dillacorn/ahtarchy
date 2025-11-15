@@ -112,7 +112,7 @@ sed -i \
     "$MAKO_CONF"
 
 # 6) Micro
-sed -i '2s|.*|    "colorscheme": "material-tc"|' "$MICRO_SETTINGS"
+sed -i '2s|.*|    "colorscheme": "geany"|' "$MICRO_SETTINGS"
 
 # 7) Alacritty
 sed -i '331s|.*|  "~\/.config\/alacritty\/themes\/themes\/wombat.toml"|' "$ALACRITTY_CONF"

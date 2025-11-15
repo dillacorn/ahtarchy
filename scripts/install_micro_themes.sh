@@ -27,7 +27,7 @@ command -v jq >/dev/null 2>&1 && HAVE_JQ=1
 # ──────────────────────────────────────────────────────────────────────────────
 REPO_URL1="https://github.com/catppuccin/micro"
 REPO_URL2="https://github.com/zyedidia/micro"
-TARGET_COLORSCHEME="material-tc"   # must match a *.micro file name (without extension)
+TARGET_COLORSCHEME="geany"   # must match a *.micro file name (without extension)
 
 TARGET_USER="${SUDO_USER}"
 TARGET_HOME="/home/${TARGET_USER}"
