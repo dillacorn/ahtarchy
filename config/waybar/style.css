@@ -18,7 +18,7 @@
 }
 
 window#waybar {
-  font-family: Iosevka, FontAwesome, Noto Sans CJK;
+  font-family: FontAwesome;
   background-color: @bg-default;
   color: @color-default;
   transition: none;

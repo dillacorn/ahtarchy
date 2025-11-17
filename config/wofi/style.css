@@ -15,7 +15,7 @@ window {
     padding-left: 12px;
     border: none;
     color: #d0d0d0;
-    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-family: "NotoSansM Nerd Font Mono", monospace;
     font-size: 12px;
     font-weight: normal;
     background-color: none;
@@ -74,7 +74,7 @@ window {
     border-radius: 4px;
     background-color: transparent;
     font-size: 12px;
-    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-family: "NotoSansM Nerd Font Mono", monospace;
 }
 
 #entry,
