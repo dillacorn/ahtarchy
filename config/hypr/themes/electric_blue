@@ -116,7 +116,7 @@ sed -i \
 sed -i '2s|.*|    "colorscheme": "geany"|' "$MICRO_SETTINGS"
 
 # 7) Alacritty
-sed -i '331s|.*|  "~\/.config\/alacritty\/themes\/themes\/msx.toml"|' "$ALACRITTY_CONF"
+sed -i '331s|.*|  "~\/.config\/alacritty\/themes\/themes\/iterm.toml"|' "$ALACRITTY_CONF"
 
 # 8) SpeedCrunch
 sed -i '5s|.*|Display\\ColorSchemeName=electric_blue|' "$SPEEDCRUNCH_INI"
