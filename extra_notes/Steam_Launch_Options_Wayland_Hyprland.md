@@ -18,6 +18,10 @@ Notes From Repo: https://github.com/dillacorn/awtarchy
 ### personal settings example (Zowie 400hz) + added OBS_VKCAPTURE=1 for better video capture performance OBS plugin.
 ```hyprctl keyword monitor "DP-1,1352x1080@400,0x0,1"; OBS_VKCAPTURE=1 gamemoderun %command% -novid +fps_max 0 -high -dx12; hyprctl keyword monitor "DP-1,1920x1080@400,0x0,1"```
 
+### personal settings with "gamescope" :) - works on "Arc Raiders"
+```/bin/sh -c 'hyprctl keyword monitor "DP-1,1352x1080@400,0x0,1"; PROTON_ENABLE_WAYLAND=1 OBS_VKCAPTURE=1 gamescope -f -w 1352 -h 1080 --force-grab-cursor -- gamemoderun "$@"; hyprctl keyword monitor "DP-1,1920x1080@400,0x0,1"' _ %command%```
+
+
 # [Lossless Scaling](https://store.steampowered.com/app/993090/Lossless_Scaling/)
 # [lsfg-vk for Linux](https://github.com/PancakeTAS/lsfg-vk)
 
