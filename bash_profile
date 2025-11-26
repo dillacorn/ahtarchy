@@ -6,6 +6,8 @@ if [[ -f ~/.bashrc ]]; then
   . ~/.bashrc
 fi
 
+export PATH="$HOME/.local/bin:$PATH"
+
 # Run fastfetch with a TTY-friendly config (system info tool)
 fastfetch --config ~/.config/fastfetch/tty_compatible.jsonc
 
