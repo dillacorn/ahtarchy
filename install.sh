@@ -148,7 +148,7 @@ retry_command pacman -S --needed --noconfirm git ipcalc dos2unix reflector xcurs
 # Clone repository if not exists
 if [ ! -d "$REPO_DIR" ]; then
     echo -e "${COLOR_BLUE}Cloning awtarchy repository to ${COLOR_CYAN}${REPO_DIR}${COLOR_RESET}...${COLOR_RESET}"
-    retry_command git clone https://github.com/awtarchy/awtarchy "$REPO_DIR" || exit 1
+    retry_command git clone https://github.com/dillacorn/awtarchy "$REPO_DIR" || exit 1
 fi
 retry_command chown -R "$SUDO_USER:$SUDO_USER" "$REPO_DIR"
 
