@@ -1,0 +1,9 @@
+# github.com/dillacorn/awtarchy/tree/main/local/share/applications
+# ~/.local/share/applications/smtty.desktop
+
+[Desktop Entry]
+Type=Application
+Terminal=false
+Exec=/bin/sh -c 'command -v smtty >/dev/null 2>&1 && alacritty --class smtty -e smtty || hyprctl notify 3 5000 "rgb(ff5555)" "smtty is not installed."'
+Name=smtty
+Icon=utilities-terminal
