@@ -1,9 +1,20 @@
 notes from repo: https://github.com/dillacorn/awtarchy
 
-# install cromite from AUR
+# install helium
+## AUR
 ```sh
-yay -S cromite-bin
+yay -S helium-browser-bin
 ```
+---
+
+# JavaScript optimization & security (recommended)
+
+helium://settings/content/v8?search=java
+
+![Chromium JavaScript optimization](https://raw.githubusercontent.com/dillacorn/arch-hypr-dots/main/browser_notes/chromium_javascript_optimization.png)
+
+# Add filter list to built-in adblock
+https://filterlists.com/
 
 # extensions
 
@@ -32,24 +43,6 @@ Extra extensions I can live without:
 # `picture in picture` video tip 
 - `Right-click` video `twice` and click `Picture in picture`
 
-# search engine
-
-**search engines**: `(option #1)` - select a searx server (speed varies)
-
-Name:
-`Searx`
-
-Find a searx server
-`https://searx.space/`
-
-**search engine**: `(option #2)` <- faster than searx
-
-Name:
-`brave`
-
-URL with %s in place of query
-`https://search.brave.com/search?q=%s`
-
 # custom dns server
 
 navigate to `Privacy and security` in settings
@@ -74,4 +67,4 @@ disable `Show bookmarks bar`
 
 # web apps
 
-Place to manage your web apps: `chrome://apps/`
+Place to manage your web apps: `helium://apps/`
